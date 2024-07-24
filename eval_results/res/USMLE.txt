@@ -1,0 +1,2 @@
+model: /home/xkzhu/scaling_down_data/continual_training/OLMo_1B_source/step738020-unsharded-hf; scores: {'acc': 28.908091123330713}
+model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed/step4090-unsharded-hf; scores: {'acc': 24.194815396700704}

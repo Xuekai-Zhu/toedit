@@ -163,3 +163,5 @@ cython_debug/
 
 data/
 continual_training/
+eval_results/cache/
+eval_results/output/
