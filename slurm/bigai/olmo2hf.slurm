@@ -1,14 +1,16 @@
 #!/bin/bash
+#SBATCH -J hf
+#SBATCH -p DGX
+#SBATCH --qos=lv0b
+#SBATCH --time=10:00:00
+#SBATCH -o 1b_orca.out
+#SBATCH -e 1b_orca.err
+#SBATCH --gres=gpu:1
 
-#SBATCH --account=xkzhu
-#SBATCH --job-name=convert2hf
-#SBATCH --partition=RTX3090      
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
-#SBATCH --cpus-per-task=8  # 每个进程的CPU数量
-#SBATCH --output=%j.out
-#SBATCH --error=%j.err
-#SBATCH --mem=100G
+module load cuda11.8/toolkit/11.8.0
+module load cudnn8.6-cuda11.8/8.6.0.163  
+
+source /home/zhuxuekai/miniconda3/bin/activate olmo
 
 MODEL="/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/OLMo-1B-orca-lr-1.0e-6/step3000" 
 
