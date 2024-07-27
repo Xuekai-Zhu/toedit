@@ -27,20 +27,20 @@ if [ ${N_GPU} == '8' ]; then
     CUDA_VISIBLE_DEVICES='0,1,2,3,4,5,6,7' accelerate launch  --num_processes ${N_GPU} --multi_gpu \
         inference.py task_name=${TASK} model_name=${MODEL} add_bos_token=${ADD_BOS} \
         output_dir=${OUTPUT_DIR} res_dir=${RES_DIR} cache_dir=${CACHE_DIR} model_parallel=${model_parallel} \
-        hydra.run.dir=/tmp
+        hydra.run.dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/tmp
 elif [ ${N_GPU} == '4' ]; then
     CUDA_VISIBLE_DEVICES='0,1,2,3' accelerate launch  --num_processes ${N_GPU} --multi_gpu \
         inference.py task_name=${TASK} model_name=${MODEL} add_bos_token=${ADD_BOS} \
         output_dir=${OUTPUT_DIR} res_dir=${RES_DIR} cache_dir=${CACHE_DIR} model_parallel=${model_parallel} \
-        hydra.run.dir=/tmp
+        hydra.run.dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/tmp
 elif [ ${N_GPU} == '2' ]; then
     CUDA_VISIBLE_DEVICES='0,1' accelerate launch  --num_processes ${N_GPU} --multi_gpu \
         inference.py task_name=${TASK} model_name=${MODEL} add_bos_token=${ADD_BOS} \
         output_dir=${OUTPUT_DIR} res_dir=${RES_DIR} cache_dir=${CACHE_DIR} model_parallel=${model_parallel} \
-        hydra.run.dir=/tmp
+        hydra.run.dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/tmp
 elif [ ${N_GPU} == '1' ]; then
     CUDA_VISIBLE_DEVICES='0' accelerate launch  --num_processes 1 \
         inference.py task_name=${TASK} model_name=${MODEL} add_bos_token=${ADD_BOS} \
         output_dir=${OUTPUT_DIR} res_dir=${RES_DIR} cache_dir=${CACHE_DIR} model_parallel=${model_parallel} \
-        hydra.run.dir=/tmp
+        hydra.run.dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/tmp
 fi
