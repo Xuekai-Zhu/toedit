@@ -93,15 +93,7 @@ evaluators:
       drop_last: true
       datasets:
         v3-small-c4_en-validation:
-          - /home/xkzhu/scaling_law4AI_data/data/dolma/olma_1B_data/val_data/v3-small-c4_en-validation/part-0-00000.npy
-
-  - label: v2-small-ppl-validation
-    data:
-      num_workers: 0
-      drop_last: true
-      datasets:
-        v2-small-4chan-validation:
-          - /home/xkzhu/scaling_law4AI_data/data/dolma/olma_1B_data/val_data/v2-small-4chan-validation/val.npy
+          - /home/xkzhu/scaling_down_data/data/OpenOrca-1B_tokenized/0_00000.npy
 
   # - label: piqa
   #   type: downstream
