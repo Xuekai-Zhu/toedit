@@ -34,4 +34,4 @@ N_GPU=1
 
 # medicine-Llama-8B pre-trained from Llama3-8B in Instruction Pretrain
 add_bos_token=False
-bash scripts/inference.sh ${DOMAIN} '/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/OLMo-1B-orca-lr-1.0e-6/step3000-unshard-hf' ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
+bash scripts/inference_bigai.sh ${DOMAIN} '/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/OLMo-1B-orca-lr-1.0e-6/step3000-unshard-hf' ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
