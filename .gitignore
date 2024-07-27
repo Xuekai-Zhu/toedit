@@ -167,3 +167,4 @@ eval_results/cache/
 eval_results/output/
 !OLMo/olmo/data/
 pre_trained_model/
+!adaptllm/src/data
