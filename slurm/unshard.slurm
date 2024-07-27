@@ -7,6 +7,7 @@
 #SBATCH --cpus-per-task=8  # 每个进程的CPU数量    
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
+#SBATCH --mem=100G
 
 
 python OLMo/scripts/unshard.py continual_training/1B_biomed_a100/step0 continual_training/1B_biomed_a100/step0-unshard

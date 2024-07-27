@@ -8,8 +8,13 @@
 #SBATCH --cpus-per-task=8  # 每个进程的CPU数量
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
+#SBATCH --mem=100G
+
+MODEL="/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-orca/step3000" 
+
+python OLMo/scripts/unshard.py ${MODEL} ${MODEL}-unshard
 
 python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
-    --input_dir continual_training/1B_biomed_a100/step738020-unsharded \
+    --input_dir ${MODEL}-unshard \
     --tokenizer_json_path OLMo/tokenizers/allenai_eleuther-ai-gpt-neox-20b-pii-special.json \
-    --output_dir continual_training/1B_biomed_a100/step738020-unsharded-hf
+    --output_dir ${MODEL}-unshard-hf
