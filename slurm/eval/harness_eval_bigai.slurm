@@ -9,7 +9,7 @@
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/OLMo-1B-open-web-math/step4187-unsharded"
+MODEL="continual_training/OLMo-1B-open-web-math/step4187-unsharded"
 
 accelerate launch -m lm_eval \
     --model hf \
