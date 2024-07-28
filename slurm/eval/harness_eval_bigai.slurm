@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #SBATCH -J olma_pretraining
 #SBATCH -p DGX
 #SBATCH --qos=lv0b
