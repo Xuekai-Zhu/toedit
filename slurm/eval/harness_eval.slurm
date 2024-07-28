@@ -12,12 +12,12 @@
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="continual_training/OLMo-1B-biomed+orca/step4000-unshard-hf"
+MODEL="continual_training/OLMo_1B_source/step738020-unsharded-hf"
 
 lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks pubmedqa \
+    --tasks leaderboard_math_hard \
     --device cuda:0 \
     --batch_size 16 \
     --output_path eval_results

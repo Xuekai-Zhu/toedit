@@ -4,17 +4,16 @@
 #SBATCH --time=10:00:00
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:2
 
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="continual_training/OLMo-1B-biomed+orca/step4000-unshard-hf"
+MODEL="/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/OLMo-1B-open-web-math/step4187-unsharded"
 
-lm_eval \
+accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
     --tasks leaderboard_math_hard \
-    --device cuda:0 \
     --batch_size 16 \
     --output_path eval_results
