@@ -2,17 +2,17 @@ from transformers import AutoTokenizer
 from olmo import Tokenizer
 # Load the tokenizer
 
-tokenizer = AutoTokenizer.from_pretrained("/data1/xkzhu/pre_trained_model/allenai/OLMo-1B")
+# tokenizer = AutoTokenizer.from_pretrained("/data1/xkzhu/pre_trained_model/allenai/OLMo-1B")
 
 
 tokenizer = Tokenizer.from_pretrained("allenai/eleuther-ai-gpt-neox-20b-pii-special", truncate_to=None)
 
-# print(tokenizer)
+print(tokenizer)
 # tokenizer.pad_token_id = 0
 # Check and print special tokens
 # print("BOS token:", tokenizer.bos_token, tokenizer.bos_token)
-# print("EOS token:", tokenizer.eos_token, tokenizer.eos_token_id)
-# print("PAD token:", tokenizer.pad_token, tokenizer.pad_token_id)
+print("EOS token:", tokenizer.eos_token, tokenizer.eos_token_id)
+print("PAD token:", tokenizer.pad_token, tokenizer.pad_token_id)
 # print("UNK token:", tokenizer.unk_token)
 # print("SEP token:", tokenizer.sep_token)
 # print("CLS token:", tokenizer.cls_token)
@@ -35,8 +35,8 @@ text = ["This is a test sentence.", "is a test sentence."]
 for i in text:
     tokens = tokenizer.encode(i)
     print("Tokens:", tokens)
-    input_ids = tokenizer.convert_tokens_to_ids(tokens)
-    print("Input IDs:", input_ids)
+    # input_ids = tokenizer.convert_tokens_to_ids(tokens)
+    # print("Input IDs:", input_ids)
 
 # # Convert tokens to input IDs
 # input_ids = tokenizer.convert_tokens_to_ids(tokens)
