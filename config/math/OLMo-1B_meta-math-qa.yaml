@@ -151,4 +151,4 @@ data:
   persistent_workers: true
   timeout: 0
   paths:
-    - data/meta-math/MetaMathQA—1B_tokenized/0_00000.npy
+    - data/MetaMathQA—1B_tokenized/0_00000.npy
