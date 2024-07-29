@@ -2,11 +2,8 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List
-from unittest import TestCase
 
-import numpy
-
-from olmo.config import BaseConfig, DataConfig, StrEnum, TrainConfig
+from olmo.config import BaseConfig, StrEnum, TrainConfig
 
 
 @dataclass
@@ -49,20 +46,3 @@ def test_save_and_load(train_config: TrainConfig, tmp_path: Path):
 def test_new():
     config = TrainConfig.new(seed=2)
     assert config.seed == 2
-
-
-class TestDataConfig(TestCase):
-    def test_data_config(self):
-        data_config = DataConfig.new()
-        self.assertEqual(data_config.memmap_dtype, "uint16")
-        self.assertEqual(data_config.effective_memmap_dtype, numpy.uint16)
-
-        data_config.memmap_dtype = "uint32"
-        self.assertEqual(data_config.effective_memmap_dtype, numpy.uint32)
-
-        data_config.memmap_dtype = "uint64"
-        self.assertEqual(data_config.effective_memmap_dtype, numpy.uint64)
-
-        data_config.memmap_dtype = "unknown"
-        with self.assertRaises(TypeError):
-            data_config.effective_memmap_dtype

@@ -1,0 +1,554 @@
+run_name: OLMo-1B
+seed: 6198
+dry_run: false
+
+wandb:
+  name: olma_2layer_density_sampling_7B_1_ep
+  project: scaling_laws
+
+model:
+  d_model: 2048
+  n_heads: 16
+  n_layers: 2
+  mlp_ratio: 8
+  weight_tying: true
+  alibi: false
+  rope: true
+  flash_attention: false  # not available on AMD
+  attention_dropout: 0.0
+  attention_layer_norm: false
+  multi_query_attention: false
+  include_bias: false
+  block_type: sequential
+  layer_norm_type: default
+  layer_norm_with_affine: false
+  bias_for_layer_norm: false
+  attention_layer_norm_with_affine: false
+  activation_type: swiglu
+  residual_dropout: 0.0
+  embedding_dropout: 0.0
+  max_sequence_length: 2048
+  vocab_size: 50280
+  embedding_size: 50304
+  eos_token_id: 50279
+  pad_token_id: 1
+  init_device: meta
+  init_fn: mitchell
+
+compile: null  # causes instability on AMD GPUs
+
+optimizer:
+  name: adamw
+  learning_rate: 4.0e-4
+  weight_decay: 0.1
+  betas:
+  - 0.9
+  - 0.95
+  metrics_log_interval: 10
+
+scheduler:
+  name: cosine_with_warmup
+  t_warmup: 2000
+  alpha_f: 0.1
+
+tokenizer:
+  identifier: OLMo/tokenizers/allenai_eleuther-ai-gpt-neox-20b-pii-special.json
+  truncate_direction: right
+
+save_folder: pre_training_results/olma/1ep/2layer_density_sampling_7B_1_ep
+save_overwrite: True
+# Sharded checkpoints (best for restarts)
+save_interval: 1000
+save_num_checkpoints_to_keep: 9
+# Unsharded checkpoints (for final storage)
+save_interval_unsharded: 10000
+save_num_unsharded_checkpoints_to_keep: 1
+
+load_path: null
+
+max_duration: 1ep  
+global_train_batch_size: 2048
+device_train_microbatch_size: 16
+
+precision: amp_bf16
+
+fsdp:
+  wrapping_strategy: null
+  precision: mixed
+
+max_grad_norm: 1.0
+max_grad_norm_ratio: null
+
+speed_monitor:
+  window_size: 20
+
+eval_interval: 10000 # actually steps = ~7000, so we don't run eval on-line
+eval_subset_num_batches: -1
+device_eval_batch_size: ${device_train_microbatch_size}
+evaluators:
+  # lump all the small datasets together (we still get separate metrics).
+  - label: v3-small-ppl-validation
+    data:
+      num_workers: 0
+      drop_last: true
+      datasets:
+        v3-small-c4_en-validation:
+          - data/dolma/olma_1B_data/val_data/v3-small-c4_en-validation/part-0-00000.npy
+
+  - label: v2-small-ppl-validation
+    data:
+      num_workers: 0
+      drop_last: true
+      datasets:
+        v2-small-4chan-validation:
+          - data/dolma/olma_1B_data/val_data/v2-small-4chan-validation/val.npy
+
+  # - label: piqa
+  #   type: downstream
+
+  # - label: hellaswag
+  #   type: downstream
+
+  # - label: winogrande
+  #   type: downstream
+
+  # - label: openbook_qa
+  #   type: downstream
+
+  # - label: boolq  # requires implemention of the pmi_dc matrix
+    # type: downstream
+
+  # - label: sciq
+  #   type: downstream
+
+  # - label: arc_easy
+  #   type: downstream
+
+  # - label: arc_challenge  # requires implemention of the pmi_dc matrix
+  #   type: downstream
+
+  # - label: copa
+  #   type: downstream
+
+  # - label: rte
+  #   type: downstream
+
+  # - label: commitment_bank
+  #   type: downstream
+
+  # - label: mrpc
+  #   type: downstream
+
+  # - label: sst2
+  #   type: downstream
+
+data:
+  pad_direction: right
+  num_workers: 0
+  drop_last: true
+  pin_memory: true
+  prefetch_factor: 16
+  persistent_workers: true
+  timeout: 0
+  paths:
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/000_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/001_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/002_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/003_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/004_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/005_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/006_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/007_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/008_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/009_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/010_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/011_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/012_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/013_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/014_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/015_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/016_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/017_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/018_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/019_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/020_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/021_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/022_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/023_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/024_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/025_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/026_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/027_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/028_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/029_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/030_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/031_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/032_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/033_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/034_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/035_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/036_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/037_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/038_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/039_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/040_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/041_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/042_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/043_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/044_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/045_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/046_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/047_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/048_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/049_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/050_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/051_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/052_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/053_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/054_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/055_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/056_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/057_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/058_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/059_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/060_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/061_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/062_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/063_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/064_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/065_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/066_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/067_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/068_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/069_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/070_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/071_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/072_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/073_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/074_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/075_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/076_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/077_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/078_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/079_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/080_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/081_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/082_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/083_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/084_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/085_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/086_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/087_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/088_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/089_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/090_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/091_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/092_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/093_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/094_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/095_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/096_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/097_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/098_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/099_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/100_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/101_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/102_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/103_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/104_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/105_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/106_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/107_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/108_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/109_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/110_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/111_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/112_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/113_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/114_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/115_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/116_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/117_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/118_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/119_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/120_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/121_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/122_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/123_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/124_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/125_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/126_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/127_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/128_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/129_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/130_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/131_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/132_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/133_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/134_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/135_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/136_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/137_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/138_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/139_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/140_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/141_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/142_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/143_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/144_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/145_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/146_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/147_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/148_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/149_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/150_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/151_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/152_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/153_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/154_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/155_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/156_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/157_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/158_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/159_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/160_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/161_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/162_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/163_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/164_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/165_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/166_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/167_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/168_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/169_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/170_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/171_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/172_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/173_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/174_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/175_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/176_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/177_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/178_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/179_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/180_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/181_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/182_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/183_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/184_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/185_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/186_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/187_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/188_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/189_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/190_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/191_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/192_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/193_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/194_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/195_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/196_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/197_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/198_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/199_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/200_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/201_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/202_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/203_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/204_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/205_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/206_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/207_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/208_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/209_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/210_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/211_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/212_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/213_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/214_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/215_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/216_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/217_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/218_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/219_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/220_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/221_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/222_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/223_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/224_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/225_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/226_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/227_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/228_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/229_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/230_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/231_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/232_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/233_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/234_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/235_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/236_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/237_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/238_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/239_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/240_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/241_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/242_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/243_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/244_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/245_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/246_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/247_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/248_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/249_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/250_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/251_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/252_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/253_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/254_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/255_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/256_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/257_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/258_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/259_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/260_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/261_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/262_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/263_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/264_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/265_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/266_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/267_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/268_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/269_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/270_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/271_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/272_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/273_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/274_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/275_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/276_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/277_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/278_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/279_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/280_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/281_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/282_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/283_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/284_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/285_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/286_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/287_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/288_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/289_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/290_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/291_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/292_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/293_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/294_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/295_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/296_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/297_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/298_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/299_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/300_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/301_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/302_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/303_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/304_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/305_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/306_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/307_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/308_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/309_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/310_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/311_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/312_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/313_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/314_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/315_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/316_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/317_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/318_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/319_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/320_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/321_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/322_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/323_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/324_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/325_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/326_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/327_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/328_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/329_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/330_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/331_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/332_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/333_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/334_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/335_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/336_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/337_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/338_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/339_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/340_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/341_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/342_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/343_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/344_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/345_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/346_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/347_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/348_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/349_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/350_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/351_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/352_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/353_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/354_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/355_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/356_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/357_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/358_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/359_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/360_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/361_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/362_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/363_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/364_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/365_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/366_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/367_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/368_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/369_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/370_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/371_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/372_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/373_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/374_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/375_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/376_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/377_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/378_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/379_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/380_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/381_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/382_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/383_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/384_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/385_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/386_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/387_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/388_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/389_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/390_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/391_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/392_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/393_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/394_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/395_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/396_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/397_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/398_00000.npy
+    - /home/bingxing2/home/scx6d44/scaling_law4AI_data/data/density_sampling/399_00000.npy
+
