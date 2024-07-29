@@ -151,6 +151,6 @@ data:
   persistent_workers: true
   timeout: 0
   paths:
-    - data/open-web-math—1B_tokenized/0_00000.npy
-    - data/open-web-math—1B_tokenized/0_00001.npy
-    - data/open-web-math—1B_tokenized/0_00002.npy
+    - /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/open-web-math—1B_tokenized/0_00000.npy
+    - /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/open-web-math—1B_tokenized/0_00001.npy
+    - /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/open-web-math—1B_tokenized/0_00002.npy
