@@ -8,6 +8,11 @@
 #SBATCH --error=%j.err
 #SBATCH --gres=gpu:1
 
+module load cuda11.8/toolkit/11.8.0
+module load cudnn8.6-cuda11.8/8.6.0.163  
+
+source /home/zhuxuekai/miniconda3/bin/activate olmo
+
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
