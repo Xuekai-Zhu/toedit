@@ -68,7 +68,7 @@ load_path: null
 
 max_duration: 1ep  # 3.1T tokens
 global_train_batch_size: 128 #2048
-device_train_microbatch_size: 10
+device_train_microbatch_size: 4
 
 precision: amp_bf16
 
@@ -151,10 +151,10 @@ data:
   persistent_workers: true
   timeout: 0
   paths:
-    - data/bio/biomed+orca_tokenized/0_00000.npy
-    - data/bio/biomed+orca_tokenized/1_00000.npy
-    - data/bio/biomed+orca_tokenized/1_00001.npy
-    - data/bio/biomed+orca_tokenized/2_00000.npy
-    - data/bio/biomed+orca_tokenized/2_00001.npy
-    - data/bio/biomed+orca_tokenized/3_00000.npy
-    - data/bio/biomed+orca_tokenized/3_00001.npy
+    - data/biomed+orca_tokenized/0_00000.npy
+    - data/biomed+orca_tokenized/1_00000.npy
+    - data/biomed+orca_tokenized/1_00001.npy
+    - data/biomed+orca_tokenized/2_00000.npy
+    - data/biomed+orca_tokenized/2_00001.npy
+    - data/biomed+orca_tokenized/3_00000.npy
+    - data/biomed+orca_tokenized/3_00001.npy
