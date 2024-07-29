@@ -4,8 +4,8 @@
 #SBATCH -p DGX
 #SBATCH --qos=lv0b
 #SBATCH --time=10:00:00
-#SBATCH --output=%j.out
-#SBATCH --error=%j.err
+#SBATCH --output=log/%j.out
+#SBATCH --error=log/%j.err
 #SBATCH --gres=gpu:1
 
 module load cuda11.8/toolkit/11.8.0
