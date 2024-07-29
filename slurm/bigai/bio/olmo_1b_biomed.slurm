@@ -3,8 +3,8 @@
 #SBATCH -p DGX
 #SBATCH --qos=lv0b
 #SBATCH --time=10:00:00
-#SBATCH -o Arithmo-Data.out
-#SBATCH -e Arithmo-Data.err
+#SBATCH -o biomed+orca.out
+#SBATCH -e biomed+orca.err
 #SBATCH --gres=gpu:2
 
 module load cuda11.8/toolkit/11.8.0
