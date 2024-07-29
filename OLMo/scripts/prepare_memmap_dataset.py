@@ -241,7 +241,11 @@ def fill_memmap(
     np.random.seed(random_seed)
 
     # we need to make a new tokenizer here because it's not pickleable
-    tokenizer = Tokenizer.from_pretrained(tokenizer_id, truncate_to=None)
+    if Path(tokenizer_id).is_file():
+        tokenizer = Tokenizer.from_file(tokenizer_id, truncate_to=None)
+    else:
+        tokenizer = Tokenizer.from_pretrained(tokenizer_id, truncate_to=None)
+    
 
     # first memmap file will be created in the loop below
     memmap: Optional[MemmapFile] = None

@@ -2,10 +2,11 @@ from transformers import AutoTokenizer
 from olmo import Tokenizer
 # Load the tokenizer
 
-# tokenizer = AutoTokenizer.from_pretrained("/data1/xkzhu/pre_trained_model/allenai/OLMo-1B")
+# tokenizer = Tokenizer.from_pretrained("allenai/eleuther-ai-gpt-neox-20b-pii-special")
+tokenizer = Tokenizer.from_file("OLMo/olmo_data/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json", truncate_to=None)
+# tokenizer.save_pretrained('allenai—Tokenzier')
 
-
-tokenizer = Tokenizer.from_file("OLMo/olmo_data/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json")
+# tokenizer = Tokenizer.from_file("OLMo/olmo_data/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json")
 # tokenizer = Tokenizer.from_file("OLMo/olmo_data/tokenizers/allenai_eleuther-ai-gpt-neox-20b-pii-special.json")
 
 print(tokenizer)
