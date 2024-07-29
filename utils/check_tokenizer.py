@@ -5,7 +5,8 @@ from olmo import Tokenizer
 # tokenizer = AutoTokenizer.from_pretrained("/data1/xkzhu/pre_trained_model/allenai/OLMo-1B")
 
 
-tokenizer = Tokenizer.from_pretrained("allenai/eleuther-ai-gpt-neox-20b-pii-special", truncate_to=None)
+tokenizer = Tokenizer.from_file("OLMo/olmo_data/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json")
+# tokenizer = Tokenizer.from_file("OLMo/olmo_data/tokenizers/allenai_eleuther-ai-gpt-neox-20b-pii-special.json")
 
 print(tokenizer)
 # tokenizer.pad_token_id = 0
