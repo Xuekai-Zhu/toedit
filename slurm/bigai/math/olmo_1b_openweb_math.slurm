@@ -15,4 +15,4 @@ source /home/zhuxuekai/miniconda3/bin/activate olmo
 torchrun --nproc_per_node=4 --master_port=29216 OLMo/scripts/train.py config/math/OLMo-1B_openweb_math.yaml \
     --save_overwrite \
     --reset_trainer_state \
-    --load_path=pre_trained_model/step738020-unsharded
+    --load_path=https://olmo-checkpoints.org/ai2-llm/olmo-small/7l54afq9/step330000-unsharded/

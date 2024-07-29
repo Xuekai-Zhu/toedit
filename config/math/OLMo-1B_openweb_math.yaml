@@ -39,7 +39,7 @@ compile: null  # causes instability on AMD GPUs
 
 optimizer:
   name: adamw
-  learning_rate: 4.0e-5
+  learning_rate: 1.0e-5
   weight_decay: 0.1
   betas:
   - 0.9
@@ -52,7 +52,7 @@ scheduler:
   alpha_f: 0.1
 
 tokenizer:
-  identifier: OLMo/tokenizers/allenai_eleuther-ai-gpt-neox-20b-pii-special.json
+  identifier: OLMo/olmo_data/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json
   truncate_direction: right
 
 save_folder: continual_training/${run_name}
