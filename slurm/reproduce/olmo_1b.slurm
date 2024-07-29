@@ -10,7 +10,7 @@
 #SBATCH --gres=gpu:4
 #SBATCH --qos=high
 
-torchrun --nproc_per_node=4 --master_port=29216 OLMo/scripts/train.py config/bio/OLMo-1B_biomed.yaml \
+torchrun --nproc_per_node=4 --master_port=29216 OLMo/scripts/train.py OLMo/configs/official/OLMo-1B.yaml \
     --save_overwrite \
     --reset_trainer_state \
-    --load_path=https://olmo-checkpoints.org/ai2-llm/olmo-small/7l54afq9/step330000-unsharded/
+    --load_path=https://olmo-checkpoints.org/ai2-llm/olmo-small/w1r5xfzt/step1000-unsharded/
