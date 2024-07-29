@@ -52,7 +52,7 @@ scheduler:
   alpha_f: 0.1
 
 tokenizer:
-  identifier: OLMo/olmo_data/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json
+  identifier: OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json
   truncate_direction: right
 
 save_folder: continual_training/${run_name}
