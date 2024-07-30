@@ -52,7 +52,7 @@ scheduler:
   alpha_f: 0.1
 
 tokenizer:
-  identifier: OLMo/olmo_data/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json
+  identifier: OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json
   truncate_direction: right
 
 save_folder: continual_training/${run_name}
@@ -93,7 +93,7 @@ evaluators:
       drop_last: true
       datasets:
         v3-small-c4_en-validation:
-          - /home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/data/dolma/olma_1B_data/val_data/v2-small-4chan-validation/val.npy
+          - data/open-web-math—1B_tokenized/0_00000.npy
 
   # - label: v2-small-ppl-validation
   #   data:
@@ -151,6 +151,6 @@ data:
   persistent_workers: true
   timeout: 0
   paths:
-    - /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/open-web-math—1B_tokenized/0_00000.npy
-    - /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/open-web-math—1B_tokenized/0_00001.npy
-    - /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/open-web-math—1B_tokenized/0_00002.npy
+    - data/open-web-math—1B_tokenized/0_00000.npy
+    - data/open-web-math—1B_tokenized/0_00001.npy
+    - data/open-web-math—1B_tokenized/0_00002.npy

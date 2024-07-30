@@ -35,4 +35,4 @@ N_GPU=1
 
 # medicine-Llama-8B pre-trained from Llama3-8B in Instruction Pretrain
 add_bos_token=False
-bash scripts/inference.sh ${DOMAIN} '/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-orca-lr-5.0e-6/step3631-unsharded-hf' ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
+bash scripts/inference.sh ${DOMAIN} '/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed+orca/step7721-unsharded-hf' ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}

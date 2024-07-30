@@ -10,7 +10,7 @@
 #SBATCH --error=%j.err
 #SBATCH --mem=100G
 
-MODEL="/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/OLMo-1B-Arithmo-Data/step457-unsharded" 
+MODEL="continual_training/OLMo-1B-biomed+orca/step7721-unsharded" 
 
 # python OLMo/scripts/unshard.py ${MODEL} ${MODEL}-unshard
 

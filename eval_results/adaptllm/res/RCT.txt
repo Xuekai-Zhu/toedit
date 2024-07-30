@@ -9,3 +9,4 @@ model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-orca/step2000-un
 model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-orca/step3000-unshard-hf; scores: {'micro_F1': 32.300000000000004}
 model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-orca-lr-1.0e-6/step3631-unsharded-hf; scores: {'micro_F1': 32.45454545454545}
 model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-orca-lr-5.0e-6/step3631-unsharded-hf; scores: {'micro_F1': 31.4}
+model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed+orca/step7721-unsharded-hf; scores: {'micro_F1': 36.05}
