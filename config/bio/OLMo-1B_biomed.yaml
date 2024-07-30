@@ -68,7 +68,7 @@ load_path: null
 
 max_duration: 1ep  # 3.1T tokens
 global_train_batch_size: 128 #2048
-device_train_microbatch_size: 4
+device_train_microbatch_size: 10
 
 precision: amp_bf16
 
@@ -93,7 +93,7 @@ evaluators:
       drop_last: true
       datasets:
         v3-small-c4_en-validation:
-          - data/instruction_biomed_tokenized00_00000.npy
+          - data/instruction_biomed_tokenized//00_00000.npy
 
   # - label: v2-small-ppl-validation
   #   data:
@@ -101,7 +101,7 @@ evaluators:
   #     drop_last: true
   #     datasets:
   #       v2-small-4chan-validation:
-  #         - /home/xkzhu/scaling_law4AI_data/instruction_biomed_tokenizeddata/instruction_biomed_tokenizeddolma/olma_1B_data/instruction_biomed_tokenizedval_data/instruction_biomed_tokenizedv2-small-4chan-validation/val.npy
+  #         - /home/xkzhu/scaling_law4AI_data/instruction_biomed_tokenized/data/instruction_biomed_tokenized/dolma/olma_1B_data/instruction_biomed_tokenized/val_data/instruction_biomed_tokenized/v2-small-4chan-validation/val.npy
 
   # - label: piqa
   #   type: downstream
@@ -151,14 +151,14 @@ data:
   persistent_workers: true
   timeout: 0
   paths:
-    - data/instruction_biomed_tokenized00_00000.npy
-    - data/instruction_biomed_tokenized01_00000.npy
-    - data/instruction_biomed_tokenized02_00000.npy
-    - data/instruction_biomed_tokenized03_00000.npy
-    - data/instruction_biomed_tokenized04_00000.npy
-    - data/instruction_biomed_tokenized05_00000.npy
-    - data/instruction_biomed_tokenized06_00000.npy
-    - data/instruction_biomed_tokenized07_00000.npy
-    - data/instruction_biomed_tokenized08_00000.npy
-    - data/instruction_biomed_tokenized09_00000.npy
-    - data/instruction_biomed_tokenized10_00000.npy
+    - data/instruction_biomed_tokenized/00_00000.npy
+    - data/instruction_biomed_tokenized/01_00000.npy
+    - data/instruction_biomed_tokenized/02_00000.npy
+    - data/instruction_biomed_tokenized/03_00000.npy
+    - data/instruction_biomed_tokenized/04_00000.npy
+    - data/instruction_biomed_tokenized/05_00000.npy
+    - data/instruction_biomed_tokenized/06_00000.npy
+    - data/instruction_biomed_tokenized/07_00000.npy
+    - data/instruction_biomed_tokenized/08_00000.npy
+    - data/instruction_biomed_tokenized/09_00000.npy
+    - data/instruction_biomed_tokenized/10_00000.npy
