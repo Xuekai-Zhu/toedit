@@ -10,11 +10,11 @@
 #SBATCH --error=%j.err
 #SBATCH --mem=100G
 
-MODEL="continual_training/OLMo-1B-biomed+orca/step7721-unsharded" 
+MODEL="continual_training/OLMo-1B-Arithmo-Data/step457-unsharded" 
 
 # python OLMo/scripts/unshard.py ${MODEL} ${MODEL}-unshard
 
 python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
     --input_dir ${MODEL} \
-    --tokenizer_json_path OLMo/tokenizers/allenai_eleuther-ai-gpt-neox-20b-pii-special.json \
+    --tokenizer_json_path OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
     --output_dir ${MODEL}-hf

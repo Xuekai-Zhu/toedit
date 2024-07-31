@@ -169,3 +169,4 @@ eval_results/output/
 pre_trained_model/
 !adaptllm/src/data
 log/
+pretrained_model/
