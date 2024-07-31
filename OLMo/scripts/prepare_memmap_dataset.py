@@ -46,8 +46,7 @@ from smashed.utils.io_utils import (
 )
 
 from olmo import Tokenizer
-import light_hf_proxy
-# from olmo.util import prepare_cli_environment
+from olmo.util import prepare_cli_environment
 
 log = logging.getLogger(__name__)
 
@@ -242,7 +241,11 @@ def fill_memmap(
     np.random.seed(random_seed)
 
     # we need to make a new tokenizer here because it's not pickleable
-    tokenizer = Tokenizer.from_pretrained(tokenizer_id, truncate_to=None)
+    if Path(tokenizer_id).is_file():
+        tokenizer = Tokenizer.from_file(tokenizer_id, truncate_to=None)
+    else:
+        tokenizer = Tokenizer.from_pretrained(tokenizer_id, truncate_to=None)
+    
 
     # first memmap file will be created in the loop below
     memmap: Optional[MemmapFile] = None
@@ -318,7 +321,7 @@ def make_source_and_target(
     if paths_per_worker > 1:
         assert (
             len(exploded_src) >= paths_per_worker
-        ), f"Number of paths ({len(exploded_src)}) must be <= paths_per_worker ({paths_per_worker})"
+        ), f"Number of paths ({len(exploded_src)}) must be >= paths_per_worker ({paths_per_worker})"
 
         # group the paths into chunks of paths_per_worker
         exploded_src = [
@@ -394,16 +397,16 @@ def main(
     ack_deprecated: bool = False,
 ):
     print("WARNING: THIS SCRIPT IS DEPRECATED!!!")
-    # print(
-    #     "Consider using the tokenization tool in the Dolma toolkit: "
-    #     "https://github.com/allenai/dolma/blob/main/docs/tokenize.md"
-    # )
+    print(
+        "Consider using the tokenization tool in the Dolma toolkit: "
+        "https://github.com/allenai/dolma/blob/main/docs/tokenize.md"
+    )
 
-    # if not ack_deprecated:
-    #     continue_question = input("Do you want to continue? [y/N]: ")
-    #     if not (c := continue_question.lower().strip()) or c != "y":
-    #         print("Aborting.")
-    #         return
+    if not ack_deprecated:
+        continue_question = input("Do you want to continue? [y/N]: ")
+        if not (c := continue_question.lower().strip()) or c != "y":
+            print("Aborting.")
+            return
 
     print("=== CONFIGURATION ===")
     print(f"src:              {src}")
@@ -494,5 +497,5 @@ def main(
 
 if __name__ == "__main__":
     mp.set_start_method("spawn")
-    # prepare_cli_environment()
+    prepare_cli_environment()
     main()
