@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=xkzhu
 #SBATCH --job-name=inference
-#SBATCH --partition=RTX4090
+#SBATCH --partition=RTX3090
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
@@ -35,4 +35,4 @@ N_GPU=1
 
 # medicine-Llama-8B pre-trained from Llama3-8B in Instruction Pretrain
 add_bos_token=False
-bash scripts/inference.sh ${DOMAIN} '/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed+orca/step7721-unsharded-hf' ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
+bash scripts/inference.sh ${DOMAIN} '/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed/step4090-unsharded-hf' ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
