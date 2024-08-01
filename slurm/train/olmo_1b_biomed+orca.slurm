@@ -5,8 +5,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
-#SBATCH --output=continual_training/OLMo-1B-biomed+orca/train.out
-#SBATCH --error=continual_training/OLMo-1B-biomed+orca/train.err
+#SBATCH --output=%j.out
+#SBATCH --error=%j.err
 #SBATCH --gres=gpu:4
 #SBATCH --qos=high
 

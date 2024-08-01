@@ -93,15 +93,15 @@ evaluators:
       drop_last: true
       datasets:
         v3-small-c4_en-validation:
-          - data/instruction_biomed_tokenized//00_00000.npy
+          - /home/xkzhu/scaling_law4AI_data/data/dolma/olma_1B_data/val_data/v3-small-c4_en-validation/part-0-00000.npy
 
-  # - label: v2-small-ppl-validation
-  #   data:
-  #     num_workers: 0
-  #     drop_last: true
-  #     datasets:
-  #       v2-small-4chan-validation:
-  #         - /home/xkzhu/scaling_law4AI_data/instruction_biomed_tokenized/data/instruction_biomed_tokenized/dolma/olma_1B_data/instruction_biomed_tokenized/val_data/instruction_biomed_tokenized/v2-small-4chan-validation/val.npy
+  - label: v2-small-ppl-validation
+    data:
+      num_workers: 0
+      drop_last: true
+      datasets:
+        v2-small-4chan-validation:
+          - /home/xkzhu/scaling_law4AI_data/data/dolma/olma_1B_data/val_data/v2-small-4chan-validation/val.npy
 
   # - label: piqa
   #   type: downstream
