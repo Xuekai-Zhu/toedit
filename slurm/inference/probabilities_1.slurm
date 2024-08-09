@@ -9,10 +9,13 @@
 #SBATCH --error=log/%j.err
 #SBATCH --gres=gpu:1
 #SBATCH --mem=100G
+#SBATCH --qos=high
 
 python inference_vllm.py \
     --model_name_or_path /data1/xkzhu/pre_trained_model/Qwen/Qwen2-0.5B-Instruct \
     --tensor_parallel_size 1 \
+    --num_shards 2 \
+    --shard_index 1 \
     --gpu_memory_utilization 0.7 \
     --test_file data/instruction_biomed \
     --output_dir probability/biomed/
