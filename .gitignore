@@ -170,3 +170,7 @@ pre_trained_model/
 !adaptllm/src/data
 log/
 pretrained_model/
+
+probability/
+reference_model/
+wandb/
