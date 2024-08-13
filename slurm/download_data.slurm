@@ -14,8 +14,8 @@ unset https_proxy
 
 export HF_ENDPOINT=https://hf-mirror.com
 
-huggingface-cli download TsinghuaC3I/UltraMedical \
+huggingface-cli download AI-MO/NuminaMath-CoT \
   --repo-type dataset \
   --resume-download \
-  --local-dir data/TsinghuaC3I/UltraMedical \
+  --local-dir data/AI-MO/NuminaMath-CoT \
   --local-dir-use-symlinks False
