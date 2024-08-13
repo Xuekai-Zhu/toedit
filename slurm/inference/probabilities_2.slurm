@@ -5,8 +5,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=10  # 每个进程的CPU数量
-#SBATCH --output=log/%j.out
-#SBATCH --error=log/%j.err
+#SBATCH --output=%j.out
+#SBATCH --error=%j.err
 #SBATCH --gres=gpu:1
 #SBATCH --mem=100G
 #SBATCH --qos=high

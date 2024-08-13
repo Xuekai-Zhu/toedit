@@ -1,8 +1,8 @@
 
 export HF_ENDPOINT=https://hf-mirror.com
 
-huggingface-cli download open-web-math/open-web-math \
+huggingface-cli download AI-MO/NuminaMath-CoT \
   --repo-type dataset \
   --resume-download \
-  --local-dir data/open-web-math/open-web-math \
+  --local-dir data/AI-MO/NuminaMath-CoT \
   --local-dir-use-symlinks False
