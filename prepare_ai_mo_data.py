@@ -31,14 +31,14 @@ def main(opts) -> None:
     dataset = dataset.map(
         partial(preprocess, tokenizer=tokenizer, max_seq_len=opts.seq_len),
         batched=False,
-        remove_columns=["dataset", "id", "messages"],
+        remove_columns=["source", "problem", "solution", "messages"],
         num_proc=opts.num_proc,  # type: ignore
     )
 
-    log.info("Filtering dataset...")
-    n = len(dataset)  # type: ignore
-    dataset = dataset.filter(filter, batched=False, num_proc=opts.num_proc)  # type: ignore
-    log.info(f"Filtered out {n - len(dataset):,d} examples")
+    # log.info("Filtering dataset...")
+    # n = len(dataset)  # type: ignore
+    # dataset = dataset.filter(filter, batched=False, num_proc=opts.num_proc)  # type: ignore
+    # log.info(f"Filtered out {n - len(dataset):,d} examples")
 
     log.info("Counting tokens...")
     total_tokens = 0
@@ -73,7 +73,7 @@ def filter(example):
     return example["n_labels"] > 0
 
 
-def preprocess_tulu(example, tokenizer: Tokenizer, max_seq_len: int):
+def preprocess(example, tokenizer: Tokenizer, max_seq_len: int):
     input_ids = [tokenizer.eos_token_id]
     label_mask = [False]
 
@@ -107,43 +107,6 @@ def preprocess_tulu(example, tokenizer: Tokenizer, max_seq_len: int):
     n_labels = sum(label_mask)
 
     return {"input_ids": input_ids, "label_mask": label_mask, "n_labels": n_labels}
-
-
-def preprocess_aimo(example, tokenizer: Tokenizer, max_seq_len: int):
-    input_ids = [tokenizer.eos_token_id]
-    label_mask = [False]
-
-    for msg in example["messages"]:
-        role_tokens = tokenizer.encode(f"<|{msg['role']}|>\n", add_special_tokens=False)
-        label_mask += [False] * len(role_tokens)
-        input_ids += role_tokens
-
-        if msg["role"] == "assistant":
-            content_tokens = tokenizer.encode(
-                msg["content"].strip() + tokenizer.eos_token + "\n", add_special_tokens=False
-            )
-            label_mask += [True] * len(content_tokens)
-            # mask out the last '\n'
-            assert content_tokens[-2] == tokenizer.eos_token_id
-            label_mask[-1] = False
-        else:
-            content_tokens = tokenizer.encode(msg["content"].strip() + "\n", add_special_tokens=False)
-            label_mask += [False] * len(content_tokens)
-        input_ids += content_tokens
-
-    input_ids = input_ids[:max_seq_len]
-    label_mask = label_mask[:max_seq_len]
-
-    if len(input_ids) < max_seq_len:
-        pad_len = max_seq_len - len(input_ids)
-        input_ids += [tokenizer.pad_token_id] * pad_len
-        label_mask += [False] * pad_len
-
-    assert len(input_ids) == len(label_mask)
-    n_labels = sum(label_mask)
-
-    return {"input_ids": input_ids, "label_mask": label_mask, "n_labels": n_labels}
-
 
 def get_parser() -> ArgumentParser:
     parser = ArgumentParser(description="Prepare Tulu V2 dataset")
