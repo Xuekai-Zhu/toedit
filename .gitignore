@@ -174,3 +174,5 @@ pretrained_model/
 probability/
 reference_model/
 wandb/
+fine-tuning/
+baselines/edu_scores/

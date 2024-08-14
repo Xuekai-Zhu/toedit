@@ -12,11 +12,16 @@
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="continual_training/OLMo-1B-Arithmo-Data/step457-unsharded-hf"
+MODEL="fine-tuning/OLMo-1B-AI-MO/step6714-unsharded"
+
+python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
+    --input_dir ${MODEL} \
+    --tokenizer_json_path OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
+    --output_dir ${MODEL}-hf
 
 accelerate launch -m lm_eval \
     --model hf \
-    --model_args pretrained=${MODEL},trust_remote_code=True \
+    --model_args pretrained=${MODEL}-hf,trust_remote_code=True \
     --tasks hendrycks_math,gsm8k,gpqa,arc_challenge,mmlu \
     --batch_size 32 \
     --output_path eval_results/Arithmo-Data-step457-unsharded-hf
