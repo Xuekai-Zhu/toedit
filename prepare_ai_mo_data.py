@@ -25,7 +25,13 @@ def main(opts) -> None:
     else:
         tokenizer = Tokenizer.from_pretrained(opts.tokenizer, eos_token_id=opts.eos, pad_token_id=opts.pad)
 
-    dataset = ds.load_dataset(opts.dataset_name, split="train")
+    dataset = ds.load_from_disk(opts.dataset_name)
+    if os.path.exists(opts.dataset_name) and os.path.isfile(os.path.join(opts.dataset_name, "dataset_info.json")):
+        # 如果路径存在并且包含 dataset_info.json 文件，使用 load_from_disk
+        dataset = ds.load_from_disk(opts.dataset_name)
+    else:
+        # 否则使用 load_dataset 加载，确保使用的是正确的 split 参数
+        dataset = ds.load_dataset(opts.dataset_name, split="train")
 
     log.info("Tokenizing dataset...")
     dataset = dataset.map(
