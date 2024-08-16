@@ -402,11 +402,11 @@ def main(
         "https://github.com/allenai/dolma/blob/main/docs/tokenize.md"
     )
 
-    if not ack_deprecated:
-        continue_question = input("Do you want to continue? [y/N]: ")
-        if not (c := continue_question.lower().strip()) or c != "y":
-            print("Aborting.")
-            return
+    # if not ack_deprecated:
+    #     continue_question = input("Do you want to continue? [y/N]: ")
+    #     if not (c := continue_question.lower().strip()) or c != "y":
+    #         print("Aborting.")
+    #         return
 
     print("=== CONFIGURATION ===")
     print(f"src:              {src}")

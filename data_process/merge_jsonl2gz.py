@@ -19,7 +19,16 @@ def merge_sampled_files(input_dir, output_dir, chunk_size=10000):
     for file_path in tqdm(files_to_process, desc="Processing files"):
         with open(file_path, 'r') as f:
             lines = f.readlines()
-            all_sampled_lines.extend(lines)
+            
+            # 
+            new_lines = []
+            for i in lines:
+                item = json.loads(i)
+                new_item = {"text":item["tokens"]}
+                new_lines.append(json.dumps(new_item) + "\n")
+            #
+            
+            all_sampled_lines.extend(new_lines)
             
             # If the list length exceeds chunk_size, write to a file
             if len(all_sampled_lines) >= chunk_size:

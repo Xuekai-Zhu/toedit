@@ -8,11 +8,12 @@
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
 #SBATCH --gres=gpu:1
+#SBATCH --qos=high
 
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="fine-tuning/OLMo-1B-AI-MO/step6714-unsharded"
+MODEL="fine-tuning/OLMo-1B-AI-MO-Edu/step4250-unsharded"
 
 python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
     --input_dir ${MODEL} \
@@ -24,4 +25,4 @@ accelerate launch -m lm_eval \
     --model_args pretrained=${MODEL}-hf,trust_remote_code=True \
     --tasks hendrycks_math,gsm8k,gpqa,arc_challenge,mmlu \
     --batch_size 32 \
-    --output_path eval_results/Arithmo-Data-step457-unsharded-hf
+    --output_path eval_results/OLMo-1B-AI-MO-Edu-step4250-unsharded-hf

@@ -8,6 +8,7 @@
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
 #SBATCH --gres=gpu:1
+#SBATCH --qos=high
 
 unset all_proxy   
 unset http_proxy       
@@ -35,4 +36,4 @@ N_GPU=1
 
 # medicine-Llama-8B pre-trained from Llama3-8B in Instruction Pretrain
 add_bos_token=False
-bash scripts/inference.sh ${DOMAIN} '/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed+orca/step4000-unshard-hf' ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
+bash scripts/inference.sh ${DOMAIN} '/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-0.001/step3749-unsharded-hf' ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}

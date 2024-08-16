@@ -35,7 +35,7 @@ def process(in_file, tokenizer, out_file):
         main_id = np.array(token_ids)[probs >= 0.001]
         
         tokens = tokenizer.decode(main_id.tolist())
-        results.append({"tokens": tokens,})
+        results.append({"text": tokens,})
 
     with open(out_file, 'w') as f:
         for i in results:
