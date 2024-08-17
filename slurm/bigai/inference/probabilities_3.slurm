@@ -17,6 +17,6 @@ python inference_vllm_rjs.py \
     --tensor_parallel_size 1 \
     --num_shards 4 \
     --shard_index 3 \
-    --gpu_memory_utilization 0.8 \
+    --gpu_memory_utilization 0.9 \
     --test_file data/instruction_biomed \
     --output_dir probability/biomed_64/
