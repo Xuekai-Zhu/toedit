@@ -15,7 +15,7 @@ source /home/zhuxuekai/miniconda3/bin/activate py39
 python inference_vllm_rjs.py \
     --model_name_or_path /scratch2/nlp/plm/Qwen2-0.5B-Instruct \
     --tensor_parallel_size 1 \
-    --num_shards 2 \
+    --num_shards 4 \
     --shard_index 1 \
     --gpu_memory_utilization 0.8 \
     --test_file data/instruction_biomed \
