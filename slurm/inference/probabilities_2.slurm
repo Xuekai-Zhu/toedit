@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=xkzhu
 #SBATCH --job-name=token_logits
-#SBATCH --partition=ADA6000  
+#SBATCH --partition=RTX4090  
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=10  # 每个进程的CPU数量
@@ -18,4 +18,4 @@ python inference_vllm.py \
     --shard_index 2 \
     --gpu_memory_utilization 0.7 \
     --test_file data/instruction_biomed \
-    --output_dir probability/biomed/
+    --output_dir probability/biomed_64/
