@@ -19,16 +19,8 @@ def merge_sampled_files(input_dir, output_dir, chunk_size=10000):
     for file_path in tqdm(files_to_process, desc="Processing files"):
         with open(file_path, 'r') as f:
             lines = f.readlines()
-            
-            # 
-            new_lines = []
-            for i in lines:
-                item = json.loads(i)
-                new_item = {"text":item["tokens"]}
-                new_lines.append(json.dumps(new_item) + "\n")
-            #
-            
-            all_sampled_lines.extend(new_lines)
+                
+            all_sampled_lines.extend(lines)
             
             # If the list length exceeds chunk_size, write to a file
             if len(all_sampled_lines) >= chunk_size:
@@ -50,8 +42,8 @@ def write_to_gz(lines, output_dir, part):
     print(f"Saved {len(lines)} lines to {part_file}")
 
 if __name__ == "__main__":
-    input_dir = "probability/after_filtering"
-    output_dir = "data/bio/biomed_delete_less_than_0.001_token"
+    input_dir = "probability/after_filtering/>0.999"
+    output_dir = "data/bio/biomed_delete_greater_than_0.999_token"
     chunk_size = 1000000  # Adjust the chunk size as needed
     os.makedirs(output_dir, exist_ok=True)
     merge_sampled_files(input_dir, output_dir, chunk_size)
