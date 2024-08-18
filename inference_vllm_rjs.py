@@ -39,6 +39,7 @@ def parse_args():
     parser.add_argument("--num_shards", default=0, type=int, help="Total number of shards in the dataset")
     parser.add_argument("--shard_index", default=0, type=int, help="Index of the current shard being processed")
     parser.add_argument("--batch_size", default=10000, type=int, help="Number of samples to process at a time")
+    parser.add_argument("--n_of_candicant", default=8, type=int, help="Number of max_logprobs")
 
     
     # Results Arguments
@@ -251,18 +252,18 @@ def main():
               tensor_parallel_size=args.tensor_parallel_size, 
               gpu_memory_utilization=args.gpu_memory_utilization,  
               max_model_len=2048,
-              max_logprobs=64
+              max_logprobs=args.n_of_candicant
             #   skip_tokenizer_init=True,
               )
     tokenizer = llm.get_tokenizer()
     
     sampling_params = SamplingParams(max_tokens=1, 
                                     #  min_tokens=args.min_length
-                                    prompt_logprobs=32,
+                                    prompt_logprobs=args.n_of_candicant,
                                     #  prompt_logprobs=1,
                                     #  detokenize=False 
                                      # n=1,  temperature=0.7, top_p=0.8, repetition_penalty=1.05, top_k=20, 
-                                     )
+                                    )
     global_files = 0
     for i, file_path in enumerate(files_to_process):
         all_prompts = read_gz_file(file_path)

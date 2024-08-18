@@ -19,4 +19,4 @@ python inference_vllm_rjs.py \
     --shard_index 4 \
     --gpu_memory_utilization 0.8 \
     --test_file data/instruction_biomed \
-    --output_dir probability/biomed_64/
+    --output_dir probability/biomed_8/
