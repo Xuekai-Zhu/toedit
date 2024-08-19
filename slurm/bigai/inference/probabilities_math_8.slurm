@@ -16,7 +16,7 @@ python inference_vllm_rjs.py \
     --model_name_or_path /scratch2/nlp/plm/Qwen2-0.5B-Instruct \
     --tensor_parallel_size 1 \
     --num_shards 8 \
-    --shard_index 1 \
+    --shard_index 8 \
     --gpu_memory_utilization 0.8 \
     --test_file data/open-web-math—1B \
     --output_dir probability/openwebmath/

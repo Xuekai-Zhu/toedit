@@ -242,7 +242,7 @@ def main():
     
     # load data
     all_train_files = search_datasets(args)
-    if args.num_shards != 0:
+    if args.num_shards != 0 and len(all_train_files) >= 1:
         all_train_files = shard_list(all_train_files, args.num_shards, args.shard_index)
         print(f"Content of shard {args.shard_index}/{args.num_shards} : {all_train_files}")
         
@@ -267,6 +267,11 @@ def main():
     global_files = 0
     for i, file_path in enumerate(files_to_process):
         all_prompts = read_gz_file(file_path)
+        
+        if len(all_train_files) == 1 and args.num_shards != 0:
+            all_prompts = all_prompts[args.shard_index-1::args.num_shards]
+            print(f">>>>>> Shard {args.shard_index} of {args.num_shards} in one file")
+            
         
         for start in tqdm(range(0, len(all_prompts), args.batch_size), desc=f"Processing batch"):
             
