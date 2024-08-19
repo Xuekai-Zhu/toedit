@@ -59,7 +59,7 @@ def main_step1(num_processes):
     # greater = True
     # less = False
     
-    source_path = "probability/biomed"
+    source_path = "probability/openwebmath"
     all_files = list_files_in_subdirectories(source_path)
 
     tokenizer = AutoTokenizer.from_pretrained("/data1/xkzhu/pre_trained_model/Qwen/Qwen2-0.5B")
