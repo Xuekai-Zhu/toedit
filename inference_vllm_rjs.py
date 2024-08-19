@@ -242,7 +242,7 @@ def main():
     
     # load data
     all_train_files = search_datasets(args)
-    if args.num_shards != 0 and len(all_train_files) >= 1:
+    if args.num_shards != 0 and len(all_train_files) > 1:
         all_train_files = shard_list(all_train_files, args.num_shards, args.shard_index)
         print(f"Content of shard {args.shard_index}/{args.num_shards} : {all_train_files}")
         
