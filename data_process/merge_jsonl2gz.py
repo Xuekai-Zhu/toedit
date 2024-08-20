@@ -42,8 +42,8 @@ def write_to_gz(lines, output_dir, part):
     print(f"Saved {len(lines)} lines to {part_file}")
 
 if __name__ == "__main__":
-    input_dir = "probability/after_filtering/>0.999"
-    output_dir = "data/bio/biomed_delete_greater_than_0.999_token"
+    input_dir = "probability/biomed_8_filtering/lt_0.001_top_p_0.9"
+    output_dir = "data/bio/biomed_lt_0.001_top_p_0.9"
     chunk_size = 1000000  # Adjust the chunk size as needed
     os.makedirs(output_dir, exist_ok=True)
     merge_sampled_files(input_dir, output_dir, chunk_size)
