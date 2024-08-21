@@ -5,7 +5,7 @@ model_name_or_path: /scratch2/nlp/plm/Meta-Llama-3.1-8B-Instruct
 stage: sft
 do_train: true
 finetuning_type: full
-deepspeed: examples/deepspeed/ds_z3_config.json
+deepspeed: LLaMA-Factory/examples/deepspeed/ds_z3_config.json
 
 ### dataset
 dataset: identity,alpaca_en_demo

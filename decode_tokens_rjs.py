@@ -7,6 +7,7 @@ import gzip
 import multiprocessing
 import torch
 import random
+import argparse
 
 
 
@@ -54,32 +55,36 @@ def main_step1(num_processes, source_path, output_dir, strategy=None, threshold=
 
 
 def strategy_1_filter(in_files, tokenizer, out_dir, threshold, process_id):
-    for i, file_i in enumerate(tqdm(in_files)):
-        data = load_text(file_i)
-        results = []
-        for entry in data:
-            log_probs = entry["prompt_logprobs"]
-            token_ids = entry["prompt_token_ids"]
-            
-            processed_log_probs = []
-            for probs, id in zip(log_probs, token_ids):
-                if probs is None:
-                    processed_log_probs.append(0)
-                else:
-                    processed_log_probs.append(probs[f"{id}"]["logprob"])
-            
-            probs = np.exp(processed_log_probs)
-            
-            main_id = np.array(token_ids)[probs >= threshold]
-            # main_id = np.array(token_ids)[probs <= threshold]
-            
-            tokens = tokenizer.decode(main_id.tolist())
-            results.append({"text": tokens,})
-            
-        out_file = os.path.join(out_dir, f"process_{process_id}_file_{i}_filtered_token_<{threshold}.jsonl")
-        with open(out_file, 'w') as f:
-            for i in results:
-                f.write(json.dumps(i) + '\n')
+    # for i, file_i in enumerate(tqdm(in_files)):
+    for i, file_i in enumerate(tqdm(in_files, desc="Processing files")):
+        for chunk_id, chunk in enumerate(load_text_in_chunks(file_i)):
+            # data = load_text(chunk)
+            results = []
+            # for entry in chunk:
+            for entry in tqdm(chunk, desc=f"Processing entries in chunk {chunk_id}"):
+                log_probs = entry["prompt_logprobs"]
+                token_ids = entry["prompt_token_ids"]
+                
+                processed_log_probs = []
+                for probs, id in zip(log_probs, token_ids):
+                    if probs is None:
+                        processed_log_probs.append(0)
+                    else:
+                        processed_log_probs.append(probs[f"{id}"]["logprob"])
+                
+                probs = np.exp(processed_log_probs)
+                
+                main_id = np.array(token_ids)[probs >= threshold]
+                # main_id = np.array(token_ids)[probs <= threshold]
+                
+                tokens = tokenizer.decode(main_id.tolist())
+                results.append({"text": tokens,})
+                
+            random_number = random.randint(1000, 9999)
+            out_file = os.path.join(out_dir, f"process_{process_id}_file_{i}_chunk_{chunk_id}_filtered_token_lt_{threshold}_{random_number}.jsonl")
+            with open(out_file, 'w') as f:
+                for result in results:
+                    f.write(json.dumps(result) + '\n')
     
 
 def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p):
@@ -121,8 +126,8 @@ def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p)
                     if probs is None:
                         processed_token_ids.append(id)
                     else:
-                        p = probs[f"{id}"]["logprob"]
-                        
+                        p = np.exp(probs[f"{id}"]["logprob"])
+
                         if p < threshold:
                             candicant_ids = [int(i) for i in probs.keys()]
                             scores = [info['logprob'] for info in probs.values()]
@@ -143,24 +148,48 @@ def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p)
             # del results, chunk, log_probs, token_ids, processed_token_ids
                 
 if __name__ == '__main__':
-    num_processes = 4
+    num_processes = 8
     
-    # open web math
+    # bio
     # strategy = "filter"
     # threshold = 0.001
     # source_path = "probability/biomed_8"
     # output_dir = f"probability/biomed_8<{threshold}"
     
     # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
-      
-    # biomed
     
-    strategy = "top_p"
-    threshold = 0.001
-    top_p = 0.9
-    source_path = "probability/biomed_8"
-    output_dir = f"probability/biomed_8_filtering/lt_{threshold}_top_p_0.9"
-    # output_dir = f"test/lt_{threshold}_top_p_0.9"
+    # strategy = "top_p"
+    # threshold = 0.001
+    # top_p = 0.9
+    # source_path = "probability/biomed_8"
+    # output_dir = f"probability/biomed_8_filtering/lt_{threshold}_top_p_0.9"
+    # # output_dir = f"test/lt_{threshold}_top_p_0.9"
     
-    main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold, top_p=top_p)
+    # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold, top_p=top_p)
+    
+    # open web math
+    # strategy = "filter"
+    # threshold = 0.001
+    # source_path = "probability/openwebmath"
+    # output_dir = f"probability/openwebmath_lt_{threshold}"
+    
+    # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
+    
+    parser = argparse.ArgumentParser(description='Process some files with different strategies.')
+    parser.add_argument('--num_processes', type=int, default=8, help='Number of processes to use')
+    parser.add_argument('--source_path', type=str, required=True, help='Path to the source files')
+    parser.add_argument('--output_dir', type=str, required=True, help='Directory to save the output files')
+    parser.add_argument('--strategy', type=str, choices=['filter', 'top_p'], required=True, help='Strategy to use (filter or top_p)')
+    parser.add_argument('--threshold', type=float, required=True, help='Threshold for filtering')
+    parser.add_argument('--top_p', type=float, default=None, help='Top-p value (only required if strategy is top_p)')
+    
+    args = parser.parse_args()
+    main_step1(
+        num_processes=args.num_processes,
+        source_path=args.source_path,
+        output_dir=args.output_dir,
+        strategy=args.strategy,
+        threshold=args.threshold,
+        top_p=args.top_p
+    )
     

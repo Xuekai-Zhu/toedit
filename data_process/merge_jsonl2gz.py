@@ -2,6 +2,7 @@ import os
 import gzip
 import json
 from tqdm import tqdm
+import argparse
 
 def merge_sampled_files(input_dir, output_dir, chunk_size=10000):
     all_sampled_lines = []
@@ -42,8 +43,18 @@ def write_to_gz(lines, output_dir, part):
     print(f"Saved {len(lines)} lines to {part_file}")
 
 if __name__ == "__main__":
-    input_dir = "probability/biomed_8_filtering/lt_0.001_top_p_0.9"
-    output_dir = "data/bio/biomed_lt_0.001_top_p_0.9"
-    chunk_size = 1000000  # Adjust the chunk size as needed
-    os.makedirs(output_dir, exist_ok=True)
-    merge_sampled_files(input_dir, output_dir, chunk_size)
+    # input_dir = "probability/biomed_8_filtering/lt_0.001_top_p_0.9"
+    # output_dir = "data/bio/biomed_lt_0.001_top_p_0.9"
+    # chunk_size = 1000000  # Adjust the chunk size as needed
+    # os.makedirs(output_dir, exist_ok=True)
+    # merge_sampled_files(input_dir, output_dir, chunk_size)
+    
+    parser = argparse.ArgumentParser(description="Merge sampled JSONL files into gzipped parts.")
+    parser.add_argument('--input_dir', type=str, required=True, help='Directory containing the sampled JSONL files')
+    parser.add_argument('--output_dir', type=str, required=True, help='Directory to save the merged gzipped files')
+    parser.add_argument('--chunk_size', type=int, default=10000, help='Number of lines per gzipped file')
+
+    args = parser.parse_args()
+
+    os.makedirs(args.output_dir, exist_ok=True)
+    merge_sampled_files(args.input_dir, args.output_dir, chunk_size=args.chunk_size)
