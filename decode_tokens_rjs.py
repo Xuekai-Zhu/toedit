@@ -49,9 +49,9 @@ def main_step1(num_processes, source_path, output_dir, strategy=None, threshold=
             process = multiprocessing.Process(target=strategy_1_filter, args=(file_chunk, tokenizer, output_dir, threshold, i))
             process.start()
         elif strategy == "top_p":
-            # strategy_2_top_p(all_files, tokenizer, output_dir, threshold, i, top_p)
-            process = multiprocessing.Process(target=strategy_2_top_p, args=(file_chunk, tokenizer, output_dir, threshold, i, top_p))
-            process.start()
+            strategy_2_top_p(all_files, tokenizer, output_dir, threshold, i, top_p)
+            # process = multiprocessing.Process(target=strategy_2_top_p, args=(file_chunk, tokenizer, output_dir, threshold, i, top_p))
+            # process.start()
 
 
 def strategy_1_filter(in_files, tokenizer, out_dir, threshold, process_id):
@@ -135,7 +135,8 @@ def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p)
                             processed_token_ids.append(re_sampled_id)
                         else:
                             processed_token_ids.append(id)
-                    
+                
+                tokens_before = tokenizer.decode(token_ids)
                 tokens = tokenizer.decode(processed_token_ids)
                 results.append({"text": tokens,})
             
@@ -158,14 +159,14 @@ if __name__ == '__main__':
     
     # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
     
-    # strategy = "top_p"
-    # threshold = 0.001
-    # top_p = 0.9
-    # source_path = "probability/biomed_8"
-    # output_dir = f"probability/biomed_8_filtering/lt_{threshold}_top_p_0.9"
-    # # output_dir = f"test/lt_{threshold}_top_p_0.9"
+    strategy = "top_p"
+    threshold = 0.001
+    top_p = 0.9
+    source_path = "probability/biomed_8"
+    output_dir = f"probability/biomed_8_filtering/lt_{threshold}_top_p_0.9"
+    # output_dir = f"test/lt_{threshold}_top_p_0.9"
     
-    # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold, top_p=top_p)
+    main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold, top_p=top_p)
     
     # open web math
     # strategy = "filter"
@@ -175,21 +176,22 @@ if __name__ == '__main__':
     
     # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
     
-    parser = argparse.ArgumentParser(description='Process some files with different strategies.')
-    parser.add_argument('--num_processes', type=int, default=8, help='Number of processes to use')
-    parser.add_argument('--source_path', type=str, required=True, help='Path to the source files')
-    parser.add_argument('--output_dir', type=str, required=True, help='Directory to save the output files')
-    parser.add_argument('--strategy', type=str, choices=['filter', 'top_p'], required=True, help='Strategy to use (filter or top_p)')
-    parser.add_argument('--threshold', type=float, required=True, help='Threshold for filtering')
-    parser.add_argument('--top_p', type=float, default=None, help='Top-p value (only required if strategy is top_p)')
+    # >>>>>>>>>>>>>>>>>>>>>>>
+    # parser = argparse.ArgumentParser(description='Process some files with different strategies.')
+    # parser.add_argument('--num_processes', type=int, default=8, help='Number of processes to use')
+    # parser.add_argument('--source_path', type=str, required=True, help='Path to the source files')
+    # parser.add_argument('--output_dir', type=str, required=True, help='Directory to save the output files')
+    # parser.add_argument('--strategy', type=str, choices=['filter', 'top_p'], required=True, help='Strategy to use (filter or top_p)')
+    # parser.add_argument('--threshold', type=float, required=True, help='Threshold for filtering')
+    # parser.add_argument('--top_p', type=float, default=None, help='Top-p value (only required if strategy is top_p)')
     
-    args = parser.parse_args()
-    main_step1(
-        num_processes=args.num_processes,
-        source_path=args.source_path,
-        output_dir=args.output_dir,
-        strategy=args.strategy,
-        threshold=args.threshold,
-        top_p=args.top_p
-    )
+    # args = parser.parse_args()
+    # main_step1(
+    #     num_processes=args.num_processes,
+    #     source_path=args.source_path,
+    #     output_dir=args.output_dir,
+    #     strategy=args.strategy,
+    #     threshold=args.threshold,
+    #     top_p=args.top_p
+    # )
     
