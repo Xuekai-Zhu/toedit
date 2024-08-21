@@ -10,9 +10,4 @@
 #SBATCH --gres=gpu:2
 
 
-unset all_proxy   
-unset http_proxy       
-unset https_proxy 
-export NCCL_P2P_DISABLE=1
-
-llamafactory-cli train /home/xkzhu/scaling_down_data/config/llama_factory/qwen2_cpt.yaml
+llamafactory-cli train config/llama_factory/qwen2_cpt_bigai.yaml

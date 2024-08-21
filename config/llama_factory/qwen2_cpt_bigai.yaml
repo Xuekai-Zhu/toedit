@@ -1,5 +1,5 @@
 ### model
-model_name_or_path: /data1/xkzhu/pre_trained_model/Qwen/Qwen2-1.5B
+model_name_or_path: /scratch2/nlp/plm/Qwen2-1.5B
 
 ### method
 stage: pt
@@ -16,7 +16,7 @@ overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: /home/xkzhu/scaling_down_data/saves/Qwen2-1.5B/full/pretrain
+output_dir: saves/Qwen2-0.5B/full/pretrain
 logging_steps: 10
 save_steps: 500
 plot_loss: true
@@ -26,14 +26,14 @@ overwrite_output_dir: true
 per_device_train_batch_size: 1
 gradient_accumulation_steps: 8
 learning_rate: 1.0e-4
-num_train_epochs: 10.0
+num_train_epochs: 3.0
 lr_scheduler_type: cosine
 warmup_ratio: 0.1
 bf16: true
 ddp_timeout: 180
 report_to: wandb
 run_name: test_run
-flash_attn: fa2
+# flash_attn: fa2
 
 ### eval
 val_size: 0.1
