@@ -151,5 +151,5 @@ data:
   persistent_workers: true
   timeout: 0
   paths:
-    - data/bio/biomed_delete_greater_than_0.999_token/0_00000.npy
-    - data/bio/biomed_delete_greater_than_0.999_token/0_00001.npy
+    - data/bio/biomed_delete_greater_than_0.999_token_tokenized/0_00000.npy
+    - data/bio/biomed_delete_greater_than_0.999_token_tokenized/0_00001.npy
