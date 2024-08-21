@@ -37,7 +37,7 @@ def calculate_total_size_and_tokens(directory):
     return total_size, total_tokens
 
 # Path to the directory containing .npy files
-directory = '/data1/xkzhu/datasets/qwen_filter_data/qwen_0.5B_instruct/delete_less_than_0.01_gz_tokenized'
+directory = 'data/math/openwebmath_lt_0.001_top_p_0.9_tokenized'
 
 # Calculate the total size and number of tokens
 total_size, total_tokens = calculate_total_size_and_tokens(directory)
