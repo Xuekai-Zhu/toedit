@@ -18,5 +18,5 @@ python inference_vllm_rjs.py \
     --num_shards 8 \
     --shard_index 3 \
     --gpu_memory_utilization 0.8 \
-    --test_file data/open-web-math—1B \
-    --output_dir probability/openwebmath/
+    --test_file data/open-web-math—2B \
+    --output_dir probability/openwebmath-2B/
