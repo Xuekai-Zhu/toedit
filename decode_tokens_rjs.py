@@ -49,9 +49,9 @@ def main_step1(num_processes, source_path, output_dir, strategy=None, threshold=
             process = multiprocessing.Process(target=strategy_1_filter, args=(file_chunk, tokenizer, output_dir, threshold, i))
             process.start()
         elif strategy == "top_p":
-            strategy_2_top_p(all_files, tokenizer, output_dir, threshold, i, top_p)
-            # process = multiprocessing.Process(target=strategy_2_top_p, args=(file_chunk, tokenizer, output_dir, threshold, i, top_p))
-            # process.start()
+            # strategy_2_top_p(all_files, tokenizer, output_dir, threshold, i, top_p)
+            process = multiprocessing.Process(target=strategy_2_top_p, args=(file_chunk, tokenizer, output_dir, threshold, i, top_p))
+            process.start()
 
 
 def strategy_1_filter(in_files, tokenizer, out_dir, threshold, process_id):
@@ -136,7 +136,7 @@ def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p)
                         else:
                             processed_token_ids.append(id)
                 
-                tokens_before = tokenizer.decode(token_ids)
+                # tokens_before = tokenizer.decode(token_ids)
                 tokens = tokenizer.decode(processed_token_ids)
                 results.append({"text": tokens,})
             
@@ -152,21 +152,21 @@ if __name__ == '__main__':
     num_processes = 8
     
     # bio
-    # strategy = "filter"
-    # threshold = 0.001
-    # source_path = "probability/biomed_8"
-    # output_dir = f"probability/biomed_8<{threshold}"
-    
-    # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
-    
-    strategy = "top_p"
+    strategy = "filter"
     threshold = 0.001
-    top_p = 0.9
     source_path = "probability/biomed_8"
-    output_dir = f"probability/biomed_8_filtering/lt_{threshold}_top_p_0.9"
-    # output_dir = f"test/lt_{threshold}_top_p_0.9"
+    output_dir = f"probability/biomed_8_filtering/biomed_8_lt_{threshold}"
     
-    main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold, top_p=top_p)
+    main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
+    
+    # strategy = "top_p"
+    # threshold = 0.001
+    # top_p = 0.9
+    # source_path = "probability/biomed_8"
+    # output_dir = f"probability/biomed_8_filtering/lt_{threshold}_top_p_0.9"
+    # # output_dir = f"test/lt_{threshold}_top_p_0.9"
+    
+    # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold, top_p=top_p)
     
     # open web math
     # strategy = "filter"
