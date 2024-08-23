@@ -10,7 +10,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --qos=high
 
-MODEL="/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-lt_0.001_top_p_0.9/step4172-unsharded" 
+MODEL="/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-lt_0.001_top_p_0.9/step4095-unsharded" 
 
 python /home/xkzhu/scaling_down_data/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
     --input_dir ${MODEL} \

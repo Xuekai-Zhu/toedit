@@ -8,10 +8,10 @@ finetuning_type: full
 deepspeed: examples/deepspeed/ds_z3_config.json
 
 ### dataset
-dataset: c4_demo
+dataset: biomed_orca
 # template: llama3
 cutoff_len: 1024
-max_samples: 1000
+# max_samples: 1000
 overwrite_cache: true
 preprocessing_num_workers: 16
 
@@ -23,20 +23,20 @@ plot_loss: true
 overwrite_output_dir: true
 
 ### train
-per_device_train_batch_size: 1
-gradient_accumulation_steps: 8
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 32
 learning_rate: 1.0e-4
-num_train_epochs: 10.0
+num_train_epochs: 1
 lr_scheduler_type: cosine
 warmup_ratio: 0.1
 bf16: true
-ddp_timeout: 180
-report_to: wandb
-run_name: test_run
+ddp_timeout: 1800000
+report_to: none
+# run_name: test_run
 flash_attn: fa2
 
 ### eval
-val_size: 0.1
-per_device_eval_batch_size: 1
-eval_strategy: steps
-eval_steps: 500
+# val_size: 0.1
+# per_device_eval_batch_size: 1
+# eval_strategy: steps
+# eval_steps: 500

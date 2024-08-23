@@ -5,12 +5,11 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
-#SBATCH --output=biomed-lt_0.001_top_p_0.9.out
-#SBATCH --error=biomed-lt_0.001_top_p_0.9.err
+#SBATCH --output=biomed-lt_0.001.out
+#SBATCH --error=biomed-lt_0.001.err
 #SBATCH --gres=gpu:4
-#SbATCH --qos=high
 
-torchrun --nproc_per_node=4 --master_port=29216 OLMo/scripts/train.py config/bio/OLMo-1B_biomed_lt_0.001_top_p_0.9.yaml \
+torchrun --nproc_per_node=4 --master_port=29216 OLMo/scripts/train.py config/bio/OLMo-1B_biomed_0.001_v2.yaml \
     --save_overwrite \
     --reset_trainer_state \
     --load_path=https://olmo-checkpoints.org/ai2-llm/olmo-small/g4g72enr/step738020-unsharded/
