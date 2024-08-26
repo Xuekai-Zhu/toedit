@@ -128,12 +128,12 @@ def strategy_1_filter(in_files, out_dir, n_gram_cpd, threshold, process_id):
                     f.write(json.dumps(result) + '\n')
     
 if __name__ == '__main__':
-    num_processes = 8
+    num_processes = 11
     
     # bio
     threshold = 0.000001
     source_path = "data/bio/instruction_biomed"
-    output_dir = f"data/bio/instruction_biomed/n_gram_filtering_lt{threshold}"
+    output_dir = f"data/bio/instruction_biomed_n_gram_filtering_lt{threshold}"
     cpd_file_path = "data/bio/instruction_biomed_n_gram_probs/cpd.pkl"
     
     main_step1(num_processes, source_path, output_dir, cpd_file_path=cpd_file_path, threshold=threshold)

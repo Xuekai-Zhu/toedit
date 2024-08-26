@@ -86,9 +86,14 @@ def save_object_to_file(cfd, filename):
         pickle.dump(cfd, f)
 
 if __name__ == '__main__':
-    num_processes = 8
-    source_path = "data/math/open-web-math/open-web-math—2B"
-    output_dir = f"data/math/open-web-math/open-web-math—2B_n_gram_probs"
+    # math
+    # num_processes = 8
+    # source_path = "data/math/open-web-math/open-web-math—2B"
+    # output_dir = f"data/math/open-web-math/open-web-math—2B_n_gram_probs"
     
+    # bio
+    num_processes = 8
+    source_path = "data/bio/instruction_biomed"
+    output_dir = "data/bio/instruction_biomed_n_gram_probs"
     main_step(num_processes, source_path, output_dir)
     
