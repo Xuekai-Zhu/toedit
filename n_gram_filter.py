@@ -10,7 +10,7 @@ import random
 import argparse
 import pickle
 from nltk import word_tokenize
-
+import heapq
 
 
 def list_files_in_subdirectories(parent_directory):
@@ -73,7 +73,7 @@ def reject_sampling(possible_words_sorted, prob_dist, candicate_num=64, num_samp
     return accepted
 
 
-def random_chioce(possible_words_sorted, prob_dist, candicate_num=32, num_samples=1, beta=0.5):
+def random_chioce(possible_words_sorted, prob_dist, candicate_num=64, num_samples=1, beta=0.5):
     candidates = {w: prob_dist.prob(w) for w in possible_words_sorted[:candicate_num]}
     
     rewards = np.array(list(candidates.values()))
@@ -84,7 +84,15 @@ def random_chioce(possible_words_sorted, prob_dist, candicate_num=32, num_sample
     
     return accepted_token
     
+def get_top_n_samples(prob_dist, top_n):
+    samples = list(prob_dist.samples())
+    probs = [prob_dist.prob(w) for w in samples]
     
+    top_n_indices = heapq.nlargest(top_n, range(len(probs)), probs.__getitem__)
+    top_n_samples = [(samples[i], probs[i]) for i in top_n_indices]
+    
+    return top_n_samples
+
 
 def main_step1(num_processes, source_path, output_dir, cpd_file_path=None, threshold=None):
     os.makedirs(output_dir, exist_ok=True)
@@ -94,9 +102,9 @@ def main_step1(num_processes, source_path, output_dir, cpd_file_path=None, thres
     n_gram_cpd = load_object_from_file(cpd_file_path)
 
     for i, file_chunk in enumerate(file_chunks):
-        # strategy_1_filter(file_chunk, output_dir, n_gram_cpd, threshold, i)
-        process = multiprocessing.Process(target=strategy_1_filter, args=(file_chunk, output_dir, n_gram_cpd, threshold, i))
-        process.start()
+        strategy_1_filter(file_chunk, output_dir, n_gram_cpd, threshold, i)
+        # process = multiprocessing.Process(target=strategy_1_filter, args=(file_chunk, output_dir, n_gram_cpd, threshold, i))
+        # process.start()
         
 def strategy_1_filter(in_files, out_dir, n_gram_cpd, threshold, process_id):
     for i, file_i in enumerate(tqdm(in_files, desc="Processing files")):
@@ -120,8 +128,10 @@ def strategy_1_filter(in_files, out_dir, n_gram_cpd, threshold, process_id):
                     
                     if prob < threshold:
                         prob_dist = n_gram_cpd[context]
-                        possible_words = list(prob_dist.samples())
-                        possible_words_sorted = sorted(possible_words, key=lambda w: prob_dist.prob(w), reverse=True)
+                        top_n_samples = get_top_n_samples(prob_dist, 64)
+                        possible_words_sorted = [w for w, _ in top_n_samples]
+                        # _possible_words = list(prob_dist.samples())
+                        # _possible_words_sorted = sorted(_possible_words, key=lambda w: prob_dist.prob(w), reverse=True)
                         # accept_token = reject_sampling(possible_words_sorted, prob_dist)
                         accept_token = random_chioce(possible_words_sorted, prob_dist)
                         
