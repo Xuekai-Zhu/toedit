@@ -73,7 +73,7 @@ def reject_sampling(possible_words_sorted, prob_dist, candicate_num=64, num_samp
     return accepted
 
 
-def random_chioce(possible_words_sorted, prob_dist, candicate_num=64, num_samples=1, beta=0.5):
+def random_chioce(possible_words_sorted, prob_dist, candicate_num=32, num_samples=1, beta=0.5):
     candidates = {w: prob_dist.prob(w) for w in possible_words_sorted[:candicate_num]}
     
     rewards = np.array(list(candidates.values()))
