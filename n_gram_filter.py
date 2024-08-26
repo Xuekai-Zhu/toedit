@@ -73,6 +73,19 @@ def reject_sampling(possible_words_sorted, prob_dist, candicate_num=64, num_samp
     return accepted
 
 
+def random_chioce(possible_words_sorted, prob_dist, candicate_num=64, num_samples=1, beta=0.5):
+    candidates = {w: prob_dist.prob(w) for w in possible_words_sorted[:candicate_num]}
+    
+    rewards = np.array(list(candidates.values()))
+    adjusted_probs = softmax(rewards / beta) 
+    words_candicate = np.array(list(candidates.keys()))
+    
+    accepted_token = np.random.choice(words_candicate, num_samples, p=adjusted_probs)
+    
+    return accepted_token
+    
+    
+
 def main_step1(num_processes, source_path, output_dir, cpd_file_path=None, threshold=None):
     os.makedirs(output_dir, exist_ok=True)
     all_files = list_files_in_subdirectories(source_path)
@@ -109,7 +122,9 @@ def strategy_1_filter(in_files, out_dir, n_gram_cpd, threshold, process_id):
                         prob_dist = n_gram_cpd[context]
                         possible_words = list(prob_dist.samples())
                         possible_words_sorted = sorted(possible_words, key=lambda w: prob_dist.prob(w), reverse=True)
-                        accept_token = reject_sampling(possible_words_sorted, prob_dist)
+                        # accept_token = reject_sampling(possible_words_sorted, prob_dist)
+                        accept_token = random_chioce(possible_words_sorted, prob_dist)
+                        
                         final_tokens.append(accept_token[0])
                         n+=1
                     else:
