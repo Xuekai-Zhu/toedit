@@ -52,6 +52,11 @@ def main_step1(num_processes, source_path, output_dir, strategy=None, threshold=
             # strategy_2_top_p(all_files, tokenizer, output_dir, threshold, i, top_p)
             process = multiprocessing.Process(target=strategy_2_top_p, args=(file_chunk, tokenizer, output_dir, threshold, i, top_p))
             process.start()
+        elif strategy == "statistics":
+            # strategy_2_top_p(all_files, tokenizer, output_dir, threshold, i, top_p)
+            process = multiprocessing.Process(target=strategy_3_statistics, args=(file_chunk,threshold, i))
+            process.start()
+        
 
 
 def strategy_1_filter(in_files, tokenizer, out_dir, threshold, process_id):
@@ -148,11 +153,45 @@ def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p)
             
             # del results, chunk, log_probs, token_ids, processed_token_ids
                 
+                
+                
+def strategy_3_statistics(in_files, threshold, process_id):
+    all_filter_token_number = []
+    for i, file_i in enumerate(tqdm(in_files, desc="Processing files")):
+        for chunk_id, chunk in enumerate(load_text_in_chunks(file_i)):
+
+            for entry in tqdm(chunk, desc=f"Processing entries in chunk {chunk_id}"):
+                log_probs = entry["prompt_logprobs"]
+                token_ids = entry["prompt_token_ids"]
+                
+                processed_log_probs = []
+                for probs, id in zip(log_probs, token_ids):
+                    if probs is None:
+                        processed_log_probs.append(0)
+                    else:
+                        processed_log_probs.append(probs[f"{id}"]["logprob"])
+                
+                exp_processed_log_probs = np.exp(processed_log_probs)
+                
+                num_lower_threshold = np.sum(exp_processed_log_probs < threshold)
+                all_filter_token_number.append(num_lower_threshold)
+    
+    avg_token = np.mean(all_filter_token_number)
+    print(f">>>>>>>>>>>>> {len(all_filter_token_number)} smaples filter out {avg_token} tokens" + "\n\n\n" )
+                
+
+                
+
+                
+
+    
+    
 if __name__ == '__main__':
     num_processes = 8
     
     # bio
-    strategy = "filter"
+    # strategy = "filter"
+    strategy = "statistics"
     threshold = 0.001
     source_path = "probability/biomed_8"
     output_dir = f"probability/biomed_8_filtering/biomed_8_lt_{threshold}"

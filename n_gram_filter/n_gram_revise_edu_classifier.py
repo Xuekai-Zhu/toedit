@@ -1,5 +1,5 @@
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from n_gram_test import load_object_from_file
+from n_gram_filter import load_object_from_file
 from nltk import word_tokenize
 import numpy as np
 
