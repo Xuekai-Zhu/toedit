@@ -157,6 +157,7 @@ def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p)
                 
 def strategy_3_statistics(in_files, threshold, process_id):
     all_filter_token_number = []
+    all_total_len = []
     for i, file_i in enumerate(tqdm(in_files, desc="Processing files")):
         for chunk_id, chunk in enumerate(load_text_in_chunks(file_i)):
 
@@ -175,9 +176,13 @@ def strategy_3_statistics(in_files, threshold, process_id):
                 
                 num_lower_threshold = np.sum(exp_processed_log_probs < threshold)
                 all_filter_token_number.append(num_lower_threshold)
+                all_total_len.append(len(token_ids))
     
+    avg_len = np.mean(all_total_len)
     avg_token = np.mean(all_filter_token_number)
-    print(f">>>>>>>>>>>>> {len(all_filter_token_number)} smaples filter out {avg_token} tokens" + "\n\n\n" )
+    
+    print(f">>>>>>>>>>>>> per smaples avg length {avg_len} and filter out {avg_token} tokens" + "\n\n\n" )
+    # print(f">>>>>>>>>>>>> {len(all_filter_token_number)} smaples filter out {avg_token} tokens" + "\n\n\n" )
                 
 
                 

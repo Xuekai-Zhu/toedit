@@ -102,9 +102,9 @@ def main_step1(num_processes, source_path, output_dir, cpd_file_path=None, thres
     n_gram_cpd = load_object_from_file(cpd_file_path)
 
     for i, file_chunk in enumerate(file_chunks):
-        strategy_1_filter(file_chunk, output_dir, n_gram_cpd, threshold, i)
-        # process = multiprocessing.Process(target=strategy_1_filter, args=(file_chunk, output_dir, n_gram_cpd, threshold, i))
-        # process.start()
+        # strategy_1_filter(file_chunk, output_dir, n_gram_cpd, threshold, i)
+        process = multiprocessing.Process(target=strategy_1_filter, args=(file_chunk, output_dir, n_gram_cpd, threshold, i))
+        process.start()
         
 def strategy_1_filter(in_files, out_dir, n_gram_cpd, threshold, process_id):
     for i, file_i in enumerate(tqdm(in_files, desc="Processing files")):
