@@ -11,3 +11,4 @@ model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-0.1/step2
 model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-0.999/step3912-unsharded-hf; scores: {'micro_F1': 29.099999999999998}
 model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-lt_0.001_top_p_0.9/step4172-unsharded-hf; scores: {'micro_F1': 30.75}
 model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-lt_0.001_top_p_0.9/step4095-unsharded-hf; scores: {'micro_F1': 31.65}
+model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-0.001-v2/step3684-unsharded-hf; scores: {'micro_F1': 31.65}

@@ -10,12 +10,12 @@
 #SBATCH --gres=gpu:1
 #SBATCH --qos=high
 
-MODEL="/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-lt_0.001_top_p_0.9/step4095-unsharded" 
+MODEL="/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-0.001-v2/step3684-unsharded" 
 
-python /home/xkzhu/scaling_down_data/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
-    --input_dir ${MODEL} \
-    --tokenizer_json_path /home/xkzhu/scaling_down_data/OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
-    --output_dir ${MODEL}-hf
+# python /home/xkzhu/scaling_down_data/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
+#     --input_dir ${MODEL} \
+#     --tokenizer_json_path /home/xkzhu/scaling_down_data/OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
+#     --output_dir ${MODEL}-hf
 
 unset all_proxy   
 unset http_proxy       
