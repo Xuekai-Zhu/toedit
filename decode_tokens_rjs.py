@@ -133,7 +133,7 @@ def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p)
                     else:
                         p = np.exp(probs[f"{id}"]["logprob"])
 
-                        if p < threshold:
+                        if p > threshold:
                             candicant_ids = [int(i) for i in probs.keys()]
                             scores = [info['logprob'] for info in probs.values()]
                             re_sampled_id = top_p_sampling(candicant_ids, scores, top_p)
@@ -157,6 +157,7 @@ def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p)
                 
 def strategy_3_statistics(in_files, threshold, process_id):
     all_filter_token_number = []
+    all_total_len = []
     for i, file_i in enumerate(tqdm(in_files, desc="Processing files")):
         for chunk_id, chunk in enumerate(load_text_in_chunks(file_i)):
 
@@ -175,9 +176,13 @@ def strategy_3_statistics(in_files, threshold, process_id):
                 
                 num_lower_threshold = np.sum(exp_processed_log_probs < threshold)
                 all_filter_token_number.append(num_lower_threshold)
+                all_total_len.append(len(token_ids))
     
+    avg_len = np.mean(all_total_len)
     avg_token = np.mean(all_filter_token_number)
-    print(f">>>>>>>>>>>>> {len(all_filter_token_number)} smaples filter out {avg_token} tokens" + "\n\n\n" )
+    
+    # print(f">>>>>>>>>>>>> per smaples avg length {avg_len} and filter out {avg_token} tokens" + "\n\n\n" )
+    # print(f">>>>>>>>>>>>> {len(all_filter_token_number)} smaples filter out {avg_token} tokens" + "\n\n\n" )
                 
 
                 
@@ -191,21 +196,21 @@ if __name__ == '__main__':
     
     # bio
     # strategy = "filter"
-    strategy = "statistics"
-    threshold = 0.001
-    source_path = "probability/biomed_8"
-    output_dir = f"probability/biomed_8_filtering/biomed_8_lt_{threshold}"
-    
-    main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
-    
-    # strategy = "top_p"
+    # strategy = "statistics"
     # threshold = 0.001
-    # top_p = 0.9
     # source_path = "probability/biomed_8"
-    # output_dir = f"probability/biomed_8_filtering/lt_{threshold}_top_p_0.9"
-    # # output_dir = f"test/lt_{threshold}_top_p_0.9"
+    # output_dir = f"probability/biomed_8_filtering/biomed_8_lt_{threshold}"
     
-    # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold, top_p=top_p)
+    # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
+    
+    strategy = "top_p"
+    threshold = 0.99
+    top_p = 0.9
+    source_path = "probability/biomed_8"
+    output_dir = f"probability/biomed_8_filtering/gt_{threshold}_top_p_0.9"
+    # output_dir = f"test/lt_{threshold}_top_p_0.9"
+    
+    main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold, top_p=top_p)
     
     # open web math
     # strategy = "filter"
