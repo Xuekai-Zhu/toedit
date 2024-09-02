@@ -202,6 +202,60 @@ def online_resampling_json_low_drop_up_revise(request_output, file_path, tokeniz
             json_file.write(generated_text + "\n")
 
 
+def online_resampling_json_up_revise(request_output, file_path, tokenizer):
+    up_threshold = 0.99
+    low_threshold = 0.001
+    # seconda_threshold = 0.000001
+    # seconda_threshold = 0.000001
+    
+    def resampling(prob_dict, num_samples=1, beta=1):
+        words_candicate = list(prob_dict.keys())
+        prob_scores = np.array(list(prob_dict.values()))
+
+        adjusted_probs = softmax(prob_scores / beta) 
+        accepted_token = np.random.choice(words_candicate, num_samples, p=adjusted_probs)
+    
+        return accepted_token
+
+
+    def convert_prob_dict(prompt_logprob):
+        converted_dict = {}
+        for key, logprob_obj in prompt_logprob.items():
+            converted_dict[key] = logprob_obj.logprob
+            
+        return converted_dict
+    
+    outputs_to_save = []
+
+    for output in request_output:
+        final_tokens = []
+        for i_index, prompt_logprob in enumerate(output.prompt_logprobs):
+
+            if prompt_logprob is None:
+                final_tokens.append(output.prompt_token_ids[i_index])
+            else:
+                log_prob_dict = convert_prob_dict(prompt_logprob)
+                prob = np.exp(log_prob_dict[output.prompt_token_ids[i_index]])
+                
+                if prob > up_threshold:
+                    accepted_token = resampling(log_prob_dict)
+                    final_tokens.append(accepted_token[0])
+                # elif prob < low_threshold:
+                #     continue
+                else:
+                    final_tokens.append(output.prompt_token_ids[i_index])
+
+        revised_text = tokenizer.decode(final_tokens)
+        # source_text = tokenizer.decode(output.prompt_token_ids)
+        output_dict = {"text": revised_text,} #"source_text":source_text}
+        outputs_to_save.append(output_dict) 
+            
+    with open(file_path, 'w') as json_file:
+        for output_res in outputs_to_save:
+            generated_text = json.dumps(output_res, ensure_ascii=False)
+            json_file.write(generated_text + "\n")
+
+
 def filtering_out(request_output, file_path, tokenizer):
     threshold = 0.001
     
@@ -395,6 +449,8 @@ def main():
             # save_outputs_to_json(outputs, results_file)
             
             if args.strategy == "low_drop_up_revise":
+                online_resampling_json_low_drop_up_revise(outputs, results_file, tokenizer)
+            elif args.strategy == "up_revise":
                 online_resampling_json_low_drop_up_revise(outputs, results_file, tokenizer)
             elif args.strategy == "filtering":
                 filtering_out(outputs, results_file, tokenizer)
