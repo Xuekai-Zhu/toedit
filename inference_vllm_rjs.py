@@ -268,9 +268,9 @@ def main():
     for i, file_path in enumerate(files_to_process):
         all_prompts = read_gz_file(file_path)
         
-        if len(all_train_files) == 1 and args.num_shards != 0:
-            all_prompts = all_prompts[args.shard_index-1::args.num_shards]
-            print(f">>>>>> Shard {args.shard_index} of {args.num_shards} in one file")
+        # if len(all_train_files) == 1 and args.num_shards != 0:
+        #     all_prompts = all_prompts[args.shard_index-1::args.num_shards]
+        #     print(f">>>>>> Shard {args.shard_index} of {args.num_shards} in one file")
             
         
         for start in tqdm(range(0, len(all_prompts), args.batch_size), desc=f"Processing batch"):
