@@ -8,7 +8,6 @@
 #SBATCH --gres=gpu:1
 #SBATCH --account=research 
 
-
 module load cuda11.8/toolkit/11.8.0
 module load cudnn8.6-cuda11.8/8.6.0.163  
 
@@ -19,7 +18,7 @@ python inference_vllm_rjs_online.py \
     --model_name_or_path /scratch2/nlp/plm/Qwen2-0.5B-Instruct \
     --tensor_parallel_size 1 \
     --num_shards 8 \
-    --shard_index 4 \
+    --shard_index 6 \
     --gpu_memory_utilization 0.8 \
     --test_file data/instruction_biomed \
     --output_dir probability/instruction_biomed—1B-low_drop_up_revise/ \
