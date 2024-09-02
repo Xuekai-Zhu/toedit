@@ -1,14 +1,17 @@
 #!/bin/bash
-#SBATCH --account=xkzhu
-#SBATCH --job-name=token_logits
-#SBATCH --partition=ADA6000  
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
-#SBATCH --cpus-per-task=10  # 每个进程的CPU数量
-#SBATCH --output=%j.out
-#SBATCH --error=%j.err
+#SBATCH -J inference
+#SBATCH -p HGX
+#SBATCH --qos=lv0b
+#SBATCH --time=10:00:00
+#SBATCH -o %j.out
+#SBATCH -e %j.err
 #SBATCH --gres=gpu:1
-#SBATCH --mem=100G
+#SBATCH --account=research 
+
+module load cuda11.8/toolkit/11.8.0
+module load cudnn8.6-cuda11.8/8.6.0.163  
+
+source /home/zhuxuekai/miniconda3/bin/activate py39
 
 
 python inference_vllm_rjs_online.py \

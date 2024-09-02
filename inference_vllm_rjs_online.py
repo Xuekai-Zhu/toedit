@@ -148,7 +148,7 @@ def softmax(x):
     # e_x = np.exp(x) 
     return e_x / e_x.sum(axis=0)
 
-def online_resampling_json(request_output, file_path, tokenizer):
+def online_resampling_json_low_drop_up_revise(request_output, file_path, tokenizer):
     up_threshold = 0.99
     low_threshold = 0.001
     # seconda_threshold = 0.000001
@@ -394,8 +394,8 @@ def main():
             # save_request_output_as_json(outputs, results_file)
             # save_outputs_to_json(outputs, results_file)
             
-            if args.strategy == "revised":
-                online_resampling_json(outputs, results_file, tokenizer)
+            if args.strategy == "low_drop_up_revise":
+                online_resampling_json_low_drop_up_revise(outputs, results_file, tokenizer)
             elif args.strategy == "filtering":
                 filtering_out(outputs, results_file, tokenizer)
             else:
