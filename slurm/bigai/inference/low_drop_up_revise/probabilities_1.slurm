@@ -15,7 +15,7 @@ source /home/zhuxuekai/miniconda3/bin/activate py39
 
 
 python inference_vllm_rjs_online.py \
-    --model_name_or_path /data1/xkzhu/pre_trained_model/Qwen/Qwen2-0.5B-Instruct \
+    --model_name_or_path /scratch2/nlp/plm/Qwen2-0.5B-Instruct \
     --tensor_parallel_size 1 \
     --num_shards 8 \
     --shard_index 1 \
