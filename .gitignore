@@ -177,3 +177,4 @@ wandb/
 fine-tuning/
 baselines/edu_scores/
 saves/
+biomed_8_Meta-Llama3-8B-Instruct/
