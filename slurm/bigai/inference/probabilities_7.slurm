@@ -6,6 +6,7 @@
 #SBATCH -o %j.out
 #SBATCH -e %j.err
 #SBATCH --gres=gpu:1
+#SBATCH --account=research 
 
 module load cuda11.8/toolkit/11.8.0
 module load cudnn8.6-cuda11.8/8.6.0.163  
