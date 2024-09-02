@@ -16,8 +16,9 @@ python inference_vllm_rjs_online.py \
     --tensor_parallel_size 1 \
     --num_shards 8 \
     --shard_index 4 \
-    --gpu_memory_utilization 0.7 \
+    --gpu_memory_utilization 0.8 \
     --test_file data/bio/instruction_biomed \
     --output_dir probability/instruction_biomed—1B/ \
     --n_of_candicant 64 \
-    --batch_size 1000
+    --batch_size 10000 \
+    --strategy revised

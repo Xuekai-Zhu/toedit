@@ -149,8 +149,10 @@ def softmax(x):
     return e_x / e_x.sum(axis=0)
 
 def online_resampling_json(request_output, file_path, tokenizer):
-    first_threshold = 0.001
-    seconda_threshold = 0.000001
+    up_threshold = 0.99
+    low_threshold = 0.001
+    # seconda_threshold = 0.000001
+    # seconda_threshold = 0.000001
     
     def resampling(prob_dict, num_samples=1, beta=1):
         words_candicate = list(prob_dict.keys())
@@ -181,13 +183,11 @@ def online_resampling_json(request_output, file_path, tokenizer):
                 log_prob_dict = convert_prob_dict(prompt_logprob)
                 prob = np.exp(log_prob_dict[output.prompt_token_ids[i_index]])
                 
-                if prob < first_threshold:
-                    if prob > seconda_threshold:
-                        accepted_token = resampling(log_prob_dict)
-                        final_tokens.append(accepted_token[0])
-                    else:
-                        continue
-                    
+                if prob > up_threshold:
+                    accepted_token = resampling(log_prob_dict)
+                    final_tokens.append(accepted_token[0])
+                elif prob < low_threshold:
+                    continue
                 else:
                     final_tokens.append(output.prompt_token_ids[i_index])
 
