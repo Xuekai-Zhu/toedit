@@ -20,7 +20,7 @@ python inference_vllm_rjs_online.py \
     --num_shards 8 \
     --shard_index 4 \
     --gpu_memory_utilization 0.8 \
-    --test_file data/bio/instruction_biomed \
+    --test_file data/instruction_biomed \
     --output_dir probability/instruction_biomed—1B-low_drop_up_revise/ \
     --n_of_candicant 64 \
     --batch_size 10000 \
