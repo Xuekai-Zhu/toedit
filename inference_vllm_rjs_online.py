@@ -46,7 +46,7 @@ def parse_args():
     # Results Arguments
     parser.add_argument("--output_dir", default=None, type=str, required=True,
                     help="The output directory where the model predictions and checkpoints will be written.")
-    parser.add_argument("--strategy", default="filtering", type=str, required=True,
+    parser.add_argument("--strategy", default=None, type=str, required=True,
                     help="the strategy to resample or filter out the tokens")
 
     args = parser.parse_args()
@@ -451,7 +451,7 @@ def main():
             if args.strategy == "low_drop_up_revise":
                 online_resampling_json_low_drop_up_revise(outputs, results_file, tokenizer)
             elif args.strategy == "up_revise":
-                online_resampling_json_low_drop_up_revise(outputs, results_file, tokenizer)
+                online_resampling_json_up_revise(outputs, results_file, tokenizer)
             elif args.strategy == "filtering":
                 filtering_out(outputs, results_file, tokenizer)
             else:

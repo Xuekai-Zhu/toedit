@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J inference
 #SBATCH -p HGX
-#SBATCH --qos=lv2
-#SBATCH --time=2-00:00:00
+#SBATCH --qos=lv0b
+#SBATCH --time=10:00:00
 #SBATCH -o %j.out
 #SBATCH -e %j.err
 #SBATCH --gres=gpu:1
@@ -21,7 +21,7 @@ python inference_vllm_rjs_online.py \
     --shard_index 3 \
     --gpu_memory_utilization 0.8 \
     --test_file data/instruction_biomed \
-    --output_dir probability/instruction_biomed—1B-low_drop_up_revise/ \
+    --output_dir probability/instruction_biomed—1B-up_revise/ \
     --n_of_candicant 64 \
     --batch_size 1000 \
-    --strategy low_drop_up_revise
+    --strategy up_revise
