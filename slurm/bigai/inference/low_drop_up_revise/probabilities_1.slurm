@@ -23,5 +23,5 @@ python inference_vllm_rjs_online.py \
     --test_file data/instruction_biomed \
     --output_dir probability/instruction_biomed—1B-low_drop_up_revise/ \
     --n_of_candicant 64 \
-    --batch_size 10000 \
+    --batch_size 1000 \
     --strategy low_drop_up_revise
