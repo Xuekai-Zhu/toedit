@@ -8,9 +8,8 @@
 #SBATCH --output=biomed-0.99-top-p.out
 #SBATCH --error=biomed-0.99-top-p.err
 #SBATCH --gres=gpu:4
-#SBATCH --qos=high
 
-torchrun --nproc_per_node=4 --master_port=29210 OLMo/scripts/train.py config/bio/OLMo-1B_biomed_0.999.yaml \
+torchrun --nproc_per_node=4 --master_port=29210 OLMo/scripts/train.py config/bio/OLMo-1B_biomed_0.99_top_p.yaml \
     --save_overwrite \
     --reset_trainer_state \
     --load_path=https://olmo-checkpoints.org/ai2-llm/olmo-small/g4g72enr/step738020-unsharded/
