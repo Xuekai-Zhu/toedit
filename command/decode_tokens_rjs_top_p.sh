@@ -2,10 +2,10 @@
 
 
 NUM_PROCESSES=8
-THRESHOLD=0.001
+THRESHOLD=0.99
 TOP_P=0.9
-SOURCE_PATH="probability/openwebmath"
-OUTPUT_DIR="probability/openwebmath_lt_${THRESHOLD}_top_p_${TOP_P}"
+SOURCE_PATH="probability/biomed_8_Meta-Llama3-8B-Instruct"
+OUTPUT_DIR="probability/biomed_8_Meta-Llama3-8B-Instruct_gt_${THRESHOLD}_top_p_${TOP_P}"
 
 python decode_tokens_rjs.py \
     --num_processes $NUM_PROCESSES \

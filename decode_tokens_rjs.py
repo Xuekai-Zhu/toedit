@@ -36,11 +36,10 @@ def load_text_in_chunks(file_path, chunk_size=1000):
         if chunk:
             yield chunk
 
-def main_step1(num_processes, source_path, output_dir, strategy=None, threshold=None, top_p=None):
+def main_step1(num_processes, source_path, output_dir, tokenizer=None, strategy=None, threshold=None, top_p=None):
     
     os.makedirs(output_dir, exist_ok=True)
     all_files = list_files_in_subdirectories(source_path)
-    tokenizer = AutoTokenizer.from_pretrained("pre_trained_model/Qwen2-0.5B-Instruct")
     file_chunks = [all_files[i::num_processes] for i in range(num_processes)]
 
     for i, file_chunk in enumerate(file_chunks):
@@ -49,13 +48,18 @@ def main_step1(num_processes, source_path, output_dir, strategy=None, threshold=
             process = multiprocessing.Process(target=strategy_1_filter, args=(file_chunk, tokenizer, output_dir, threshold, i))
             process.start()
         elif strategy == "top_p":
-            # strategy_2_top_p(all_files, tokenizer, output_dir, threshold, i, top_p)
-            process = multiprocessing.Process(target=strategy_2_top_p, args=(file_chunk, tokenizer, output_dir, threshold, i, top_p))
-            process.start()
+            strategy_2_lt_top_p(all_files, tokenizer, output_dir, threshold, i, top_p)
+            # process = multiprocessing.Process(target=strategy_2_top_p, args=(file_chunk, tokenizer, output_dir, threshold, i, top_p))
+            # process.start()
         elif strategy == "statistics":
             # strategy_2_top_p(all_files, tokenizer, output_dir, threshold, i, top_p)
             process = multiprocessing.Process(target=strategy_3_statistics, args=(file_chunk,threshold, i))
             process.start()
+        elif strategy == "gt_resampling":
+            # strategy_4_gt_temperatura(all_files, tokenizer, output_dir, threshold, i)
+            process = multiprocessing.Process(target=strategy_4_gt_temperatura, args=(file_chunk,tokenizer, output_dir, threshold, i))
+            process.start()
+            
         
 
 
@@ -92,7 +96,7 @@ def strategy_1_filter(in_files, tokenizer, out_dir, threshold, process_id):
                     f.write(json.dumps(result) + '\n')
     
 
-def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p):
+def strategy_2_lt_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p):
     
     def top_p_sampling(input_ids, scores, top_p, min_tokens_to_keep=1):
         filter_value = -float("Inf")
@@ -133,7 +137,7 @@ def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p)
                     else:
                         p = np.exp(probs[f"{id}"]["logprob"])
 
-                        if p > threshold:
+                        if p < threshold:
                             candicant_ids = [int(i) for i in probs.keys()]
                             scores = [info['logprob'] for info in probs.values()]
                             re_sampled_id = top_p_sampling(candicant_ids, scores, top_p)
@@ -152,8 +156,7 @@ def strategy_2_top_p(in_files, tokenizer, out_dir, threshold, process_id, top_p)
                     f.write(json.dumps(result) + '\n')
             
             # del results, chunk, log_probs, token_ids, processed_token_ids
-                
-                
+                               
                 
 def strategy_3_statistics(in_files, threshold, process_id):
     all_filter_token_number = []
@@ -188,7 +191,54 @@ def strategy_3_statistics(in_files, threshold, process_id):
     print(f">>>>>>>>>>>>> {len(all_filter_token_number)} smaples filter out {avg_token} tokens" + "\n\n\n" )
                 
 
+def strategy_4_gt_temperatura(in_files, tokenizer, out_dir, threshold, process_id):
+    
+    def softmax(x):
+        e_x = np.exp(x - np.max(x)) 
+        # e_x = np.exp(x) 
+        return e_x / e_x.sum(axis=0)
+
+    def resampling(candicant_ids, scores, num_samples=1, beta=1.5):
+        # words_candicate = list(prob_dict.keys())
+        prob_scores = np.array(scores)
+
+        adjusted_probs = softmax(prob_scores / beta) 
+        accepted_token = np.random.choice(candicant_ids, num_samples, p=adjusted_probs)
+    
+        return accepted_token
+    
+    for i, file_i in enumerate(tqdm(in_files, desc="Processing files")):
+        for chunk_id, chunk in enumerate(load_text_in_chunks(file_i)):
+        # data = load_text(file_i)
+            results = []
+            for entry in tqdm(chunk, desc=f"Processing entries in chunk {chunk_id}"):
+                log_probs = entry["prompt_logprobs"]
+                token_ids = entry["prompt_token_ids"]
                 
+                processed_token_ids = []
+                for probs, id in zip(log_probs, token_ids):
+                    if probs is None:
+                        processed_token_ids.append(id)
+                    else:
+                        p = np.exp(probs[f"{id}"]["logprob"])
+
+                        if p > threshold:
+                            candicant_ids = [int(i) for i in probs.keys()]
+                            scores = [info['logprob'] for info in probs.values()]
+                            re_sampled_id = resampling(candicant_ids, scores)
+                            processed_token_ids.append(re_sampled_id[0])
+                        else:
+                            processed_token_ids.append(id)
+                
+                # tokens_before = tokenizer.decode(token_ids)
+                tokens = tokenizer.decode(processed_token_ids, skip_special_tokens = True, clean_up_tokenization_spaces=True)
+                results.append({"text": tokens,})
+                  
+            random_number = random.randint(1000, 9999)
+            out_file = os.path.join(out_dir, f"process_{process_id}_file_{i}_chunk_{chunk_id}_filtered_token_lt_{threshold}_{random_number}.jsonl")
+            with open(out_file, 'w') as f:
+                for result in results:
+                    f.write(json.dumps(result) + '\n')
 
                 
 
@@ -199,22 +249,23 @@ if __name__ == '__main__':
     
     # bio
     # strategy = "filter"
-    strategy = "statistics"
-    threshold = 0.99
-    source_path = "probability/biomed_8"
-    # output_dir = f"probability/biomed_8_filtering/biomed_8_lt_{threshold}"
-    output_dir = f"test"
+    # strategy = "statistics"
+    # threshold = 0.99
+    # source_path = "probability/biomed_8"
+    # # output_dir = f"probability/biomed_8_filtering/biomed_8_lt_{threshold}"
+    # output_dir = f"test"
     
-    main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
+    # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
     
     # strategy = "top_p"
     # threshold = 0.99
     # top_p = 0.9
-    # source_path = "probability/biomed_8"
-    # output_dir = f"probability/biomed_8_filtering/gt_{threshold}_top_p_0.9"
+    # source_path = "probability/biomed_8_Meta-Llama3-8B-Instruct"
+    # output_dir = f"probability/biomed_8_Meta-Llama3-8B-Instruct_gt_${threshold}_top_p_${top_p}"
     # # output_dir = f"test/lt_{threshold}_top_p_0.9"
+    # tokenizer = AutoTokenizer.from_pretrained("pre_trained_model/Meta-Llama-3-8B-Instruct")
     
-    # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold, top_p=top_p)
+    # main_step1(num_processes, source_path, output_dir, tokenizer=tokenizer, strategy=strategy, threshold=threshold, top_p=top_p)
     
     # open web math
     # strategy = "filter"
@@ -223,6 +274,18 @@ if __name__ == '__main__':
     # output_dir = f"probability/openwebmath_lt_{threshold}"
     
     # main_step1(num_processes, source_path, output_dir, strategy=strategy, threshold=threshold)
+    
+    
+    # gt resampling
+    strategy = "gt_resampling"
+    threshold = 0.99
+    source_path = "probability/biomed_8_Meta-Llama3-8B-Instruct"
+    output_dir = f"probability/biomed_8_Meta-Llama3-8B-Instruct_gt_{threshold}"
+    # output_dir = f"test/lt_{threshold}_top_p_0.9"
+    tokenizer = AutoTokenizer.from_pretrained("pre_trained_model/Meta-Llama-3-8B-Instruct")
+    
+    main_step1(num_processes, source_path, output_dir, tokenizer=tokenizer, strategy=strategy, threshold=threshold)
+    
     
     # >>>>>>>>>>>>>>>>>>>>>>>
     # parser = argparse.ArgumentParser(description='Process some files with different strategies.')
@@ -237,9 +300,9 @@ if __name__ == '__main__':
     # main_step1(
     #     num_processes=args.num_processes,
     #     source_path=args.source_path,
+    #     top_p=args.top_p
     #     output_dir=args.output_dir,
     #     strategy=args.strategy,
     #     threshold=args.threshold,
-    #     top_p=args.top_p
     # )
     

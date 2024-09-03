@@ -191,7 +191,7 @@ def online_resampling_json_low_drop_up_revise(request_output, file_path, tokeniz
                 else:
                     final_tokens.append(output.prompt_token_ids[i_index])
 
-        revised_text = tokenizer.decode(final_tokens)
+        revised_text = tokenizer.decode(final_tokens, skip_special_tokens = True, clean_up_tokenization_spaces=True)
         # source_text = tokenizer.decode(output.prompt_token_ids)
         output_dict = {"text": revised_text,} #"source_text":source_text}
         outputs_to_save.append(output_dict) 
@@ -245,7 +245,7 @@ def online_resampling_json_up_revise(request_output, file_path, tokenizer):
                 else:
                     final_tokens.append(output.prompt_token_ids[i_index])
 
-        revised_text = tokenizer.decode(final_tokens)
+        revised_text = tokenizer.decode(final_tokens, skip_special_tokens = True, clean_up_tokenization_spaces=True)
         # source_text = tokenizer.decode(output.prompt_token_ids)
         output_dict = {"text": revised_text,} #"source_text":source_text}
         outputs_to_save.append(output_dict) 
@@ -280,7 +280,7 @@ def filtering_out(request_output, file_path, tokenizer):
                 if prob >= threshold:
                     final_tokens.append(output.prompt_token_ids[i_index])
 
-        revised_text = tokenizer.decode(final_tokens)
+        revised_text = tokenizer.decode(final_tokens, skip_special_tokens=True, clean_up_tokenization_spaces=True)
         output_dict = {"text": revised_text}
         outputs_to_save.append(output_dict)  # Collect the output dict for later saving
     
@@ -309,7 +309,7 @@ def truncate_texts(tokenizer, texts, max_length=None):
             truncation=True,
         )
 
-        truncated_text = tokenizer.decode(inputs, skip_special_tokens=True)
+        truncated_text = tokenizer.decode(inputs, skip_special_tokens=True, clean_up_tokenization_spaces=True)
         truncated_texts.append(truncated_text)
 
     return truncated_texts[0] if isinstance(texts, str) else truncated_texts
