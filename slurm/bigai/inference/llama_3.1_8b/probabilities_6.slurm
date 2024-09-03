@@ -15,7 +15,7 @@ source /home/zhuxuekai/miniconda3/bin/activate vllm
 
 
 python inference_vllm_rjs_online.py \
-    --model_name_or_path /scratch2/nlp/plm/Meta-Llama-3-8B-Instruct \
+    --model_name_or_path /scratch2/nlp/plm/Meta-Llama-3.1-8B-Instruct \
     --tensor_parallel_size 1 \
     --num_shards 8 \
     --shard_index 6 \
