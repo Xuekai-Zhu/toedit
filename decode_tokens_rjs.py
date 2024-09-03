@@ -198,7 +198,7 @@ def strategy_4_gt_temperatura(in_files, tokenizer, out_dir, threshold, process_i
         # e_x = np.exp(x) 
         return e_x / e_x.sum(axis=0)
 
-    def resampling(candicant_ids, scores, num_samples=1, beta=1.5):
+    def resampling(candicant_ids, scores, num_samples=1, beta=2):
         # words_candicate = list(prob_dict.keys())
         prob_scores = np.array(scores)
 
@@ -231,7 +231,7 @@ def strategy_4_gt_temperatura(in_files, tokenizer, out_dir, threshold, process_i
                             processed_token_ids.append(id)
                 
                 # tokens_before = tokenizer.decode(token_ids)
-                tokens = tokenizer.decode(processed_token_ids, skip_special_tokens = True, clean_up_tokenization_spaces=True)
+                tokens = tokenizer.decode(processed_token_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)
                 results.append({"text": tokens,})
                   
             random_number = random.randint(1000, 9999)
@@ -240,9 +240,6 @@ def strategy_4_gt_temperatura(in_files, tokenizer, out_dir, threshold, process_i
                 for result in results:
                     f.write(json.dumps(result) + '\n')
 
-                
-
-    
     
 if __name__ == '__main__':
     num_processes = 8
@@ -280,7 +277,7 @@ if __name__ == '__main__':
     strategy = "gt_resampling"
     threshold = 0.99
     source_path = "probability/biomed_8_Meta-Llama3-8B-Instruct"
-    output_dir = f"probability/biomed_8_Meta-Llama3-8B-Instruct_gt_{threshold}"
+    output_dir = f"probability/biomed_8_Meta-Llama3-8B-Instruct_gt_{threshold}_beta"
     # output_dir = f"test/lt_{threshold}_top_p_0.9"
     tokenizer = AutoTokenizer.from_pretrained("pre_trained_model/Meta-Llama-3-8B-Instruct")
     

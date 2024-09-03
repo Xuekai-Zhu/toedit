@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=xkzhu
 #SBATCH --job-name=harness
-#SBATCH --partition=A100
+#SBATCH --partition=RTX3090
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
@@ -18,7 +18,7 @@ unset https_proxy
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="continual_training/OLMo-1B-biomed-0.99-top-p/step4090-unsharded"
+MODEL="continual_training/OLMo-1B-biomed-0.99-llama-resampling/step3967-unsharded"
 
 # python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #     --input_dir ${MODEL} \
