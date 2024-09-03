@@ -191,7 +191,7 @@ def online_resampling_json_low_drop_up_revise(request_output, file_path, tokeniz
                 else:
                     final_tokens.append(output.prompt_token_ids[i_index])
 
-        revised_text = tokenizer.decode(final_tokens, skip_special_tokens = True, clean_up_tokenization_spaces=True)
+        revised_text = tokenizer.decode(final_tokens, skip_special_tokens=True, clean_up_tokenization_spaces=True)
         # source_text = tokenizer.decode(output.prompt_token_ids)
         output_dict = {"text": revised_text,} #"source_text":source_text}
         outputs_to_save.append(output_dict) 
@@ -245,7 +245,7 @@ def online_resampling_json_up_revise(request_output, file_path, tokenizer):
                 else:
                     final_tokens.append(output.prompt_token_ids[i_index])
 
-        revised_text = tokenizer.decode(final_tokens, skip_special_tokens = True, clean_up_tokenization_spaces=True)
+        revised_text = tokenizer.decode(final_tokens, skip_special_tokens=True, clean_up_tokenization_spaces=True)
         # source_text = tokenizer.decode(output.prompt_token_ids)
         output_dict = {"text": revised_text,} #"source_text":source_text}
         outputs_to_save.append(output_dict) 
