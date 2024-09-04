@@ -17,11 +17,11 @@ source /home/zhuxuekai/miniconda3/bin/activate py39
 python inference_vllm_rjs_online.py \
     --model_name_or_path /scratch2/nlp/plm/Meta-Llama-3-8B-Instruct \
     --tensor_parallel_size 1 \
-    --num_shards 8 \
+    --num_shards 11 \
     --shard_index 6 \
     --gpu_memory_utilization 0.8 \
     --test_file data/instruction_biomed \
-    --output_dir probability/instruction_biomed—1B-up_revise_Llama-3-8B-Instruct/ \
-    --n_of_candicant 64 \
+    --output_dir probability/biomed-up_revise_Llama-3-8B-Instruct_n_32/ \
+    --n_of_candicant 32 \
     --batch_size 1000 \
     --strategy up_revise
