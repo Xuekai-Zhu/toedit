@@ -41,6 +41,11 @@ def parse_args():
     parser.add_argument("--shard_index", default=0, type=int, help="Index of the current shard being processed")
     parser.add_argument("--batch_size", default=10000, type=int, help="Number of samples to process at a time")
     parser.add_argument("--n_of_candicant", default=8, type=int, help="Number of max_logprobs")
+    parser.add_argument("--file_part", choices=['first', 'second'], default=None, required=False,
+                        help="Specify which part of the file to process: 'first' or 'second'. If not specified, process the entire file.")
+    
+
+
 
     
     # Results Arguments
@@ -390,7 +395,7 @@ def main():
     else:
         output_dir = args.output_dir
     os.makedirs(output_dir, exist_ok=True)
-    file_count = len([f for f in os.listdir(output_dir) if os.path.isfile(os.path.join(output_dir, f))])
+    # file_count = len([f for f in os.listdir(output_dir) if os.path.isfile(os.path.join(output_dir, f))])
     
     
     # load data
@@ -421,6 +426,14 @@ def main():
     for i, file_path in enumerate(files_to_process):
         all_prompts = read_gz_file(file_path)
         
+        if args.file_part:
+            half_index = len(all_prompts) // 2
+            if args.file_part == "first":
+                all_prompts = all_prompts[:half_index]
+            elif args.file_part == "second":
+                all_prompts = all_prompts[half_index:]
+            print(f"Processing {args.file_part} half of the prompts")
+        
         # if len(all_train_files) == 1 and args.num_shards != 0:
         #     all_prompts = all_prompts[args.shard_index-1::args.num_shards]
         #     print(f">>>>>> Shard {args.shard_index} of {args.num_shards} in one file")
@@ -430,8 +443,8 @@ def main():
             
             # restart from check points
             global_files += 1
-            if global_files <= file_count:
-                continue
+            # if global_files <= file_count:
+            #     continue
             
             batch_prompts = all_prompts[start:start+args.batch_size]
             prompt_token_ids = tokenizer(batch_prompts, truncation=True, max_length=2048)["input_ids"]
@@ -444,7 +457,7 @@ def main():
         
             model_name = args.model_name_or_path.split("/")[-1]
             timestamp = int(time.time() * 1000) 
-            results_file = os.path.join(output_dir, f"{i}_{model_name}_{start//args.batch_size}_{timestamp}.jsonl")
+            results_file = os.path.join(output_dir, f"{i}_{model_name}_{start//args.batch_size}_{args.file_part}_{timestamp}.jsonl")
             # save_request_output_as_json(outputs, results_file)
             # save_outputs_to_json(outputs, results_file)
             
