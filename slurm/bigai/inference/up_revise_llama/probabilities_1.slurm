@@ -22,6 +22,6 @@ python inference_vllm_rjs_online.py \
     --gpu_memory_utilization 0.8 \
     --test_file data/instruction_biomed \
     --output_dir probability/instruction_biomed—1B-up_revise_Llama-3-8B-Instruct/ \
-    --n_of_candicant 64 \
+    --n_of_candicant 32 \
     --batch_size 1000 \
     --strategy up_revise
