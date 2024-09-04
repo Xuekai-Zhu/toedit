@@ -198,7 +198,7 @@ def strategy_4_gt_temperatura(in_files, tokenizer, out_dir, threshold, process_i
         # e_x = np.exp(x) 
         return e_x / e_x.sum(axis=0)
 
-    def resampling(candicant_ids, scores, num_samples=1, beta=2):
+    def resampling(candicant_ids, scores, num_samples=1, beta=1.5):
         # words_candicate = list(prob_dict.keys())
         prob_scores = np.array(scores)
 
@@ -275,9 +275,9 @@ if __name__ == '__main__':
     
     # gt resampling
     strategy = "gt_resampling"
-    threshold = 0.99
+    threshold = 0.95
     source_path = "probability/biomed_8_Meta-Llama3-8B-Instruct"
-    output_dir = f"probability/biomed_8_Meta-Llama3-8B-Instruct_gt_{threshold}_beta"
+    output_dir = f"probability/biomed_8_Meta-Llama3-8B-Instruct_gt_{threshold}_beta_1.5"
     # output_dir = f"test/lt_{threshold}_top_p_0.9"
     tokenizer = AutoTokenizer.from_pretrained("pre_trained_model/Meta-Llama-3-8B-Instruct")
     

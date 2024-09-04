@@ -419,7 +419,7 @@ def main():
                                     #  min_tokens=args.min_length
                                     prompt_logprobs=args.n_of_candicant,
                                     #  prompt_logprobs=1,
-                                     detokenize=False, 
+                                    #  detokenize=False, 
                                      # n=1,  temperature=0.7, top_p=0.8, repetition_penalty=1.05, top_k=20, 
                                     )
     global_files = 0
