@@ -5,12 +5,37 @@ from tqdm import tqdm
 from datasets import load_dataset
 from transformers import AutoTokenizer
 
+# def read_gz_file(path):
+#     """
+#     Read a gzipped JSON file line by line, yielding each JSON object.
+#     """
+#     with gzip.open(path, 'rt') as f:
+#         # for line in f:
+#         data = f.readlines()
+#     texts = []
+#     for line in data:
+#         json_line = json.loads(line)
+#         texts.append(json_line["text"])
+#     return texts
+
+# def search_datasets(test_file):
+#     all_train_files = []
+#     for filename in os.listdir(test_file):
+#         if filename.endswith('.gz'):
+#             file_path = os.path.join(test_file, filename)
+#             all_train_files.append(file_path)
+#     return all_train_files
+
 def merge_sampled_files(input_dir, output_dir, chunk_size=1000000, target_tokens=1e9):
     all_sampled_lines = []
     file_count = 0
     total_tokens = 0
     
     # 加载数据集
+    # if "biomed" in input_dir:
+    #     all_train_files = search_datasets(input_dir)
+    #     all_train_files
+    # else:
     dataset = load_dataset(input_dir, cache_dir=f"{input_dir}/cache", split="train")
     dataset_size = len(dataset)
     print(f"Dataset size: {dataset_size}")
@@ -25,6 +50,8 @@ def merge_sampled_files(input_dir, output_dir, chunk_size=1000000, target_tokens
         sample_lines = [item["query"] + " " + item["response"] for item in dataset.select(range(1000))]
     elif "open-web-math" in input_dir:
         sample_lines = [item["text"] for item in dataset.select(range(1000))]
+    
+        
         
     sample_tokens = sum([len(tokenizer.tokenize(text)) for text in sample_lines])
     avg_tokens_per_line = sample_tokens / 1000
@@ -71,9 +98,9 @@ def write_to_gz(lines, output_dir, part):
     print(f"Saved {len(lines)} lines to {part_file}")
 
 if __name__ == "__main__":
-    input_dir = "data/math/open-web-math/open-web-math"
-    output_dir = "data/math/open-web-math/open-web-math—2B"
-    chunk_size = 100000  # Adjust the chunk size as needed
-    target_tokens = 2e9  # Target token count: 1 billion
+    input_dir = "data/bio/biomed+orca"
+    output_dir = "data/bio/biomed+orca—1B"
+    chunk_size = 10000  # Adjust the chunk size as needed
+    target_tokens = 1e9  # Target token count: 1 billion
     os.makedirs(output_dir, exist_ok=True)
     merge_sampled_files(input_dir, output_dir, chunk_size, target_tokens)

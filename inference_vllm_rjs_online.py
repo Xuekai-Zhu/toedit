@@ -213,7 +213,7 @@ def online_resampling_json_up_revise(request_output, file_path, tokenizer):
     # seconda_threshold = 0.000001
     # seconda_threshold = 0.000001
     
-    def resampling(prob_dict, num_samples=1, beta=1):
+    def resampling(prob_dict, num_samples=1, beta=1.5):
         words_candicate = list(prob_dict.keys())
         prob_scores = np.array(list(prob_dict.values()))
 
