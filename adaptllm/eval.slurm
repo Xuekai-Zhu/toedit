@@ -1,16 +1,15 @@
 #!/bin/bash
 #SBATCH --account=xkzhu
 #SBATCH --job-name=inference
-#SBATCH --partition=ADA6000
+#SBATCH --partition=A100
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
 #SBATCH --gres=gpu:1
-#SBATCH --qos=high
 
-MODEL="/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-0.001-v2/step3684-unsharded" 
+MODEL="/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-0.99-llama-resampling/step3967-unsharded-hf" 
 
 # python /home/xkzhu/scaling_down_data/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #     --input_dir ${MODEL} \
@@ -43,4 +42,4 @@ N_GPU=1
 
 # medicine-Llama-8B pre-trained from Llama3-8B in Instruction Pretrain
 add_bos_token=False
-bash scripts/inference.sh ${DOMAIN} ${MODEL}-hf ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
+bash scripts/inference.sh ${DOMAIN} ${MODEL} ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
