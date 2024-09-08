@@ -16,10 +16,10 @@ python inference_vllm_rjs_online.py \
     --model_name_or_path /scratch2/nlp/plm/Meta-Llama-3-8B-Instruct \
     --tensor_parallel_size 1 \
     --num_shards 8 \
-    --shard_index 2 \
+    --shard_index 8 \
     --gpu_memory_utilization 0.8 \
-    --test_file /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/bio/biomed_context \
-    --output_dir probability/biomed_context/ \
+    --test_file /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/bio/biomed_context+orca \
+    --output_dir probability/biomed_context+orca/ \
     --n_of_candicant 8 \
     --batch_size 1000 \
     --strategy up_revise
