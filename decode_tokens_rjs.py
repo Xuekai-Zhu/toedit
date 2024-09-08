@@ -274,14 +274,14 @@ if __name__ == '__main__':
     
     
     # gt resampling
-    strategy = "gt_resampling"
-    threshold = 0.95
-    source_path = "probability/biomed_8_Meta-Llama3-8B-Instruct"
-    output_dir = f"probability/biomed_8_Meta-Llama3-8B-Instruct_gt_{threshold}_beta_1.5"
-    # output_dir = f"test/lt_{threshold}_top_p_0.9"
-    tokenizer = AutoTokenizer.from_pretrained("pre_trained_model/Meta-Llama-3-8B-Instruct")
+    # strategy = "gt_resampling"
+    # threshold = 0.95
+    # source_path = "probability/biomed_8_Meta-Llama3-8B-Instruct"
+    # output_dir = f"probability/biomed_8_Meta-Llama3-8B-Instruct_gt_{threshold}_beta_1.5"
+    # # output_dir = f"test/lt_{threshold}_top_p_0.9"
+    # tokenizer = AutoTokenizer.from_pretrained("pre_trained_model/Meta-Llama-3-8B-Instruct")
     
-    main_step1(num_processes, source_path, output_dir, tokenizer=tokenizer, strategy=strategy, threshold=threshold)
+    # main_step1(num_processes, source_path, output_dir, tokenizer=tokenizer, strategy=strategy, threshold=threshold)
     
     
     # >>>>>>>>>>>>>>>>>>>>>>>
