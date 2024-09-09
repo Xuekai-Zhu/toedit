@@ -37,7 +37,7 @@ def calculate_total_size_and_tokens(directory):
     return total_size, total_tokens
 
 # Path to the directory containing .npy files
-directory = 'data/bio/instruction_biomed_tokenized'
+directory = 'data/biomed+orca/biomed+orca_tokenized'
 
 # Calculate the total size and number of tokens
 total_size, total_tokens = calculate_total_size_and_tokens(directory)

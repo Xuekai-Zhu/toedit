@@ -1,7 +1,7 @@
 #!/bin/bash
 
-INPUT_DIR="probability/biomed+orca-up_revise_Llama-3-8B-Instruct"
-OUTPUT_DIR="data/bio/biomed+orca-up_revise_Llama-3-8B-Instruct"
+INPUT_DIR="probability/math/open-web-math—1B-up_revise_Llama-3-8B-Instruct"
+OUTPUT_DIR="data/math/open-web-math—1B-up_revise_Llama-3-8B-Instruct"
 CHUNK_SIZE=1000000  
 
 python data_process/merge_jsonl2gz.py --input_dir "$INPUT_DIR" --output_dir "$OUTPUT_DIR" --chunk_size $CHUNK_SIZE
