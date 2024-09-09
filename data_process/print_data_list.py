@@ -1,7 +1,7 @@
 import os
 import random
 
-in_path = "data/bio/biomed_context_tokenized"
+in_path = "data/biomed+orca/biomed+orca-1B_tokenized"
 # dolma_path = "data/dolma/olma_tokenize"
 
 files = [os.path.join(in_path, i) for i in os.listdir(in_path)]

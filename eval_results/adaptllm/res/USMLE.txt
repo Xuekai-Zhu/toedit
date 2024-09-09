@@ -12,3 +12,6 @@ model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-0.999/ste
 model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-lt_0.001_top_p_0.9/step4172-unsharded-hf; scores: {'acc': 27.41555380989788}
 model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-lt_0.001_top_p_0.9/step4095-unsharded-hf; scores: {'acc': 28.122545168892383}
 model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-0.001-v2/step3684-unsharded-hf; scores: {'acc': 27.965435978004717}
+model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed+orca-0.99-llama-resampling-beta-1.5/step3807-unsharded-hf; scores: {'acc': 27.88688138256088}
+model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed+orca-baselines-1B/step3861-unsharded-hf; scores: {'acc': 27.572663000785546}
+model: /home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed_context+orca/step3837-unsharded-hf; scores: {'acc': 27.88688138256088}

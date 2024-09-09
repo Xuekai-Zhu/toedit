@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=xkzhu
 #SBATCH --job-name=inference
-#SBATCH --partition=A100
+#SBATCH --partition=RTX4090
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
@@ -9,7 +9,7 @@
 #SBATCH --error=%j.err
 #SBATCH --gres=gpu:1
 
-MODEL="/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed-0.99-llama-resampling/step3967-unsharded-hf" 
+MODEL="/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed_context+orca/step3837-unsharded-hf" 
 
 # python /home/xkzhu/scaling_down_data/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #     --input_dir ${MODEL} \
