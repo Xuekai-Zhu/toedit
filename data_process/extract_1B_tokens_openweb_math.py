@@ -98,8 +98,8 @@ def write_to_gz(lines, output_dir, part):
     print(f"Saved {len(lines)} lines to {part_file}")
 
 if __name__ == "__main__":
-    input_dir = "data/bio/biomed+orca"
-    output_dir = "data/bio/biomed+orca—1B"
+    input_dir = "data/math/open-web-math/open-web-math"
+    output_dir = "data/math/open-web-math/open-web-math-1B"
     chunk_size = 10000  # Adjust the chunk size as needed
     target_tokens = 1e9  # Target token count: 1 billion
     os.makedirs(output_dir, exist_ok=True)
