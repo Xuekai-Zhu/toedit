@@ -18,7 +18,7 @@ python inference_vllm_rjs_online.py \
     --num_shards 8 \
     --shard_index 8 \
     --gpu_memory_utilization 0.8 \
-    --test_file /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/open-web-math—1B \
+    --test_file /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/open-web-math-1B \
     --output_dir probability/open-web-math—1B-up_revise_Llama-3-8B-Instruct/ \
     --n_of_candicant 8 \
     --batch_size 1000 \
