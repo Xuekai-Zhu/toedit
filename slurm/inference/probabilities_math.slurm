@@ -11,9 +11,14 @@
 #SBATCH --mem=100G
 #SBATCH --qos=high
 
-python inference_vllm_rjs.py \
-    --model_name_or_path /data1/xkzhu/pre_trained_model/Qwen/Qwen2-0.5B-Instruct \
+python inference_vllm_rjs_online_for_math.py \
+    --model_name_or_path /data1/xkzhu/pre_trained_model/meta-llama/Meta-Llama-3-8B \
     --tensor_parallel_size 1 \
-    --gpu_memory_utilization 0.7 \
-    --test_file data/instruction_biomed \
-    --output_dir probability/biomed_8/
+    --num_shards 8 \
+    --shard_index 1 \
+    --gpu_memory_utilization 0.8 \
+    --test_file data/math/open-web-math-1B \
+    --output_dir probability/test \
+    --n_of_candicant 8 \
+    --batch_size 1000 \
+    --strategy up_revise
