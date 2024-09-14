@@ -4,6 +4,7 @@ import json
 from tqdm import tqdm
 import argparse
 from transformers import AutoTokenizer
+import gzip
 
 
 def search_files(input_dir):
@@ -11,7 +12,7 @@ def search_files(input_dir):
     files_to_process = []
     for root, _, files in os.walk(input_dir):
         for file in files:
-            if file.endswith(".jsonl"):
+            if file.endswith((".jsonl",".gz")):
                 file_path = os.path.join(root, file)
                 files_to_process.append(file_path)
     
@@ -25,17 +26,26 @@ def statistic_tokens(input_dir):
     
     all_tokens = 0
     for file_path in tqdm(files_to_process, desc="Processing files"):
-        with open(file_path, 'r') as f:
-            lines = f.readlines()
-            i_tokens = tokenizer(lines)
-            token_nums = sum(len(ids) for ids in i_tokens["input_ids"])
-            all_tokens += token_nums
+        if file_path.endswith(".jsonl"):
+            with open(file_path, 'r') as f:
+                lines = f.readlines()
+                texts = [json.loads(line)["text"] for line in lines]
+                
+        elif file_path.endswith(".gz"):
+            with gzip.open(file_path, 'rt') as f:
+                lines = f.readlines()
+                texts = [json.loads(line)["text"] for line in lines]
+            
+        i_tokens = tokenizer(texts)
+        token_nums = sum(len(ids) for ids in i_tokens["input_ids"])
+        all_tokens += token_nums
             
     print(f"Total tokens: {all_tokens}")
     
 
 if __name__ == '__main__':
-    source_path = "probability/open-web-math—1B-up_revise_Llama-3-8B-Instruct"
+    # source_path = "probability/open-web-math—1B-up_revise_Llama-3-8B-Instruct"
+    source_path = "data/open-web-math-1B"
     statistic_tokens(source_path)
     
     
