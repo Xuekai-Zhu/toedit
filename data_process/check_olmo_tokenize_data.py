@@ -37,10 +37,12 @@ def calculate_total_size_and_tokens(directory):
     return total_size, total_tokens
 
 # Path to the directory containing .npy files
-directory = 'data/math/open-web-math/open-web-math—1B_tokenized'
+directory = '/data1/xkzhu/datasets/dolma_sampled_v1_6/dolma_1M_per_file_tokenized'
 
 # Calculate the total size and number of tokens
 total_size, total_tokens = calculate_total_size_and_tokens(directory)
 
 print(f"Total Size: {total_size / (1024 ** 3):.2f} GB")  # Convert bytes to gigabytes
-print(f"Total Number of Tokens: {total_tokens}")
+print(f"Total Number of Tokens: {total_tokens:,}")
+# print(f"Total tokens: {all_tokens:,} tokens")  
+
