@@ -16,7 +16,7 @@ python inference_vllm_rjs_online.py \
     --model_name_or_path /scratch2/nlp/plm/Meta-Llama-3-8B-Instruct \
     --tensor_parallel_size 1 \
     --num_shards 20 \
-    --shard_index 12 \
+    --shard_index 17 \
     --gpu_memory_utilization 0.8 \
     --test_file /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/dolma_1M_per_file \
     --output_dir probability/dolma_1M_per_file/ \
