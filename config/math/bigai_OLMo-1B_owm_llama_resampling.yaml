@@ -1,4 +1,4 @@
-run_name: OLMo-1B-biomed+orca-0.99-llama-resampling
+run_name: OLMo-1B-owm_llama_resampling
 seed: 6198
 dry_run: false
 
@@ -55,7 +55,7 @@ tokenizer:
   identifier: OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json
   truncate_direction: right
 
-save_folder: continual_training/${run_name}
+save_folder: continual_training/math/${run_name}
 save_overwrite: false
 # Sharded checkpoints (best for restarts)
 save_interval: 1000
@@ -93,7 +93,7 @@ evaluators:
       drop_last: true
       datasets:
         v3-small-c4_en-validation:
-          - /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/bio/biomed+orca-up_revise_Llama-3-8B-Instruct_tokenized/0_00000.npy
+          - data/math/open-web-math—2B-up_revise_Llama-3-8B-Instruct_tokenized/0_00000.npy
 
   # - label: v2-small-ppl-validation
   #   data:
@@ -151,6 +151,6 @@ data:
   persistent_workers: true
   timeout: 0
   paths:
-    - /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/bio/biomed+orca-up_revise_Llama-3-8B-Instruct_tokenized/0_00000.npy
-    - /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/bio/biomed+orca-up_revise_Llama-3-8B-Instruct_tokenized/0_00001.npy
-    - /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/bio/biomed+orca-up_revise_Llama-3-8B-Instruct_tokenized/1_00000.npy
+    - data/math/open-web-math—2B-up_revise_Llama-3-8B-Instruct_tokenized/0_00000.npy
+    - data/math/open-web-math—2B-up_revise_Llama-3-8B-Instruct_tokenized/1_00000.npy
+    - data/math/open-web-math—2B-up_revise_Llama-3-8B-Instruct_tokenized/1_00001.npy
