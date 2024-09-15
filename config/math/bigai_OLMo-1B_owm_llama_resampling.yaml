@@ -152,5 +152,5 @@ data:
   timeout: 0
   paths:
     - data/math/open-web-math—2B-up_revise_Llama-3-8B-Instruct_tokenized/0_00000.npy
-    - data/math/open-web-math—2B-up_revise_Llama-3-8B-Instruct_tokenized/0_00001.npy
+    - data/math/open-web-math—2B-up_revise_Llama-3-8B-Instruct_tokenized/1_00000.npy
     - data/math/open-web-math—2B-up_revise_Llama-3-8B-Instruct_tokenized/1_00001.npy
