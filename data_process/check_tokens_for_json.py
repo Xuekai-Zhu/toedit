@@ -40,12 +40,14 @@ def statistic_tokens(input_dir):
         token_nums = sum(len(ids) for ids in i_tokens["input_ids"])
         all_tokens += token_nums
             
-    print(f"Total tokens: {all_tokens}")
+    # print(f"Total tokens: {all_tokens}")
+    print(f"Total tokens: {all_tokens:,} tokens")
+
     
 
 if __name__ == '__main__':
     # source_path = "probability/open-web-math—1B-up_revise_Llama-3-8B-Instruct"
-    source_path = "data/open-web-math-1B"
+    source_path = "probability/open-web-math—2B-up_revise_Llama-3-8B-Instruct"
     statistic_tokens(source_path)
     
     
