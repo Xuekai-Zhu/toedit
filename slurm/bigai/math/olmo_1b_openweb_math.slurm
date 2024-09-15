@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J olma_pretraining
-#SBATCH -p DGX
+#SBATCH -p HGX
 #SBATCH --qos=lv0b
 #SBATCH --time=10:00:00
 #SBATCH -o openweb_math_llama.out
