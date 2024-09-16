@@ -15,11 +15,11 @@ source /home/zhuxuekai/miniconda3/bin/activate py39
 python inference_vllm_rjs_online.py \
     --model_name_or_path /scratch2/nlp/plm/Meta-Llama-3-8B-Instruct \
     --tensor_parallel_size 1 \
-    --num_shards 20 \
+    --num_shards 7 \
     --shard_index 7 \
     --gpu_memory_utilization 0.8 \
-    --test_file /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/dolma_1M_per_file \
-    --output_dir probability/dolma_1M_per_file/ \
+    --test_file data/finance \
+    --output_dir probability/finance/ \
     --n_of_candicant 8 \
     --batch_size 1000 \
     --strategy up_revise
