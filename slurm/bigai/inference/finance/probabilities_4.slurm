@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J inference
-#SBATCH -p DGX
+#SBATCH -p HGX
 #SBATCH --qos=lv0b
 #SBATCH --time=10:00:00
 #SBATCH -o %j.out
@@ -16,7 +16,7 @@ python inference_vllm_rjs_online.py \
     --model_name_or_path /scratch2/nlp/plm/Meta-Llama-3-8B-Instruct \
     --tensor_parallel_size 1 \
     --num_shards 7 \
-    --shard_index 7 \
+    --shard_index 4 \
     --gpu_memory_utilization 0.8 \
     --test_file data/finance \
     --output_dir probability/finance/ \
