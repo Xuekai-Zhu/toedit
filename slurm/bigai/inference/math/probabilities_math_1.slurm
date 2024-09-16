@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J inference
 #SBATCH -p HGX
-#SBATCH --qos=lv0b
-#SBATCH --time=10:00:00
+#SBATCH --qos=lv2b
+#SBATCH --time=2-00:00:00
 #SBATCH -o %j.out
 #SBATCH -e %j.err
 #SBATCH --gres=gpu:1
