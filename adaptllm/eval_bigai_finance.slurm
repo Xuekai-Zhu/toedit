@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH -J hf
-#SBATCH -p DGX
+#SBATCH -J infer
+#SBATCH -p HGX
 #SBATCH --qos=lv0b
 #SBATCH --time=10:00:00
-#SBATCH -o eval.out
-#SBATCH -e eval.err
+#SBATCH -o finance_eval.out
+#SBATCH -e finance_eval.err
 #SBATCH --gres=gpu:1
 
 module load cuda11.8/toolkit/11.8.0
