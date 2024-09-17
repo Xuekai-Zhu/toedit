@@ -1,10 +1,10 @@
 #!/bin/bash
 
-INPUT_DIR="probability/open-web-math—2B-up_revise_Llama-3-8B-Instruct"
-OUTPUT_DIR="data/math/open-web-math—2B-up_revise_Llama-3-8B-Instruct"
+INPUT_DIR="probability/finance"
+OUTPUT_DIR="data/finance_up_revise_Llama-3-8B-Instruct"
 CHUNK_SIZE=1000000  
 
-# python data_process/merge_jsonl2gz.py --input_dir "$INPUT_DIR" --output_dir "$OUTPUT_DIR" --chunk_size $CHUNK_SIZE
+python data_process/merge_jsonl2gz.py --input_dir "$INPUT_DIR" --output_dir "$OUTPUT_DIR" --chunk_size $CHUNK_SIZE
 
 python OLMo/scripts/prepare_memmap_dataset.py  "$OUTPUT_DIR"/*.json.gz \
     -o "$OUTPUT_DIR"_tokenized \
