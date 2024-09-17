@@ -1,21 +1,6 @@
-#!/bin/bash
-#SBATCH -J hf
-#SBATCH -p DGX
-#SBATCH --qos=lv0b
-#SBATCH --time=10:00:00
-#SBATCH -o eval.out
-#SBATCH -e eval.err
-#SBATCH --gres=gpu:1
 
-module load cuda11.8/toolkit/11.8.0
-module load cudnn8.6-cuda11.8/8.6.0.163  
-
-source /home/zhuxuekai/miniconda3/bin/activate py310
-
-# export HF_ENDPOINT=https://hf-mirror.com
-
-
-MODEL="/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/finance/OLMo-1B-finance/step3240-unsharded-hf" 
+MODEL="/home/zhuxuekai/scaling_down_data/continual_training/finance/OLMo-1B-finance/step3240-unsharded-hf" 
+HYDRA_FULL_ERROR=1
 DOMAIN='finance'
 
 # if the model can fit on a single GPU: set MODEL_PARALLEL=False
@@ -35,4 +20,4 @@ N_GPU=1
 
 # medicine-Llama-8B pre-trained from Llama3-8B in Instruction Pretrain
 add_bos_token=False
-bash scripts/inference_bigai.sh ${DOMAIN} ${MODEL} ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
+bash scripts/inference_bigai_4x4090.sh ${DOMAIN} ${MODEL} ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
