@@ -10,7 +10,7 @@
 module load cuda11.8/toolkit/11.8.0
 module load cudnn8.6-cuda11.8/8.6.0.163  
 
-source /home/zhuxuekai/miniconda3/bin/activate py310
+source /home/zhuxuekai/miniconda3/bin/activate py39
 
 torchrun --nproc_per_node=2 --master_port=29216 OLMo/scripts/train.py config/bio/bigai_OLMo-1B_biomed_0.99_llama_resampling.yaml \
     --save_overwrite \
