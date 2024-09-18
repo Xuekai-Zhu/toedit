@@ -1,4 +1,4 @@
-run_name: OLMo-1B-dolma-revised
+run_name: OLMo-1B-finance-llama-revised-orca
 seed: 6198
 dry_run: false
 
@@ -55,7 +55,7 @@ tokenizer:
   identifier: OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json
   truncate_direction: right
 
-save_folder: continual_training/dolma/${run_name}
+save_folder: continual_training/finance/${run_name}
 save_overwrite: false
 # Sharded checkpoints (best for restarts)
 save_interval: 1000
@@ -93,7 +93,7 @@ evaluators:
       drop_last: true
       datasets:
         v3-small-c4_en-validation:
-          - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/00_00000.npy
+          - data/finance_up_revise_Llama-3-8B-Instruct_tokenized/0_00000.npy
 
   # - label: v2-small-ppl-validation
   #   data:
@@ -151,15 +151,5 @@ data:
   persistent_workers: true
   timeout: 0
   paths:
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/00_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/01_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/02_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/03_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/04_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/05_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/06_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/07_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/08_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/09_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/10_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/10_00001.npy
+    - data/finance_up_revise_Llama-3-8B-Instruct_tokenized/0_00000.npy
+    - data/finance_up_revise_Llama-3-8B-Instruct_tokenized/0_00001.npy
