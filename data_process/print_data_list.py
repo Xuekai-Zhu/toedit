@@ -1,7 +1,7 @@
 import os
 import random
 
-in_path = "/data1/xkzhu/datasets/dolma_sampled_v1_6/dolma_1M_per_file_tokenized"
+in_path = "data/dolma_up_revise_Llama-3-8B-Instruct_tokenized"
 # dolma_path = "data/dolma/olma_tokenize"
 
 files = [os.path.join(in_path, i) for i in os.listdir(in_path)]

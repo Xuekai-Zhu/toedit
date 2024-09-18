@@ -1,1 +1,1 @@
-python OLMo/scripts/unshard.py /home/zhuxuekai/scaling_down_data/continual_training/finance/OLMo-1B-finance-llama-revised/latest /home/zhuxuekai/scaling_down_data/continual_training/finance/OLMo-1B-finance-llama-revised/latest-unshard
+python OLMo/scripts/unshard.py continual_training/finance/OLMo-1B-finance-llama-revised/step2000 continual_training/finance/OLMo-1B-finance-llama-revised/step2000-unshard
