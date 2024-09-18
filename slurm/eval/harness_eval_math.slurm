@@ -9,15 +9,19 @@
 #SBATCH --error=%j.err
 #SBATCH --gres=gpu:1
 
+unset all_proxy   
+unset http_proxy       
+unset https_proxy 
+
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="continual_training/OLMo-1B-open-web-math-2B-tokens/step8371-unsharded"
+MODEL="continual_training/math/OLMo-1B-owm_llama_resampling/step4167-unsharded"
 
-python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
-    --input_dir ${MODEL} \
-    --tokenizer_json_path OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
-    --output_dir ${MODEL}-hf
+# python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
+#     --input_dir ${MODEL} \
+#     --tokenizer_json_path OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
+#     --output_dir ${MODEL}-hf
 
 accelerate launch -m lm_eval \
     --model hf \

@@ -1,0 +1,3 @@
+model: /home/xkzhu/scaling_down_data/pretrained_model/step738020-unsharded-hf; scores: {'ConvFinQA_em': 4.832214765100671}
+model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance/step3240-unsharded-hf; scores: {'ConvFinQA_em': 22.416107382550337}
+model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance-llama-revised/latest-unshard-hf; scores: {'ConvFinQA_em': 20.469798657718123}
