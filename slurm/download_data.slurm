@@ -14,8 +14,8 @@ unset https_proxy
 
 export HF_ENDPOINT=https://hf-mirror.com
 
-huggingface-cli download AI-MO/NuminaMath-CoT \
+huggingface-cli download Open-Orca/OpenOrca \
   --repo-type dataset \
   --resume-download \
-  --local-dir data/AI-MO/NuminaMath-CoT \
+  --local-dir data/Open-Orca/OpenOrca \
   --local-dir-use-symlinks False

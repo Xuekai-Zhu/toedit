@@ -37,7 +37,7 @@ def calculate_total_size_and_tokens(directory):
     return total_size, total_tokens
 
 # Path to the directory containing .npy files
-directory = '/data1/xkzhu/datasets/dolma_sampled_v1_6/dolma_1M_per_file_tokenized'
+directory = 'data/finance_up_revise_Llama-3-8B-Instruct_tokenized'
 
 # Calculate the total size and number of tokens
 total_size, total_tokens = calculate_total_size_and_tokens(directory)

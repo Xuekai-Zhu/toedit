@@ -1,8 +1,8 @@
 
 export HF_ENDPOINT=https://hf-mirror.com
 
-huggingface-cli download HuggingFaceTB/fineweb-edu-classifier \
-  --repo-type model \
+huggingface-cli download Open-Orca/OpenOrca \
+  --repo-type dataset \
   --resume-download \
-  --local-dir pre_trained_model/HuggingFaceTB/fineweb-edu-classifier \
+  --local-dir data/Open-Orca/OpenOrca \
   --local-dir-use-symlinks False
