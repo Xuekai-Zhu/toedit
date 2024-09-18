@@ -93,7 +93,7 @@ evaluators:
       drop_last: true
       datasets:
         v3-small-c4_en-validation:
-          - /home/xkzhu/scaling_down_data/data/finance_data/finance_tokenized/0_00000.npy
+          - data/finance_all/finance_orca_1_2_tokenized/00_00000.npy
 
   # - label: v2-small-ppl-validation
   #   data:
@@ -151,10 +151,35 @@ data:
   persistent_workers: true
   timeout: 0
   paths:
-    - data/finance_data/finance_tokenized/0_00000.npy
-    - data/finance_data/finance_tokenized/1_00000.npy
-    - data/finance_data/finance_tokenized/2_00000.npy
-    - data/finance_data/finance_tokenized/3_00000.npy
-    - data/finance_data/finance_tokenized/4_00000.npy
-    - data/finance_data/finance_tokenized/5_00000.npy
-    - data/finance_data/finance_tokenized/6_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/00_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/01_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/02_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/03_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/04_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/05_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/06_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/07_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/08_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/09_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/10_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/11_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/12_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/13_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/14_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/15_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/16_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/17_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/18_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/19_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/20_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/21_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/22_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/23_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/24_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/25_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/26_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/27_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/28_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/29_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/30_00000.npy
+    - data/finance_all/finance_orca_1_2_tokenized/31_00000.npy
