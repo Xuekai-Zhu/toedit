@@ -1,21 +1,14 @@
-#!/bin/bash
-#SBATCH -J infer
-#SBATCH -p HGX
-#SBATCH --qos=lv0b
-#SBATCH --time=10:00:00
-#SBATCH -o finance_eval.out
-#SBATCH -e finance_eval.err
-#SBATCH --gres=gpu:1
 
-module load cuda11.8/toolkit/11.8.0
-module load cudnn8.6-cuda11.8/8.6.0.163  
-
-source /home/zhuxuekai/miniconda3/bin/activate py310
-
-# export HF_ENDPOINT=https://hf-mirror.com
+MODEL="/home/zhuxuekai/scaling_down_data/continual_training/finance/OLMo-1B-finance-llama-revised/latest-unshard" 
 
 
-MODEL="/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/finance/OLMo-1B-finance/step3240-unsharded-hf" 
+
+python /home/zhuxuekai/scaling_down_data/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
+    --input_dir ${MODEL} \
+    --tokenizer_json_path /home/zhuxuekai/scaling_down_data/OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
+    --output_dir ${MODEL}-hf
+
+
 DOMAIN='finance'
 
 # if the model can fit on a single GPU: set MODEL_PARALLEL=False
@@ -35,4 +28,4 @@ N_GPU=1
 
 # medicine-Llama-8B pre-trained from Llama3-8B in Instruction Pretrain
 add_bos_token=False
-bash scripts/inference_bigai.sh ${DOMAIN} ${MODEL} ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
+bash scripts/inference_bigai_4x4090.sh ${DOMAIN} ${MODEL}-hf ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}

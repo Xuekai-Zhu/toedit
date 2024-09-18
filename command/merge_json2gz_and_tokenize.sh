@@ -1,7 +1,7 @@
 #!/bin/bash
 
-INPUT_DIR="probability/finance"
-OUTPUT_DIR="data/finance_up_revise_Llama-3-8B-Instruct"
+INPUT_DIR="probability/dolma_1M_per_file"
+OUTPUT_DIR="data/dolma_up_revise_Llama-3-8B-Instruct"
 CHUNK_SIZE=1000000  
 
 python data_process/merge_jsonl2gz.py --input_dir "$INPUT_DIR" --output_dir "$OUTPUT_DIR" --chunk_size $CHUNK_SIZE
