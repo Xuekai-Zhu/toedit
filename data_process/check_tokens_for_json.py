@@ -47,7 +47,7 @@ def statistic_tokens(input_dir):
 
 if __name__ == '__main__':
     # source_path = "probability/open-web-math—1B-up_revise_Llama-3-8B-Instruct"
-    source_path = "probability/finance"
+    source_path = "probability/dolma_1M_per_file"
     statistic_tokens(source_path)
     
     
