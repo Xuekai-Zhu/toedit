@@ -21,7 +21,7 @@ python $SOURCE_PATH/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
     --tokenizer_json_path ${SOURCE_PATH}/OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
     --output_dir ${MODEL}-hf
 
-
+export HF_ENDPOINT=https://hf-mirror.com
 DOMAIN='finance'
 
 # if the model can fit on a single GPU: set MODEL_PARALLEL=False
