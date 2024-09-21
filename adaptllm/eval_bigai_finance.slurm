@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J infer
-#SBATCH -p DGX
+#SBATCH -p HGX
 #SBATCH --qos=lv0b
 #SBATCH --time=10:00:00
 #SBATCH -o %j.out
