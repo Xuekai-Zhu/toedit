@@ -1,3 +1,6 @@
 model: /home/xkzhu/scaling_down_data/pretrained_model/step738020-unsharded-hf; scores: {'weighted_F1': 47.03812399322449}
 model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance/step3240-unsharded-hf; scores: {'weighted_F1': 47.049048145222315}
 model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance-llama-revised/latest-unshard-hf; scores: {'weighted_F1': 48.09797591752531}
+model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance/step3000-unshard-hf; scores: {'weighted_F1': 47.46235556843672}
+model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance/step2000-unshard-hf; scores: {'weighted_F1': 47.237261210113346}
+model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance-llama-revised/step2000-unshard-hf; scores: {'weighted_F1': 48.09797591752531}
