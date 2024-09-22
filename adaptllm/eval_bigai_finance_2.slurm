@@ -14,7 +14,7 @@ source /home/zhuxuekai/miniconda3/bin/activate py310
 
 
 SOURCE_PATH="/home/zhuxuekai/scratch2_nlp/scaling_down_data"
-MODEL=${SOURCE_PATH}/continual_training/finance/OLMo-1B-finance-orca/step5765-unsharded
+MODEL=${SOURCE_PATH}/continual_training/finance/OLMo-1B-finance-llama-revised-orca/step5765-unsharded
 
 python $SOURCE_PATH/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
     --input_dir ${MODEL} \
