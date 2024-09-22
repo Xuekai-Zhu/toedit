@@ -41,4 +41,4 @@ N_GPU=1
 
 # medicine-Llama-8B pre-trained from Llama3-8B in Instruction Pretrain
 add_bos_token=False
-bash scripts/inference_bigai_4x4090.sh ${DOMAIN} ${MODEL}-hf ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
+bash scripts/inference_bigai.sh ${DOMAIN} ${MODEL}-hf ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
