@@ -1,5 +1,5 @@
 ### model
-model_name_or_path: pretrained_tokenizer/Meta-Llama-3-8B-Instruct
+model_name_or_path: /scratch2/nlp/plm/Meta-Llama-3-8B-Instruct
 
 ### method
 stage: pt
