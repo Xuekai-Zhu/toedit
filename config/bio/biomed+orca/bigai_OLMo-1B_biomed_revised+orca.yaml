@@ -93,7 +93,7 @@ evaluators:
       drop_last: true
       datasets:
         v3-small-c4_en-validation:
-          - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/00_00000.npy
+          - data/bio/biomed_revised+orca_tokenized/00_00000.npy
 
   # - label: v2-small-ppl-validation
   #   data:
@@ -151,15 +151,22 @@ data:
   persistent_workers: true
   timeout: 0
   paths:
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/00_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/01_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/02_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/03_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/04_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/05_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/06_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/07_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/08_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/09_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/10_00000.npy
-    - data/dolma_up_revise_Llama-3-8B-Instruct_tokenized/10_00001.npy
+    - data/bio/biomed_revised+orca_tokenized/00_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/01_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/02_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/03_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/04_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/05_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/06_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/07_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/08_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/09_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/10_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/11_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/12_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/13_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/14_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/15_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/16_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/17_00000.npy
+    - data/bio/biomed_revised+orca_tokenized/18_00000.npy
