@@ -13,7 +13,7 @@ def load_gz(in_file):
 
 def sample_fixed_tokens(sample_lines, sampled_num=1000, target_tokens=5e8):
     dataset_size = len(sample_lines)
-    tokenizer = AutoTokenizer.from_pretrained("pre_trained_model/step738020-unsharded-hf")
+    tokenizer = AutoTokenizer.from_pretrained("pretrained_tokenizer/Meta-Llama-3-8B-Instruct")
     
     sampled_lines = random.sample(sample_lines, sampled_num)
     sample_tokens = sum([len(tokenizer.tokenize(json.loads(text)["text"])) for text in sampled_lines])
@@ -77,13 +77,13 @@ def search_datasets(in_path):
     return all_train_files
 
 if __name__ == "__main__":
-    source_1 = "data/bio/biomed_context"
+    source_1 = "data/bio/instruction_biomed—1B-up_revise_Llama-3-8B-Instruct"
     source_files_1 = search_datasets(source_1)
     
-    source_2 = "data/bio/OpenOrca-1B"
+    source_2 = "data/Open-Orca/OpenOrca-1B"
     source_files_2 = search_datasets(source_2)
     
-    output_dir = "data/biomed_context+orca"
-    chunk_size = 100000  # 调整块大小
+    output_dir = "data/bio/biomed_revised+orca"
+    chunk_size = 100000  
     os.makedirs(output_dir, exist_ok=True)
     merge_sampled_files([source_files_1, source_files_2], output_dir, chunk_size)

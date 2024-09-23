@@ -1,5 +1,5 @@
 - task_name=NER+FPB+FiQA_SA+Headline+ConvFinQA
-- model_name=/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/finance/OLMo-1B-finance/step3240-unsharded-hf
+- model_name=/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/finance/OLMo-1B-finance-orca/step5740-unsharded-hf
 - add_bos_token=False
 - output_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/output/
 - res_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/res/
