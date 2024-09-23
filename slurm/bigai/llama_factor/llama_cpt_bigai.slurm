@@ -7,5 +7,9 @@
 #SBATCH -e llama_factory.err
 #SBATCH --gres=gpu:2
 
+module load cuda11.8/toolkit/11.8.0
+module load cudnn8.6-cuda11.8/8.6.0.163  
+
+source /home/zhuxuekai/miniconda3/bin/activate llama-factory
 
 llamafactory-cli train llama_factory_config/llama3_lora_pretrain.yaml
