@@ -1,5 +1,5 @@
 ### model
-model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
+model_name_or_path: pretrained_tokenizer/Meta-Llama-3-8B-Instruct
 
 ### method
 stage: pt
@@ -15,7 +15,7 @@ overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/llama3-8b/lora/pretrain
+output_dir: test/saves/llama3-8b/lora/pretrain
 logging_steps: 10
 save_steps: 500
 plot_loss: true
