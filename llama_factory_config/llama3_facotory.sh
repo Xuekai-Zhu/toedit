@@ -1,1 +1,0 @@
-llamafactory-cli train llama_factory_config/llama3_lora_pretrain.yaml
