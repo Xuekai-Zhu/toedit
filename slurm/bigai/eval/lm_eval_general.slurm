@@ -13,7 +13,7 @@ module load cudnn8.6-cuda11.8/8.6.0.163
 source /home/zhuxuekai/miniconda3/bin/activate lm-eval
 
 
-MODEL="continual_training/dolma/OLMo-1B-dolma-revised/step10000-unsharded"
+MODEL="continual_training/dolma/OLMo-1B-dolma/step10000-unsharded-hf"
 
 # python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #      --input_dir ${MODEL} \
