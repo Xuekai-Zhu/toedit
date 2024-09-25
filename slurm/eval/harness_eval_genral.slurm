@@ -15,7 +15,7 @@ unset http_proxy
 unset https_proxy 
 
 export HF_ENDPOINT=https://hf-mirror.com
-export HF_DATASETS_TRUST_REMOTE_CODE=1
+# export HF_DATASETS_TRUST_REMOTE_CODE=1
 
 MODEL="continual_training/dolma/OLMo-1B-dolma/step10000-unsharded-hf"
 
