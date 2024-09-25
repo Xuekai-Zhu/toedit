@@ -14,12 +14,12 @@ source /home/zhuxuekai/miniconda3/bin/activate py310
 
 
 SOURCE_PATH="/home/zhuxuekai/scratch2_nlp/scaling_down_data"
-MODEL=${SOURCE_PATH}/continual_training/finance/OLMo-1B-finance-llama-revised-orca/step5765-unsharded
+MODEL=${SOURCE_PATH}/LLaMA-Factory/models/lora/finance/finance+orca
 
-python $SOURCE_PATH/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
-    --input_dir ${MODEL} \
-    --tokenizer_json_path ${SOURCE_PATH}/OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
-    --output_dir ${MODEL}-hf
+# python $SOURCE_PATH/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
+#     --input_dir ${MODEL} \
+#     --tokenizer_json_path ${SOURCE_PATH}/OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
+#     --output_dir ${MODEL}-hf
 
 export HF_ENDPOINT=https://hf-mirror.com
 DOMAIN='finance'
@@ -41,4 +41,4 @@ N_GPU=1
 
 # medicine-Llama-8B pre-trained from Llama3-8B in Instruction Pretrain
 add_bos_token=False
-bash scripts/inference_bigai.sh ${DOMAIN} ${MODEL}-hf ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
+bash scripts/inference_bigai.sh ${DOMAIN} ${MODEL} ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
