@@ -1,14 +1,11 @@
 #!/bin/bash
-#SBATCH --account=xkzhu
-#SBATCH --job-name=harness
-#SBATCH --partition=RTX4090
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
-#SBATCH --cpus-per-task=12  # 每个进程的CPU数量
-#SBATCH --output=%j.out
-#SBATCH --error=%j.err
+#SBATCH -J harness
+#SBATCH -p DGX
+#SBATCH --qos=lv0b
+#SBATCH --time=10:00:00
+#SBATCH -o %j.out
+#SBATCH -e %j.err
 #SBATCH --gres=gpu:1
-#SBATCH --mem=100G
 
 
 MODEL="continual_training/dolma/OLMo-1B-dolma-revised/step10000-unsharded"
