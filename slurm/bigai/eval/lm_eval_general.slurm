@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J harness
-#SBATCH -p DGX
+#SBATCH -p HGX
 #SBATCH --qos=lv0b
 #SBATCH --time=10:00:00
 #SBATCH -o %j.out
@@ -13,16 +13,17 @@ module load cudnn8.6-cuda11.8/8.6.0.163
 source /home/zhuxuekai/miniconda3/bin/activate lm-eval
 
 
-MODEL="continual_training/dolma/OLMo-1B-dolma-revised/step10000-unsharded"
+MODEL="/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/dolma/OLMo-1B-dolma/step10000-unsharded-hf"
 
-python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
-     --input_dir ${MODEL} \
-     --tokenizer_json_path OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
-     --output_dir ${MODEL}-hf
+# python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
+#      --input_dir ${MODEL} \
+#      --tokenizer_json_path OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
+#      --output_dir ${MODEL}-hf
 
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks hellaswag,arc_challenge,social_iqa,winogrande,piqa \
+    --tasks hellaswag,arc_easy,arc_challenge,social_iqa,winogrande,piqa \
     --batch_size 16 \
-    --output_path eval_results/general/
+    --output_path eval_results/general/ \
+    --trust_remote_code
