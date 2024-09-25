@@ -3,8 +3,8 @@
 #SBATCH -p HGX
 #SBATCH --qos=lv2
 #SBATCH --time=2-00:00:00
-#SBATCH -o dolma_revised.out
-#SBATCH -e dolma_revised.err
+#SBATCH -o dolma_revised_2.out
+#SBATCH -e dolma_revised_2.err
 #SBATCH --gres=gpu:4
 #SBATCH --account=research 
 
