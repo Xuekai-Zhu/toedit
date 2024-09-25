@@ -23,6 +23,7 @@ MODEL="continual_training/dolma/OLMo-1B-dolma-revised/step10000-unsharded"
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL}-hf,trust_remote_code=True \
-    --tasks hellaswag,arc_challenge,social_iqa,winogrande,piqa \
+    --tasks hellaswag,arc_easy,arc_challenge,social_iqa,winogrande,piqa \
     --batch_size 16 \
-    --output_path eval_results/general/
+    --output_path eval_results/general/ \
+    --trust_remote_code
