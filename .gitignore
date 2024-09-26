@@ -179,3 +179,5 @@ baselines/edu_scores/
 saves/
 biomed_8_Meta-Llama3-8B-Instruct/
 pretrained_tokenizer/
+eval_results/adaptllm/output/
+eval_results/adaptllm/cache/
