@@ -41,11 +41,11 @@ def merge_sampled_files(input_dir, output_dir, chunk_size=1000000, target_tokens
     print(f"Dataset size: {dataset_size}")
     
     # # 初始化tokenizer
-    # tokenizer = AutoTokenizer.from_pretrained("pre_trained_model/step738020-unsharded-hf")
+    tokenizer = AutoTokenizer.from_pretrained("/data1/xkzhu/pre_trained_model/meta-llama/Meta-Llama-3-8B")
     
-    # # 采样前1000条数据计算token数量
+    # 采样前1000条数据计算token数量
     # if "Arithmo-Data" in input_dir:
-    #     sample_lines = [item["question"] + " " + item["answer"] for item in dataset.select(range(1000))]
+    sample_lines = [item["problem"] + " " + item["solution"] for item in dataset.select(range(1000))]
     # elif "MetaMathQA" in input_dir:
     #     sample_lines = [item["query"] + " " + item["response"] for item in dataset.select(range(1000))]
     # elif "open-web-math" in input_dir:
@@ -53,28 +53,29 @@ def merge_sampled_files(input_dir, output_dir, chunk_size=1000000, target_tokens
     
         
         
-    # sample_tokens = sum([len(tokenizer.tokenize(text)) for text in sample_lines])
-    # avg_tokens_per_line = sample_tokens / 1000
+    sample_tokens = sum([len(tokenizer.tokenize(text)) for text in sample_lines])
+    avg_tokens_per_line = sample_tokens / 1000
     
-    # # 计算所需行数
-    # required_lines = int(target_tokens / avg_tokens_per_line)
+    # 计算所需行数
+    required_lines = int(target_tokens / avg_tokens_per_line)
+    print(f"Estimated number of lines needed: {required_lines}")
     
-    # if required_lines >= dataset_size:
-    #     required_lines = dataset_size
-    #     selected_datasets = dataset
-    # else:
-    #     selected_datasets = dataset.select(range(required_lines))
+    if required_lines >= dataset_size:
+        required_lines = dataset_size
+        selected_datasets = dataset
+    else:
+        selected_datasets = dataset.select(range(required_lines))
         
-    # print(f"Estimated number of lines needed: {required_lines}")
+    print(f"Final Estimated number of lines needed: {required_lines}")
     
     
-    for item in tqdm(dataset):
+    for item in tqdm(selected_datasets):
         # if "Arithmo-Data" in input_dir:
         #     text_line = json.dumps({"text": item["question"] + " " + item["answer"]}) + "\n"
         # elif "MetaMathQA" in input_dir:
         #     text_line = json.dumps({"text": item["query"] + " " + item["response"]}) + "\n"
         # elif "open-web-math" in input_dir:
-        text_line = json.dumps({"text": item["text"]}) + "\n"
+        text_line = json.dumps({"input": item["problem"], "output":item["solution"]}) + "\n"
             
         all_sampled_lines.append(text_line)
         # total_tokens += len(tokenizer.tokenize(item["question"] + item["answer"]))
@@ -98,9 +99,9 @@ def write_to_gz(lines, output_dir, part):
     print(f"Saved {len(lines)} lines to {part_file}")
 
 if __name__ == "__main__":
-    input_dir = "data/math/open-web-math/open-web-math"
-    output_dir = "data/math/open-web-math/open-web-math-1B"
-    chunk_size = 10000  # Adjust the chunk size as needed
+    input_dir = "data/AI-MO/NuminaMath-CoT"
+    output_dir = "data/AI-MO/NuminaMath-CoT-json-gz"
+    chunk_size = 100000  # Adjust the chunk size as needed
     target_tokens = 1e9  # Target token count: 1 billion
     os.makedirs(output_dir, exist_ok=True)
     merge_sampled_files(input_dir, output_dir, chunk_size, target_tokens)
