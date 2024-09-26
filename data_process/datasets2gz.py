@@ -41,7 +41,7 @@ def merge_sampled_files(input_dir, output_dir, chunk_size=1000000, target_tokens
     print(f"Dataset size: {dataset_size}")
     
     # # 初始化tokenizer
-    tokenizer = AutoTokenizer.from_pretrained("/data1/xkzhu/pre_trained_model/meta-llama/Meta-Llama-3-8B")
+    tokenizer = AutoTokenizer.from_pretrained("pretrained_tokenizer/Meta-Llama-3-8B-Instruct")
     
     # 采样前1000条数据计算token数量
     # if "Arithmo-Data" in input_dir:
@@ -101,8 +101,8 @@ def write_to_gz(lines, output_dir, part):
     print(f"Saved {len(lines)} lines to {part_file}")
 
 if __name__ == "__main__":
-    input_dir = "/home/xkzhu/Critical-Data-Size/datasets/natural-instructions-2.8"
-    output_dir = "data/datasets/natural-instructions-2.8-json-gz"
+    input_dir = "data/Muennighoff/natural-instructions"
+    output_dir = "data/natural-instructions-json-gz"
     chunk_size = 100000  # Adjust the chunk size as needed
     target_tokens = 1e9  # Target token count: 1 billion
     os.makedirs(output_dir, exist_ok=True)

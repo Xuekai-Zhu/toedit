@@ -1,8 +1,7 @@
 
-export HF_ENDPOINT=https://hf-mirror.com
-
-huggingface-cli download Open-Orca/OpenOrca \
+huggingface-cli download Muennighoff/natural-instructions \
   --repo-type dataset \
   --resume-download \
-  --local-dir data/Open-Orca/OpenOrca \
-  --local-dir-use-symlinks False
+  --local-dir data/Muennighoff/natural-instructions \
+  --local-dir-use-symlinks False 
+
