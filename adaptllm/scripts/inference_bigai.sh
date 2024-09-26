@@ -3,9 +3,9 @@ MODEL=$2
 ADD_BOS=$3
 MODEL_PARALLEL=$4
 N_GPU=$5
-OUTPUT_DIR='/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/output/' # for saving the prediction files
-RES_DIR='/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/res/' # for saving the evaluation scores of each task
-CACHE_DIR='/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/cache' # for caching hf models and datasets
+OUTPUT_DIR='/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/output/' # for saving the prediction files
+RES_DIR='/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/res/' # for saving the evaluation scores of each task
+CACHE_DIR='/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/cache' # for caching hf models and datasets
 
 if [ ${DOMAIN} == 'biomedicine' ]; then
     TASK='MQP+PubMedQA+RCT+USMLE+ChemProt'
