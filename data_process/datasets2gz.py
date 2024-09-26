@@ -45,7 +45,8 @@ def merge_sampled_files(input_dir, output_dir, chunk_size=1000000, target_tokens
     
     # 采样前1000条数据计算token数量
     # if "Arithmo-Data" in input_dir:
-    sample_lines = [item["problem"] + " " + item["solution"] for item in dataset.select(range(1000))]
+    # sample_lines = [item["problem"] + " " + item["solution"] for item in dataset.select(range(1000))]
+    sample_lines = [item["inputs"] + " " + item["targets"] for item in dataset.select(range(1000))]
     # elif "MetaMathQA" in input_dir:
     #     sample_lines = [item["query"] + " " + item["response"] for item in dataset.select(range(1000))]
     # elif "open-web-math" in input_dir:
@@ -75,7 +76,8 @@ def merge_sampled_files(input_dir, output_dir, chunk_size=1000000, target_tokens
         # elif "MetaMathQA" in input_dir:
         #     text_line = json.dumps({"text": item["query"] + " " + item["response"]}) + "\n"
         # elif "open-web-math" in input_dir:
-        text_line = json.dumps({"input": item["problem"], "output":item["solution"]}) + "\n"
+        # text_line = json.dumps({"input": item["problem"], "output":item["solution"]}) + "\n"
+        text_line = json.dumps({"input": item["inputs"], "output":item["targets"]}) + "\n"
             
         all_sampled_lines.append(text_line)
         # total_tokens += len(tokenizer.tokenize(item["question"] + item["answer"]))
@@ -99,8 +101,8 @@ def write_to_gz(lines, output_dir, part):
     print(f"Saved {len(lines)} lines to {part_file}")
 
 if __name__ == "__main__":
-    input_dir = "data/AI-MO/NuminaMath-CoT"
-    output_dir = "data/AI-MO/NuminaMath-CoT-json-gz"
+    input_dir = "/home/xkzhu/Critical-Data-Size/datasets/natural-instructions-2.8"
+    output_dir = "data/datasets/natural-instructions-2.8-json-gz"
     chunk_size = 100000  # Adjust the chunk size as needed
     target_tokens = 1e9  # Target token count: 1 billion
     os.makedirs(output_dir, exist_ok=True)
