@@ -13,8 +13,9 @@ module load cudnn8.6-cuda11.8/8.6.0.163
 source /home/zhuxuekai/miniconda3/bin/activate py310
 
 
-SOURCE_PATH="/home/zhuxuekai/scratch2_nlp/scaling_down_data"
-MODEL=${SOURCE_PATH}/LLaMA-Factory/models/lora/finance/finance_revised_orca
+# SOURCE_PATH="/home/zhuxuekai/scratch2_nlp/scaling_down_data"
+# MODEL=${SOURCE_PATH}/LLaMA-Factory/models/lora/finance/finance_revised_orca
+MODEL="/scratch2/nlp/plm/Meta-Llama-3-8B"
 
 # python $SOURCE_PATH/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #     --input_dir ${MODEL} \
