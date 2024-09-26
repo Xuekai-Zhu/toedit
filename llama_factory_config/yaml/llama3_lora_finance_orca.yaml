@@ -1,5 +1,5 @@
 ### model
-model_name_or_path: /scratch2/nlp/plm/Meta-Llama-3-8B-Instruct
+model_name_or_path: /scratch2/nlp/plm/Meta-Llama-3-8B
 
 ### method
 stage: pt
@@ -15,7 +15,7 @@ overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/finances/finance_orca
+output_dir: saves/finances/finance_orca-Llama-3-8B
 logging_steps: 10
 save_steps: 1000
 plot_loss: true
