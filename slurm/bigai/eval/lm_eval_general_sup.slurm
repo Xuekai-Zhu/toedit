@@ -23,7 +23,7 @@ MODEL="/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/dolma/O
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks hellaswag,arc_easy,arc_challenge,social_iqa,winogrande,piqa,boolq,openbookqa \
+    --tasks boolq,openbookqa \
     --batch_size 16 \
     --output_path eval_results/general/ \
     --trust_remote_code

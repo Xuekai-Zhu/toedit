@@ -17,7 +17,7 @@ unset https_proxy
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="continual_training/dolma/OLMo-1B-dolma/step20000-unsharded"
+MODEL="continual_training/dolma/OLMo-1B-dolma-revised/step10000-unsharded-hf"
 
 # python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #     --input_dir ${MODEL} \
@@ -26,8 +26,8 @@ MODEL="continual_training/dolma/OLMo-1B-dolma/step20000-unsharded"
 
 accelerate launch -m lm_eval \
     --model hf \
-    --model_args pretrained=${MODEL}-hf,trust_remote_code=True \
-    --tasks hellaswag,arc_easy,arc_challenge,social_iqa,winogrande,piqa,boolq,openbookqa \
+    --model_args pretrained=${MODEL},trust_remote_code=True \
+    --tasks boolq,openbookqa \
     --batch_size 16 \
     --output_path eval_results/general/
 
