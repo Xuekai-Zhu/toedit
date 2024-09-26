@@ -1,0 +1,12 @@
+### examples/merge_lora/llama3_lora_sft.yaml
+### model
+model_name_or_path: /data1/xkzhu/pre_trained_model/meta-llama/Meta-Llama-3-8B-Instruct
+adapter_name_or_path: saves/finances/finance_revised_orca
+template: llama3
+finetuning_type: lora
+
+### export
+export_dir: models/lora/finance/finance_revised_orca
+export_size: 2
+export_device: cpu
+export_legacy_format: false
