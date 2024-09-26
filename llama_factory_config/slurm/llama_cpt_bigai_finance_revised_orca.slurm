@@ -3,8 +3,8 @@
 #SBATCH -p HGX
 #SBATCH --qos=lv2
 #SBATCH --time=2-00:00:00
-#SBATCH -o finance_revised_orca.out
-#SBATCH -e finance_revised_orca.err
+#SBATCH -o finance_revised_orca_Llama-3-8B.out
+#SBATCH -e finance_revised_orca_Llama-3-8B.err
 #SBATCH --gres=gpu:4
 #SBATCH --account=research
 
