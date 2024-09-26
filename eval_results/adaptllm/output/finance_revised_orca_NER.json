@@ -267,7 +267,7 @@
             " BORROWER (person)"
         ],
         "pred_prob": null,
-        "pred": " THERE ARE NO UNWRITTEN ORAL AGREEMENTS BETWEEN THE PARTIES. Lenders (organization), Borrower (person)\n\n"
+        "pred": " THERE ARE NO UNWRITTEN ORAL AGREEMENTS BETWEEN THE PARTIES. Lender (person), Borrower (person), Lender (person), Borrower (person)\n\n"
     },
     {
         "label": [
@@ -372,7 +372,7 @@
             " Borrower (person)"
         ],
         "pred_prob": null,
-        "pred": " Borrower (person), Loan (organization), Borrower (person)\n\n"
+        "pred": " Borrower (person), Borrower (person)\n\n"
     },
     {
         "label": [

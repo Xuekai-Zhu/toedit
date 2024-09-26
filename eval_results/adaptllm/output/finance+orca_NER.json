@@ -537,7 +537,7 @@
             " Bank (organization), Borrower (person), Borrower (person), Bank (organization)"
         ],
         "pred_prob": null,
-        "pred": " Bank (organization), Borrower (person), Bank (organization), Borrower (person) Bank (organization), Borrower (person), Bank (organization), Borrower (person) Bank (organization), Borrower (person), Bank (organization), Borrower (person) Bank (organization), Borrower (person), Bank (organization), Borrower (person) Bank (organization), Borrower (person), Bank (organization), Borrower (person) Bank (organization), Borrower (person), Bank"
+        "pred": " Bank (organization), Borrower (person), Bank (organization), Borrower (person), Bank (organization), Borrower (person) Bank (organization), Borrower (person), Bank (organization), Borrower (person), Bank (organization), Borrower (person) Bank (organization), Borrower (person), Bank (organization), Borrower (person), Bank (organization), Borrower (person) Bank (organization), Borrower (person), Bank (organization), Borrower (person), Bank"
     },
     {
         "label": [
@@ -702,7 +702,7 @@
             " Lender (person), Borrower (person), Lender (person)"
         ],
         "pred_prob": null,
-        "pred": " Lender (person), Holders (person), Servicer (person), Borrower (person), Program (organization), Agreement (organization), Master (organization), Venture (organization)\n\n"
+        "pred": " Lender (person), Lender (person), Holders (organization), Servicer (person), Borrower (person), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization), Loan (organization"
     },
     {
         "label": [
@@ -957,7 +957,7 @@
             " Frank (person), Wouters (person), Frank (person), Wouters (person), SILICIUM (organization), DE (organization), PROVENCE (organization), S (organization), Richard (person), G (person), Chleboski (person), Richard (person), G (person), Chleboski (person), EVERGREEN (organization), SOLAR (organization),, (organization), INC (organization)"
         ],
         "pred_prob": null,
-        "pred": " Frank (person), Wouters (person), SILICIUM (organization), DE (organization), PROVENCE (location), S. (organization), A. (organization), SIGNED (organization), by (organization), Frank (person), Wouters (person), for (organization), and (organization), on (organization), behalf (organization), of (organization), SILICIUM (organization), DE (organization), PROVENCE (location), S. (organization), A. (organization), S"
+        "pred": " Frank (person), Wouters (person), SIGNED (organization), Frank (person), Wouters (person), for (organization), and (organization), on (organization), behalf (organization), of (organization), SILICIUM (organization), DE (organization), PROVENCE (location), S. (organization), A. (organization), SIGNED (organization), by (organization), Richard (person), G. (organization), Chleboski (person), for (organization), and ("
     },
     {
         "label": [
@@ -1122,7 +1122,7 @@
             " Lender (person), Borrower (person)"
         ],
         "pred_prob": null,
-        "pred": " Lender (person), Borrower (person), Lender (person), Borrower (person) The article is about a loan agreement between a borrower and a lender. The borrower is required to make payments on the loan and to comply with certain covenants. The lender has the right to appoint a director of the borrower and to take possession of the borrower's assets. The borrower is required to pay interest on the loan and to maintain its corporate existence. The lender and borrower have undertaken to comply"
+        "pred": " Lender (person), Borrower (person), Lender (person), Borrower (person) The article is about a loan agreement between a borrower and a lender. The borrower is required to make payments on the loan and to comply with certain covenants. The lender has the right to accelerate the loan if the borrower fails to make payments or comply with the covenants. The borrower is also required to maintain its corporate existence and comply with all applicable laws and regulations. The loan agreement is"
     },
     {
         "label": [
@@ -1197,7 +1197,7 @@
             " Douglas (person), S (person), Douglas (person), S (person), 530 (location), B (location), Street (location), 4th (location), Floor (location), San (location), Diego (location), California (location), Douglas (person), S (person)"
         ],
         "pred_prob": null,
-        "pred": " Douglas (person), Lambell (person), Douglas (person), Lambell (person), San (location), Diego (location), California (location), Street (location), B (location), 4th (location), Floor (location), 530 (location), 4th (location), Floor (location), San (location), Diego (location), California (location), Street (location), B (location), 4th (location), Floor (location), 530 (location), 4"
+        "pred": " Douglas (person), Lambell (person), Douglas (person), Lambell (person), San (location), Diego (location), California (location), Douglas (person), Lambell (person), Douglas (person), Lambell (person), San (location), Diego (location), California (location) 3 Source: OneCLE Business Contracts.\n"
     },
     {
         "label": [

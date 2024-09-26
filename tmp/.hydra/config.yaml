@@ -1,11 +1,11 @@
 model_name: /home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+orca
 task_name: NER+FPB+FiQA_SA+Headline+ConvFinQA
-output_dir: /home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/output/
-res_dir: /home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/res/
+output_dir: /home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/output/
+res_dir: /home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/res/
 max_length: 2048
 generate_max_len: 100
 n_tokens: 2048
-cache_dir: /home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/cache
+cache_dir: /home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/cache
 add_bos_token: false
 model_parallel: ''
 dataset_reader:

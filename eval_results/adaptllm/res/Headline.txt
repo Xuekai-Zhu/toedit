@@ -6,3 +6,5 @@ model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance/
 model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance-llama-revised/step2000-unshard-hf; scores: {'multi_class_weighted_F1': 68.95588925537916}
 model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance-llama-revised-orca/step5765-unsharded-hf; scores: {'multi_class_weighted_F1': 71.77115006213279}
 model: /home/xkzhu/scaling_down_data/continual_training/finance/OLMo-1B-finance-orca/step5740-unsharded-hf; scores: {'multi_class_weighted_F1': 70.31583930323403}
+model: /home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance_revised_orca; scores: {'multi_class_weighted_F1': 83.83992578943067}
+model: /home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+orca; scores: {'multi_class_weighted_F1': 85.68827138307687}

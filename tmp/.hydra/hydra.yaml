@@ -116,14 +116,14 @@ hydra:
     - task_name=NER+FPB+FiQA_SA+Headline+ConvFinQA
     - model_name=/home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+orca
     - add_bos_token=False
-    - output_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/output/
-    - res_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/res/
-    - cache_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/cache
+    - output_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/output/
+    - res_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/res/
+    - cache_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/cache
     - model_parallel=
   job:
     name: inference
     chdir: null
-    override_dirname: add_bos_token=False,cache_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/cache,model_name=/home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+orca,model_parallel=,output_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/output/,res_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/res/,task_name=NER+FPB+FiQA_SA+Headline+ConvFinQA
+    override_dirname: add_bos_token=False,cache_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/cache,model_name=/home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+orca,model_parallel=,output_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/output/,res_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/res/,task_name=NER+FPB+FiQA_SA+Headline+ConvFinQA
     id: ???
     num: ???
     config_name: inference
