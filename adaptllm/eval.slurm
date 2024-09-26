@@ -9,12 +9,12 @@
 #SBATCH --error=%j.err
 #SBATCH --gres=gpu:1
 
-MODEL="/home/xkzhu/scaling_down_data/continual_training/OLMo-1B-biomed_context+orca/step3837-unsharded-hf" 
+MODEL="/home/xkzhu/scaling_down_data/continual_training/bio/OLMo-1B-biomed-revised+orca/step3765-unsharded" 
 
-# python /home/xkzhu/scaling_down_data/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
-#     --input_dir ${MODEL} \
-#     --tokenizer_json_path /home/xkzhu/scaling_down_data/OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
-#     --output_dir ${MODEL}-hf
+python /home/xkzhu/scaling_down_data/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
+    --input_dir ${MODEL} \
+    --tokenizer_json_path /home/xkzhu/scaling_down_data/OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
+    --output_dir ${MODEL}-hf
 
 unset all_proxy   
 unset http_proxy       
@@ -42,4 +42,4 @@ N_GPU=1
 
 # medicine-Llama-8B pre-trained from Llama3-8B in Instruction Pretrain
 add_bos_token=False
-bash scripts/inference.sh ${DOMAIN} ${MODEL} ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}
+bash scripts/inference.sh ${DOMAIN} ${MODEL}-hf ${add_bos_token} ${MODEL_PARALLEL} ${N_GPU}

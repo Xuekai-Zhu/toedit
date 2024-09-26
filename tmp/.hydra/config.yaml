@@ -1,4 +1,4 @@
-model_name: /home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/finance/OLMo-1B-finance-orca/step5740-unsharded-hf
+model_name: /home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+orca
 task_name: NER+FPB+FiQA_SA+Headline+ConvFinQA
 output_dir: /home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/output/
 res_dir: /home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/res/

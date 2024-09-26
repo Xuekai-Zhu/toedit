@@ -2,7 +2,7 @@
 
 #SBATCH --account=xkzhu
 #SBATCH --job-name=convert2hf
-#SBATCH --partition=ADA6000      
+#SBATCH --partition=RTX4090      
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=8  # 每个进程的CPU数量
@@ -11,7 +11,7 @@
 #SBATCH --mem=100G
 #SBATCH --qos=high
 
-MODEL="continual_training/OLMo-1B-biomed-0.001/step3749-unsharded" 
+MODEL="continual_training/dolma/OLMo-1B-dolma/step10000-unsharded" 
 
 # python OLMo/scripts/unshard.py ${MODEL} ${MODEL}-unshard
 
