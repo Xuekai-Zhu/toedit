@@ -14,4 +14,4 @@ module load cudnn8.6-cuda11.8/8.6.0.163
 
 source /home/zhuxuekai/miniconda3/bin/activate llama-factory
 
-llamafactory-cli train llama3_lora_finance_orca.yaml
+llamafactory-cli train llama_factory_config/yaml/llama3_lora_finance_orca.yaml
