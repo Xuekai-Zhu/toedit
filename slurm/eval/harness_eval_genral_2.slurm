@@ -17,14 +17,14 @@ unset https_proxy
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="continual_training/dolma/OLMo-1B-dolma-revised/step15000-unshard"
+MODEL="continual_training/dolma/OLMo-1B-dolma-revised/step16000-unshard"
 
 # python OLMo/scripts/unshard.py ${MODEL} ${MODEL}-unshard
 
-# python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
-#     --input_dir ${MODEL} \
-#     --tokenizer_json_path OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
-#     --output_dir ${MODEL}-hf
+python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
+    --input_dir ${MODEL} \
+    --tokenizer_json_path OLMo/tokenizers/allenai_gpt-neox-olmo-dolma-v1_5.json \
+    --output_dir ${MODEL}-hf
 
 accelerate launch -m lm_eval \
     --model hf \
