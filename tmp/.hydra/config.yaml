@@ -1,4 +1,4 @@
-model_name: /home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+orca
+model_name: /scratch2/nlp/plm/Meta-Llama-3-8B
 task_name: NER+FPB+FiQA_SA+Headline+ConvFinQA
 output_dir: /home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/output/
 res_dir: /home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/res/

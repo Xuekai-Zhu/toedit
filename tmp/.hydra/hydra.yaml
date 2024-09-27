@@ -114,7 +114,7 @@ hydra:
     - hydra.mode=RUN
     task:
     - task_name=NER+FPB+FiQA_SA+Headline+ConvFinQA
-    - model_name=/home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+orca
+    - model_name=/scratch2/nlp/plm/Meta-Llama-3-8B
     - add_bos_token=False
     - output_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/output/
     - res_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/res/
@@ -123,7 +123,7 @@ hydra:
   job:
     name: inference
     chdir: null
-    override_dirname: add_bos_token=False,cache_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/cache,model_name=/home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+orca,model_parallel=,output_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/output/,res_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/res/,task_name=NER+FPB+FiQA_SA+Headline+ConvFinQA
+    override_dirname: add_bos_token=False,cache_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/cache,model_name=/scratch2/nlp/plm/Meta-Llama-3-8B,model_parallel=,output_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/output/,res_dir=/home/zhuxuekai/scratch2_nlp/scaling_down_data/eval_results/adaptllm/res/,task_name=NER+FPB+FiQA_SA+Headline+ConvFinQA
     id: ???
     num: ???
     config_name: inference
