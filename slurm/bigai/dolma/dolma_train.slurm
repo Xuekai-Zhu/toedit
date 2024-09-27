@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH -J dolma
-#SBATCH -p HGX
+#SBATCH -p DGX
 #SBATCH --qos=lv2
 #SBATCH --time=2-00:00:00
-#SBATCH -o dolma_revised_2.out
-#SBATCH -e dolma_revised_2.err
+#SBATCH -o dolma_revised_3.out
+#SBATCH -e dolma_revised_3.err
 #SBATCH --gres=gpu:4
 #SBATCH --account=research 
 
@@ -13,5 +13,7 @@ module load cudnn8.6-cuda11.8/8.6.0.163
 
 source /home/zhuxuekai/miniconda3/bin/activate py310
 
-torchrun --nproc_per_node=4 --master_port=29216 OLMo/scripts/train.py config/dolma/OLMo-1B_dolma_bigai.yaml \
-    --save_overwrite 
+torchrun --nproc_per_node=4 --master_port=29217 OLMo/scripts/train.py config/dolma/OLMo-1B_dolma_bigai.yaml \
+    --save_overwrite \
+    --reset_trainer_state \
+    --load_path=continual_training/dolma/OLMo-1B-dolma/step10000-unsharded
