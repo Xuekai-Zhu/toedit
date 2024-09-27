@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J dolma
 #SBATCH -p DGX
-#SBATCH --qos=lv2
-#SBATCH --time=2-00:00:00
+#SBATCH --qos=lv0b
+#SBATCH --time=10:00:00
 #SBATCH -o dolma_revised_3.out
 #SBATCH -e dolma_revised_3.err
 #SBATCH --gres=gpu:4
