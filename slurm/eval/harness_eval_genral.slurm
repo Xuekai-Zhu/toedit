@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:4
 #SBATCH --mem=40G
 
 unset all_proxy   
@@ -17,7 +17,7 @@ unset https_proxy
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="continual_training/dolma/OLMo-1B-dolma-revised/step15000-unshard"
+MODEL="LLaMA-Factory/models/lora/natural-instructions/natural-instructions"
 
 # python OLMo/scripts/unshard.py ${MODEL} ${MODEL}-unshard
 
@@ -28,8 +28,8 @@ MODEL="continual_training/dolma/OLMo-1B-dolma-revised/step15000-unshard"
 
 accelerate launch -m lm_eval \
     --model hf \
-    --model_args pretrained=${MODEL}-hf,trust_remote_code=True \
+    --model_args pretrained=${MODEL},trust_remote_code=True \
     --tasks hellaswag,arc_easy,arc_challenge,social_iqa,winogrande,piqa,boolq,openbookqa \
-    --batch_size 16 \
+    --batch_size auto:4 \
     --output_path eval_results/general/
 
