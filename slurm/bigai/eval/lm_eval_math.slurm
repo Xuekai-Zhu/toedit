@@ -24,6 +24,6 @@ accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
     --tasks hendrycks_math,gsm8k,gpqa,arc_challenge,mmlu \
-    --batch_size 16 \
+    --batch_size 8 \
     --output_path eval_results/math/sft/ \
     --trust_remote_code
