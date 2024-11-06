@@ -1,15 +1,13 @@
 #!/bin/bash
 #SBATCH --account=xkzhu
 #SBATCH --job-name=harness
-#SBATCH --partition=RTX4090
+#SBATCH --partition=RTX3090
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
-#SBATCH --gres=gpu:1
-#SBATCH --mem=100G
-
+#SBATCH --gres=gpu:4
 
 unset all_proxy   
 unset http_proxy       
@@ -18,7 +16,7 @@ unset https_proxy
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="/home/xkzhu/scaling_down_data/LLaMA-Factory/models/lora/bio/biomed_orca"
+MODEL="LLaMA-Factory/models/lora/math/NuminaMath-CoT-json-revised-checkpoint-10000"
 
 # python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #     --input_dir ${MODEL} \
@@ -28,6 +26,6 @@ MODEL="/home/xkzhu/scaling_down_data/LLaMA-Factory/models/lora/bio/biomed_orca"
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks medmcqa,medqa_4options,pubmedqa \
-    --batch_size 16 \
-    --output_path eval_results/bio/
+    --tasks arc_easy,arc_challenge,gsm8k \
+    --batch_size auto:4 \
+    --output_path eval_results/test/math

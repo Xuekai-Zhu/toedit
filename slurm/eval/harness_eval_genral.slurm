@@ -17,7 +17,7 @@ unset https_proxy
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="LLaMA-Factory/models/lora/natural-instructions/natural-instructions"
+MODEL="/data1/xkzhu/pre_trained_model/meta-llama/Meta-Llama-3-8B"
 
 # python OLMo/scripts/unshard.py ${MODEL} ${MODEL}-unshard
 
