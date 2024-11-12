@@ -10,3 +10,4 @@ model: /home/xkzhu/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+o
 model: /home/xkzhu/scaling_down_data/LLaMA-Factory/models/lora/finance/finance_revised_orca; scores: {'weighted_F1': 80.82592897585047}
 model: /home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance_revised_orca; scores: {'weighted_F1': 80.82592897585047}
 model: /home/zhuxuekai/scratch2_nlp/scaling_down_data/LLaMA-Factory/models/lora/finance/finance+orca; scores: {'weighted_F1': 81.88414005685594}
+model: /scratch2/nlp/plm/Meta-Llama-3-8B; scores: {'weighted_F1': 81.60927879353775}

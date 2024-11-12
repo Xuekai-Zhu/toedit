@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J harness
-#SBATCH -p HGX
+#SBATCH -p DGX
 #SBATCH --qos=lv0b
 #SBATCH --time=10:00:00
 #SBATCH -o %j.out

@@ -1,0 +1,16 @@
+hf (pretrained=/home/zhuxuekai/scratch2_nlp/scaling_down_data/continual_training/dolma/OLMo-1B-dolma/step20000-unsharded-hf,trust_remote_code=True,trust_remote_code=True), gen_kwargs: (None), limit: None, num_fewshot: None, batch_size: 16
+|    Tasks    |Version|Filter|n-shot| Metric |   |Value |   |Stderr|
+|-------------|------:|------|-----:|--------|---|-----:|---|-----:|
+|arc_challenge|      1|none  |     0|acc     |↑  |0.1758|±  |0.0111|
+|             |       |none  |     0|acc_norm|↑  |0.2235|±  |0.0122|
+|arc_easy     |      1|none  |     0|acc     |↑  |0.2866|±  |0.0093|
+|             |       |none  |     0|acc_norm|↑  |0.2934|±  |0.0093|
+|boolq        |      2|none  |     0|acc     |↑  |0.3942|±  |0.0085|
+|hellaswag    |      1|none  |     0|acc     |↑  |0.2639|±  |0.0044|
+|             |       |none  |     0|acc_norm|↑  |0.2630|±  |0.0044|
+|openbookqa   |      1|none  |     0|acc     |↑  |0.1240|±  |0.0148|
+|             |       |none  |     0|acc_norm|↑  |0.2500|±  |0.0194|
+|piqa         |      1|none  |     0|acc     |↑  |0.5413|±  |0.0116|
+|             |       |none  |     0|acc_norm|↑  |0.5490|±  |0.0116|
+|social_iqa   |      0|none  |     0|acc     |↑  |0.3521|±  |0.0108|
+|winogrande   |      1|none  |     0|acc     |↑  |0.5154|±  |0.0140|

@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --account=xkzhu
 #SBATCH --job-name=harness
-#SBATCH --partition=ADA6000
+#SBATCH --partition=RTX4090
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:4
 
 unset all_proxy   
 unset http_proxy       
@@ -16,7 +16,7 @@ unset https_proxy
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="continual_training/math/OLMo-1B-owm_llama_resampling/step4167-unsharded"
+MODEL="LLaMA-Factory/models/lora/math/NuminaMath-CoT-json-revised"
 
 # python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #     --input_dir ${MODEL} \
@@ -25,7 +25,7 @@ MODEL="continual_training/math/OLMo-1B-owm_llama_resampling/step4167-unsharded"
 
 accelerate launch -m lm_eval \
     --model hf \
-    --model_args pretrained=${MODEL}-hf,trust_remote_code=True \
-    --tasks hendrycks_math,gsm8k,gpqa,arc_challenge,mmlu \
-    --batch_size 32 \
-    --output_path eval_results/math
+    --model_args pretrained=${MODEL},trust_remote_code=True \
+    --tasks gpqa \
+    --batch_size auto:4 \
+    --output_path eval_results/test/math

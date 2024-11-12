@@ -14,10 +14,10 @@ unset https_proxy
 
 export HF_ENDPOINT=https://hf-mirror.com
 
-huggingface-cli download Muennighoff/natural-instructions \
+huggingface-cli download HuggingFaceFW/fineweb-edu \
   --repo-type dataset \
   --resume-download \
-  --local-dir data/Muennighoff/natural-instructions \
+  --local-dir path/to/your/dir \
   --local-dir-use-symlinks False
 
 huggingface-cli download Muennighoff/natural-instructions \
