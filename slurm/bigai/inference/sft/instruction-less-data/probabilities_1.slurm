@@ -15,8 +15,6 @@ source /home/zhuxuekai/miniconda3/bin/activate py39
 python inference_vllm_rjs_online_for_sft.py \
     --model_name_or_path /scratch2/nlp/plm/Meta-Llama-3-8B-Instruct \
     --tensor_parallel_size 1 \
-    --num_shards 10 \
-    --shard_index 1 \
     --gpu_memory_utilization 0.8 \
     --test_file /home/zhuxuekai/scratch2_nlp/scaling_down_data/data/less-data/cot-json-gz \
     --output_dir probability/sft/less-data/cot-json-gz/ \
