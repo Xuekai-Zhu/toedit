@@ -42,7 +42,7 @@ def parse_args():
                     help="Batch size for processing the test data.")
     parser.add_argument("--preprocessing_num_workers", default=None, type=int,
                         help="The number of processes to use for the preprocessing.")
-    parser.add_argument("--max_length", default=2048, type=int,
+    parser.add_argument("--max_length", default=1024, type=int,
                         help="The maximum total input sequence length after tokenization.")
     parser.add_argument("--dataset_name", default="default_dataset", type=str,
                     help="The name of the dataset to be used.")
@@ -144,21 +144,6 @@ def shard_list(data_list, num_shards, shard_index):
         
     return shards[shard_index-1]
 
-# def sample_loss(lm_logits, labels):
-    ## TODO: BUG ! -> here didn't consider ignore index = -100
-    # move labels to correct device to enable model parallelism
-    # labels = labels.to(lm_logits.device)
-    # # Shift so that tokens < n predict n
-    # shift_logits = lm_logits[..., :-1, :].permute(0, 2, 1).contiguous()
-    # shift_labels = labels[..., 1:].contiguous()
-    # # Flatten the tokens
-    # loss_fct = CrossEntropyLoss(reduction="none")
-    # # loss = loss_fct(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
-    # loss = loss_fct(shift_logits, shift_labels)
-    # per_sample_loss = torch.mean(loss, dim=-1)
-
-    # return per_sample_loss
-
 
 # ------------------------------------- Main Function ------------------------------------- #
 
@@ -167,7 +152,7 @@ def main():
     args = parse_args()
     world_size = int(os.getenv('WORLD_SIZE', '1'))
     # device = torch.device("cuda", args.local_rank)
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu") 
     
     results_dir = os.path.join(args.output_dir, "test_ppl")
     if args.local_rank == 0:
@@ -178,7 +163,7 @@ def main():
     
     # Model Initialization
     model = AutoModelForCausalLM.from_pretrained(args.model_name_or_path,
-                                                 local_files_only=True)
+                                                 local_files_only=True).to(device)
     # ds_engine = deepspeed.init_inference(model,
     #                              tensor_parallel={"tp_size": world_size},
     #                             #  dtype=torch.half,
