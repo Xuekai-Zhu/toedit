@@ -155,8 +155,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") 
     
     results_dir = os.path.join(args.output_dir, "test_ppl")
-    if args.local_rank == 0:
-        os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(results_dir, exist_ok=True)
         
     # load eval
     eval_data = load_eval_data()    
