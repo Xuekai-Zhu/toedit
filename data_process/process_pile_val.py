@@ -31,5 +31,5 @@ def split_json_by_pile_set_name(input_file, output_dir):
         
 
 # Example usage
-split_json_by_pile_set_name("data/pile-val/val.jsonl", "data/pile-val")
+split_json_by_pile_set_name("data/pile-val/val.jsonl", "data/pile-val/subset/")
 
