@@ -166,7 +166,8 @@ def main():
     # Argument Parsing
     args = parse_args()
     world_size = int(os.getenv('WORLD_SIZE', '1'))
-    device = torch.device("cuda", args.local_rank)
+    # device = torch.device("cuda", args.local_rank)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
     results_dir = os.path.join(args.output_dir, "test_ppl")
     if args.local_rank == 0:
