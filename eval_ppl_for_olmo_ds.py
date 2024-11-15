@@ -188,8 +188,8 @@ def main():
 
     # Tokenizer Initialization
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.model_name_or_path, local_files_only=True)
-    # tokenizer.pad_token = tokenizer.eos_token
-    # model.config.pad_token_id = tokenizer.pad_token_id
+    tokenizer.pad_token = tokenizer.eos_token
+    model.config.pad_token_id = tokenizer.pad_token_id
     
     # Test Loop
     model.eval()  
