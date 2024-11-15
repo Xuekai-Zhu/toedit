@@ -100,8 +100,8 @@ def write_to_gz(lines, output_dir, part):
     print(f"Saved {len(lines)} lines to {part_file}")
 
 if __name__ == "__main__":
-    input_dir = "data/less-data/train/processed/oasst1"
-    output_dir = "data/less-data/train/processed/oasst1-json-gz"
+    input_dir = "data/less-data-source/train/processed/cot"
+    output_dir = "data/less-data-source/train/processed/cot-json-gz"
     chunk_size = 100000  # Adjust the chunk size as needed
     target_tokens = 1e9  # Target token count: 1 billion
     os.makedirs(output_dir, exist_ok=True)

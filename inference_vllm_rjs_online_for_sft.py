@@ -44,10 +44,6 @@ def parse_args():
     parser.add_argument("--file_part", choices=['first', 'second'], default=None, required=False,
                         help="Specify which part of the file to process: 'first' or 'second'. If not specified, process the entire file.")
     
-
-
-
-    
     # Results Arguments
     parser.add_argument("--output_dir", default=None, type=str, required=True,
                     help="The output directory where the model predictions and checkpoints will be written.")

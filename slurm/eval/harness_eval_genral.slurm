@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=xkzhu
 #SBATCH --job-name=harness
-#SBATCH --partition=RTX4090
+#SBATCH --partition=RTX3090
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
@@ -17,7 +17,7 @@ unset https_proxy
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="/data1/xkzhu/pre_trained_model/meta-llama/Meta-Llama-3-8B"
+MODEL="/home/xkzhu/scaling_down_data/LLaMA-Factory/models/lora/sft/less-oasst1-revised"
 
 # python OLMo/scripts/unshard.py ${MODEL} ${MODEL}-unshard
 
@@ -29,7 +29,7 @@ MODEL="/data1/xkzhu/pre_trained_model/meta-llama/Meta-Llama-3-8B"
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks hellaswag,arc_easy,arc_challenge,social_iqa,winogrande,piqa,boolq,openbookqa \
+    --tasks hellaswag,social_iqa,winogrande,piqa,boolq \
     --batch_size auto:4 \
-    --output_path eval_results/general/
+    --output_path eval_results/sft/general/
 
