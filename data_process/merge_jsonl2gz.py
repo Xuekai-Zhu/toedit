@@ -12,7 +12,7 @@ def merge_sampled_files(input_dir, output_dir, chunk_size=10000):
     files_to_process = []
     for root, _, files in os.walk(input_dir):
         for file in files:
-            if file.endswith(".jsonl"):
+            if file.endswith((".json", ".jsonl")):
                 file_path = os.path.join(root, file)
                 files_to_process.append(file_path)
     
