@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=xkzhu
 #SBATCH --job-name=harness
-#SBATCH --partition=RTX3090
+#SBATCH --partition=ADA6000
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1 # 若多卡多进程，请调整此参数
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
@@ -17,7 +17,7 @@ unset https_proxy
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="LLaMA-Factory/models/lora/sft/code/glaive-code-assistant-json-gz-revised"
+MODEL="LLaMA-Factory/models/lora/sft/code/Magicoder-Evol-Instruct-110K-json-gz-revised"
 
 # python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #     --input_dir ${MODEL} \
