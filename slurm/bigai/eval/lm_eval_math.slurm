@@ -13,7 +13,7 @@ module load cudnn8.6-cuda11.8/8.6.0.163
 source /home/zhuxuekai/miniconda3/bin/activate lm-eval
 
 
-MODEL="LLaMA-Factory/models/lora/math/NuminaMath-CoT-json-checkpoint-12000"
+MODEL="LLaMA-Factory/models/glaive-code-assistant-json-gz-revised"
 
 # python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #      --input_dir ${MODEL} \
@@ -24,6 +24,6 @@ accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
     --tasks hendrycks_math,gsm8k,gpqa,arc_challenge,mmlu \
-    --batch_size 8 \
-    --output_path eval_results/math/sft/ \
+    --batch_size auto:4 \
+    --output_path eval_results/sft/code-data/ \
     --trust_remote_code
