@@ -9,7 +9,7 @@
 #SBATCH --error=%j.err
 #SBATCH --gres=gpu:1
 
-MODEL="/home/xkzhu/scaling_down_data/LLaMA-Factory/models/lora/bio/biomed_orca" 
+MODEL="/home/xkzhu/scaling_down_data/continual_training/bio/OLMo-1B-biomed-0.99-llama-resampling-online-64/step4099-unsharded-hf" 
 
 # python /home/xkzhu/scaling_down_data/OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #     --input_dir ${MODEL} \

@@ -12,7 +12,7 @@ def search_files(input_dir):
     files_to_process = []
     for root, _, files in os.walk(input_dir):
         for file in files:
-            if file.endswith((".jsonl",".gz")):
+            if file.endswith((".jsonl",".gz", ".json")):
                 file_path = os.path.join(root, file)
                 files_to_process.append(file_path)
     
@@ -21,16 +21,21 @@ def search_files(input_dir):
 def statistic_tokens(input_dir):
 
     files_to_process = search_files(input_dir)
-    tokenizer = AutoTokenizer.from_pretrained("pretrained_tokenizer/Meta-Llama-3.1-8B-Instruct")
+    tokenizer = AutoTokenizer.from_pretrained("/data1/xkzhu/pre_trained_model/meta-llama/Meta-Llama-3-8B")
     tokenizer.pad_token = tokenizer.eos_token
     
     all_tokens = 0
+    texts = []
     for file_path in tqdm(files_to_process, desc="Processing files"):
-        if file_path.endswith(".jsonl"):
+        if file_path.endswith(".json"):
             with open(file_path, 'r') as f:
                 lines = f.readlines()
-                texts = [json.loads(line)["text"] for line in lines]
-                
+                for i in lines:
+                    item = json.loads(i)
+                    # text = item["input"] + " " + item["output"]
+                    text = item["output"]
+                    texts.append(text)
+
         elif file_path.endswith(".gz"):
             with gzip.open(file_path, 'rt') as f:
                 lines = f.readlines()
@@ -47,7 +52,7 @@ def statistic_tokens(input_dir):
 
 if __name__ == '__main__':
     # source_path = "probability/open-web-math—1B-up_revise_Llama-3-8B-Instruct"
-    source_path = "probability/instruction_biomed—1B-up_revise_Llama-3-8B-Instruct"
+    source_path = "data/less-data/less-json/cot-json-gz"
     statistic_tokens(source_path)
     
     

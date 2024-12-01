@@ -18,7 +18,7 @@ unset https_proxy
 export HF_ENDPOINT=https://hf-mirror.com
 export HF_DATASETS_TRUST_REMOTE_CODE=1
 
-MODEL="/home/xkzhu/scaling_down_data/LLaMA-Factory/models/lora/bio/biomed_orca"
+MODEL="continual_training/bio/OLMo-1B-biomed-0.99-llama-resampling-online-64/step4099-unsharded-hf"
 
 # python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #     --input_dir ${MODEL} \

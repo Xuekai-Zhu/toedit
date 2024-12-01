@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=12  # 每个进程的CPU数量
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:1
 #SBATCH --mem=40G
 
 unset all_proxy   
@@ -31,5 +31,5 @@ accelerate launch -m lm_eval \
     --model_args pretrained=${MODEL},trust_remote_code=True \
     --tasks hellaswag,social_iqa,winogrande,piqa,boolq \
     --batch_size auto:4 \
-    --output_path eval_results/sft/general/
+    --output_path ICLR_rebuttal/olmo-results/
 

@@ -13,7 +13,7 @@ module load cudnn8.6-cuda11.8/8.6.0.163
 source /home/zhuxuekai/miniconda3/bin/activate lm-eval
 
 
-MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/GPT-2/mixdata/0.75/epoch_4_steps_160280"
+MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/olma/1ep/2_layer_cosmopedia/latest-unsharded-hf"
 
 # python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #      --input_dir ${MODEL} \
@@ -23,7 +23,7 @@ MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/GPT
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks arc_easy,boolq,winogrande,piqa,hellaswag,truthfulqa,openbookqa,logiqa2,arc_challenge,sciq,pubmedqa,mathqa,mmlu \
+    --tasks truthfulqa,logiqa2,winogrande,piqa,arc_easy,boolq,openbookqa \
     --batch_size auto:4 \
-    --output_path /home/zhuxuekai/scratch2_nlp/scaling_down_data/ICLR_rebuttal/gpt2-results/ \
+    --output_path /home/zhuxuekai/scratch2_nlp/scaling_down_data/ICLR_rebuttal/olma-results/ \
     --trust_remote_code

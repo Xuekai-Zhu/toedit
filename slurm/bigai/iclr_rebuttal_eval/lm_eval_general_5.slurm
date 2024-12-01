@@ -13,7 +13,7 @@ module load cudnn8.6-cuda11.8/8.6.0.163
 source /home/zhuxuekai/miniconda3/bin/activate lm-eval
 
 
-MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/olma/1ep/mixdata_0.5/latest-unsharded-hf"
+MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/olma/1ep/2_layer_dolma/latest-unsharded-hf"
 
 # python OLMo/hf_olmo/convert_olmo_to_hf_new.py \
 #      --input_dir ${MODEL} \
