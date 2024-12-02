@@ -18,7 +18,7 @@ MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/olm
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks hellaswag \
+    --tasks truthfulqa \
     --batch_size auto:4 \
     --output_path /home/zhuxuekai/scratch2_nlp/scaling_down_data/ICLR_rebuttal/olma-results-hellaswag/ \
     --trust_remote_code
@@ -28,7 +28,7 @@ MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/olm
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks hellaswag \
+    --tasks truthfulqa \
     --batch_size auto:4 \
     --output_path /home/zhuxuekai/scratch2_nlp/scaling_down_data/ICLR_rebuttal/olma-results-hellaswag/ \
     --trust_remote_code
@@ -38,7 +38,7 @@ MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/olm
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks hellaswag \
+    --tasks truthfulqa \
     --batch_size auto:4 \
     --output_path /home/zhuxuekai/scratch2_nlp/scaling_down_data/ICLR_rebuttal/olma-results-hellaswag/ \
     --trust_remote_code
@@ -49,7 +49,7 @@ MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/olm
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks hellaswag \
+    --tasks truthfulqa \
     --batch_size auto:4 \
     --output_path /home/zhuxuekai/scratch2_nlp/scaling_down_data/ICLR_rebuttal/olma-results-hellaswag/ \
     --trust_remote_code
@@ -59,7 +59,7 @@ MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/olm
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks hellaswag \
+    --tasks truthfulqa \
     --batch_size auto:4 \
     --output_path /home/zhuxuekai/scratch2_nlp/scaling_down_data/ICLR_rebuttal/olma-results-hellaswag/ \
     --trust_remote_code
