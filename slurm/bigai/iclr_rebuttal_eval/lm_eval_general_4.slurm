@@ -23,7 +23,7 @@ MODEL="/home/zhuxuekai/scratch2_nlp/scaling_law4AI_data/pre_training_results/olm
 accelerate launch -m lm_eval \
     --model hf \
     --model_args pretrained=${MODEL},trust_remote_code=True \
-    --tasks truthfulqa,logiqa2,winogrande,piqa,arc_easy,boolq,openbookqa \
+    --tasks boolq \
     --batch_size auto:4 \
     --output_path /home/zhuxuekai/scratch2_nlp/scaling_down_data/ICLR_rebuttal/olma-results/ \
     --trust_remote_code
