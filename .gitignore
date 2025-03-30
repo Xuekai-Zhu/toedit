@@ -16,7 +16,7 @@ eggs/
 .eggs/
 lib/
 lib64/
-parts/
+parts/x
 sdist/
 var/
 wheels/
@@ -181,3 +181,4 @@ biomed_8_Meta-Llama3-8B-Instruct/
 pretrained_tokenizer/
 eval_results/adaptllm/output/
 eval_results/adaptllm/cache/
+case_studies_iclr/

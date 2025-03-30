@@ -8,6 +8,7 @@ from matplotlib.patches import Wedge
 from matplotlib.collections import PatchCollection
 import seaborn as sns
 from multiprocessing import Pool, Manager
+import scienceplots
 
 def list_files_in_subdirectories(parent_directory):
     all_files = []
@@ -102,6 +103,8 @@ def process_data_parallel(files, num_processes):
 def plot_pie_chart(categories, total_tokens, save_path):
     labels = list(categories.keys())
     sizes = [count / total_tokens * 100 for count in categories.values()]
+    plt.style.use(['science','no-latex'])
+
 
     # Use seaborn color palette
     colors = sns.color_palette('coolwarm', len(labels))
@@ -115,7 +118,7 @@ def plot_pie_chart(categories, total_tokens, save_path):
 
     # Equal aspect ratio ensures that pie is drawn as a circle
     ax.axis('equal')  
-    plt.title(f'Token Probability Distribution (Total Tokens: {total_tokens})', fontsize=16)
+    # plt.title(f'Token Probability Distribution (Total Tokens: {total_tokens})', fontsize=16)
 
     # Improve legend
     for text in texts:
@@ -129,7 +132,7 @@ def plot_pie_chart(categories, total_tokens, save_path):
         wedge.set_edgecolor('white')
         wedge.set_linewidth(1)
 
-    out_file = os.path.join(save_path, 'tokens_pie_chart.png')
+    out_file = os.path.join(save_path, 'tokens_pie_chart_v2.png')
     plt.savefig(out_file, dpi=500)
 
 def save_statistics(categories, total_tokens, save_path):
