@@ -45,8 +45,8 @@ def add_instruction(input_dir, output_dir):
 #     print(f"Saved {len(lines)} lines to {part_file}")
 
 if __name__ == "__main__":
-    input_dir = "data/less-data-llama-revised-2/cot-json-gz"
-    output_dir = "data/less-data-llama-revised-2/cot-json-gz-add-instruction"
+    input_dir = "data/less-data-llama-revised-2/cot-json-gz-copy"
+    output_dir = "data/less-data-llama-revised-2/cot-json-gz-copy-add-instruction"
 
     os.makedirs(output_dir, exist_ok=True)
     add_instruction(input_dir, output_dir)
