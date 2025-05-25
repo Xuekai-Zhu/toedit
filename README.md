@@ -1,6 +1,6 @@
 ### ToEdit
 
-This repository hosts the official implementation of the methods introduced in our paper "How to Synthesize Text Data without Model Collapse?" (ICML 2025). 
+This repository hosts the official implementation of the methods introduced in our paper "[How to Synthesize Text Data without Model Collapse?](https://arxiv.org/abs/2412.14689)" (ICML 2025). 
 
 ![Model collapse of synthetic data.](./main_fig.png)
 
