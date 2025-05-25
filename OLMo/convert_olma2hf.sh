@@ -1,0 +1,1 @@
+python OLMo/hf_olmo/convert_olmo_to_hf.py --checkpoint-dir pre_training_results/olma/test/step3000

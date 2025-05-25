@@ -1,0 +1,11 @@
+python inference_vllm_rjs_online_for_math.py \
+    --model_name_or_path pretrained_tokenizer/Meta-Llama-3-8B-Instruct \
+    --tensor_parallel_size 1 \
+    --num_shards 8 \
+    --shard_index 1 \
+    --gpu_memory_utilization 0.8 \
+    --test_file data/open-web-math-1B \
+    --output_dir probability/test \
+    --n_of_candicant 8 \
+    --batch_size 1000 \
+    --strategy up_revise

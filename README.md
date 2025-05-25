@@ -2,7 +2,7 @@
 
 This repository hosts the official implementation of the methods introduced in our paper "How to Synthesize Text Data without Model Collapse?" (ICML 2025). 
 
-![Main Figure](./main_fig.pdf)
+![Model collapse of synthetic data.](./main_fig.png)
 
 
 ## Implementation Details

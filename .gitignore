@@ -199,3 +199,6 @@ utils/
 OLMo/command/
 config/
 data_process/
+
+# Ignore the new source file
+inference_vllm_rjs_online_source.py
