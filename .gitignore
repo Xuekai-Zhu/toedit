@@ -196,4 +196,6 @@ llama_factory_config/
 n_gram_filter/
 plot/
 utils/
-OLMo/
+OLMo/command/
+config/
+data_process/
