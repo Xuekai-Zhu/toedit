@@ -186,3 +186,13 @@ ICML_rebuttal/
 ICLR_rebuttal/
 .git-rewrite/
 slurm/
+LLaMA-Factory/
+lm-evaluation-harness/
+
+adaptllm/
+baselines/
+eval_results/
+llama_factory_config/
+n_gram_filter/
+plot/
+utils/
