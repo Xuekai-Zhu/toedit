@@ -611,11 +611,11 @@ def main():
             batch_prompts = out_texts[start:start+args.batch_size]
             prompt_token_ids = tokenizer(batch_prompts, truncation=True, max_length=2048)["input_ids"]
         
-            try:
-                outputs = llm.generate(prompt_token_ids=prompt_token_ids, sampling_params=sampling_params)
-            except Exception as e:
-                print(f"Error generating outputs for batch {start//args.batch_size} in file {file_path}: {e}")
-                continue
+            # try:
+            outputs = llm.generate(prompt_token_ids=prompt_token_ids, sampling_params=sampling_params)
+            # except Exception as e:
+            #     print(f"Error generating outputs for batch {start//args.batch_size} in file {file_path}: {e}")
+            #     continue
         
             model_name = args.model_name_or_path.split("/")[-1]
             timestamp = int(time.time() * 1000) 

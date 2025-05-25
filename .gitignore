@@ -182,3 +182,7 @@ pretrained_tokenizer/
 eval_results/adaptllm/output/
 eval_results/adaptllm/cache/
 case_studies_iclr/
+ICML_rebuttal/
+ICLR_rebuttal/
+.git-rewrite/
+slurm/
