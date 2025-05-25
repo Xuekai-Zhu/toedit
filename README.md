@@ -2,6 +2,9 @@
 
 This repository hosts the official implementation of the methods introduced in our paper "How to Synthesize Text Data without Model Collapse?" (ICML 2025). 
 
+![Main Figure](./main_fig.pdf)
+
+
 ## Implementation Details
 
 In our paper, we utilize [OLMo](https://github.com/allenai/OLMo) and [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) for model training. The training data is sourced from:
