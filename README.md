@@ -4,8 +4,8 @@ This repository hosts the official implementation of the methods introduced in o
 
 ## Implementation Details
 
-In our paper, we utilize OLMo and LLaMA-Factory for model training. The training data is sourced from:
-- [Instruction Pre-Training: Language Models are Supervised Multitask Learners](https://arxiv.org/abs/2406.14491)
+In our paper, we utilize [OLMo](https://github.com/allenai/OLMo) and [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) for model training. The training data is sourced from:
+- [Instruction Pre-Training](https://huggingface.co/instruction-pretrain)
 - [Princeton-NLP/less_data](https://huggingface.co/datasets/princeton-nlp/less_data)
 
 For detailed data processing and training procedures, please refer to Appendix F in our paper.
