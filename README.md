@@ -62,3 +62,18 @@ python inference_vllm_rjs_online.py \
 - `--batch_size`: Batch size for inference.
 - `--strategy`: Editing strategy to use.
 
+## Citation
+
+If you find this work useful, please kindly cite our paper:
+
+```
+@article{zhu2024synthesize,
+  title={How to Synthesize Text Data without Model Collapse?},
+  author={Zhu, Xuekai and Cheng, Daixuan and Li, Hengli and Zhang, Kaiyan and Hua, Ermo and Lv, Xingtai and Ding, Ning and Lin, Zhouhan and Zheng, Zilong and Zhou, Bowen},
+  journal={arXiv preprint arXiv:2412.14689},
+  year={2024}
+}
+```
+
+
+
