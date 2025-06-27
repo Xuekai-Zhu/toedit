@@ -74,6 +74,16 @@ If you find this work useful, please kindly cite our paper:
   year={2024}
 }
 ```
-
+or
+```
+@inproceedings{
+zhu2025how,
+title={How to Synthesize Text Data without Model Collapse?},
+author={Xuekai Zhu and Daixuan Cheng and Hengli Li and Kaiyan Zhang and Ermo Hua and Xingtai Lv and Ning Ding and Zhouhan Lin and Zilong Zheng and Bowen Zhou},
+booktitle={Forty-second International Conference on Machine Learning},
+year={2025},
+url={https://openreview.net/forum?id=ihUi76a4u7}
+}
+```
 
 
